@@ -19,7 +19,7 @@ function preloader(){
     this.load.image('platform', 'platform.png');
     this.load.image('star', 'battery.png');
     this.load.spritesheet('dude3', 'dude4.png', 141.2, 200, 13); //width div frames, height 
-    this.load.tilemap('map', 'level1.csv', null, Phaser.Tilemap.CSV);
+    this.load.tilemap('map', 'level2.csv', null, Phaser.Tilemap.CSV);
     this.load.image('tiles', 'phase-2.png', 32, 32);
 }
 
