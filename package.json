@@ -1,10 +1,10 @@
 {
-  "name": "phaser-boilerplate",
+  "name": "wasteland",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "cd server && node index.js",
     "build": "rm -rf build && cp -r static/ build/ && cp -r src build/js/",
     "dev": "npm run build && npm run start",
     "heroku-postbuild": "npm run build"
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^4.0.0",
     "express": "^4.15.4"
   }
 }
