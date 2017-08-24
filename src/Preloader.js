@@ -15,10 +15,9 @@ function preloader(){
     // this.load.setPreloaderSprite(this.preloadBar);
 
     //Load All Assets
-    this.load.image('sky', 'bg2.jpg');
     this.load.image('platform', 'platform.png');
     this.load.image('star', 'battery.png');
-    this.load.spritesheet('dude3', 'dude4.png', 141.2, 200, 13); //width div frames, height 
+    this.load.spritesheet('dude3', 'dude4_small.png', 71, 200, 100); //width div frames, height 
     this.load.tilemap('map', 'level1.csv', null, Phaser.Tilemap.CSV);
     this.load.image('tiles', 'phase-2.png', 32, 32);
 }

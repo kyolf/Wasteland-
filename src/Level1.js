@@ -13,7 +13,6 @@ function initLevel1() {
 			let scoreText;
       let timer;
       let timerTxt;
-      let map;
       let layer;
 }
 
@@ -104,7 +103,7 @@ function updateLevel1(game) {
 				this.player.animations.play('down');
 			} else {
         this.player.animations.stop();
-        this.player.frame = 6; //fourth frame in spritesheet is standing still
+        this.player.frame = 7; //fourth frame in spritesheet is standing still
       }
 
       //can take out the last two conditions in if statement to allow for jumping in midair
