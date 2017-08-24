@@ -10,7 +10,7 @@ window.onload = function() {
 	// 	var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
 	// 	logo.anchor.setTo(0.5, 0.5);
 	// }
-    let game = new Phaser.Game(1600, 800, Phaser.AUTO, '');
+    let game = new Phaser.Game(800, 600, Phaser.AUTO, '');
     game.state.add('Boot', Game.Boot);
     game.state.add('Preloader', Game.Preloader);
     game.state.add('MainMenu', Game.MainMenu);
@@ -19,5 +19,4 @@ window.onload = function() {
     game.state.add('Level1', Game.Level1);
     game.state.add('GameOver', Game.GameOver);
     game.state.start('Boot');
-
 };
