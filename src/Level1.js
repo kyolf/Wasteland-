@@ -84,7 +84,7 @@ function createLevel1(game) {
           this.state.start('GameOver');
       }, this);
       this.timer.start();
-      this.timerTxt = createText(game, `Timer: ${this.timer.duration}s`, 600, 50, '30px Arial', '#000', 'center');
+      this.timerTxt = createText(game, `Timer: ${this.timer.duration}s`, 600, 50, '30px Arial', '#ffffff', 'center');
       this.scoreText = this.game.add.text(16, 16, 'Score: 0',
       {fontSize: '32px', fill: '#ffffff'});
 }
