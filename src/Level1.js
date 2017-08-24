@@ -13,32 +13,30 @@ function initLevel1() {
 			let scoreText;
       let timer;
       let timerTxt;
+      let map;
+      let layer;
 }
 
 function createLevel1(game) {
       this.score = 0;
-			game.physics.startSystem(Phaser.Physics.ARCADE);
+      game.physics.startSystem(Phaser.Physics.ARCADE);
+      
       let sky = game.add.sprite(0, 0, 'sky');
 
-      //platforms includes ground and ledges
-      this.platforms = game.add.group();
-      //enable physics in this group
-      this.platforms.enableBody = true;
+      let map = this.add.tilemap('map', 32, 32);
+      
+      map.addTilesetImage('tiles');
+      
+      this.layer = map.createLayer(0);
+      
+      this.layer.resizeWorld();
+      
+      map.setCollisionBetween(0, 1000);
 
-      let ground = this.platforms.create(0, game.world.height - 64, 'platform');
-      ground.scale.setTo(3, 3);
-      ground.body.immovable = true;
+      //see collision blocks
+      //this.layer.debug = true;
 
-      let ledge = this.platforms.create(600, 400, 'platform');
-      ledge.body.immovable = true;
-
-      ledge = this.platforms.create(-100, 100, 'platform');
-      ledge.body.immovable = true;
-
-      ledge = this.platforms.create(200, 250, 'platform');
-      ledge.body.immovable = true;
-
-      this.player = game.add.sprite(32, game.world.height - 150, 'dude');
+      this.player = game.add.sprite(32, game.world.height - 350, 'dude3');
       game.physics.arcade.enable(this.player);
 
       this.player.body.bounce.y = 0.2;
@@ -50,8 +48,8 @@ function createLevel1(game) {
       //if false, then body will leave the world upon collision
       this.player.body.collideWorldBounds = true;
 
-      this.player.animations.add('left', [0, 1, 2, 3], 10, true);
-      this.player.animations.add('right', [5, 6, 7, 8], 10, true);
+      this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
+      this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
 			//Toggle between the below cursors if you want up to be jump
 			//or spacebar to be jump....no other changes anywhere else is necessary
@@ -89,8 +87,8 @@ function createLevel1(game) {
 
 function updateLevel1(game) {
       
-      let hitPlatforms = this.game.physics.arcade.collide(this.player, this.platforms);
-			game.physics.arcade.collide(this.stars, this.platforms);
+      let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
+			game.physics.arcade.collide(this.stars, this.layer);
 			game.physics.arcade.overlap(this.player, this.stars, collectStar, null, this);
 
       this.player.body.velocity.x = 0;
@@ -106,12 +104,12 @@ function updateLevel1(game) {
 				this.player.animations.play('down');
 			} else {
         this.player.animations.stop();
-        this.player.frame = 4; //fourth frame in spritesheet is standing still
+        this.player.frame = 6; //fourth frame in spritesheet is standing still
       }
 
       //can take out the last two conditions in if statement to allow for jumping in midair
       //possible powerup situation
-      if(this.cursors.up.isDown && this.player.body.touching.down && hitPlatforms) {
+      if(this.cursors.up.isDown && hitPlatforms) {
         this.player.body.velocity.y = -350; //the height of the jump
       }
 

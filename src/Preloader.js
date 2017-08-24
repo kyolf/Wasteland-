@@ -15,13 +15,12 @@ function preloader(){
     // this.load.setPreloaderSprite(this.preloadBar);
 
     //Load All Assets
-    this.load.image('diamond', '../diamond.png');
-    this.load.image('firstaid', '../firstaid.png');
-    this.load.image('platform','../platform.png');
-    this.load.image('sky','../sky.png');
-    this.load.image('star','../star.png');
-    this.load.spritesheet('dude', '../dude.png', 32, 48);
-    this.load.spritesheet('baddie','../baddie.png', 32, 48);
+    this.load.image('sky', 'bg2.jpg');
+    this.load.image('platform', 'platform.png');
+    this.load.image('star', 'battery.png');
+    this.load.spritesheet('dude3', 'dude4.png', 141.2, 200, 13); //width div frames, height 
+    this.load.tilemap('map', 'level1.csv', null, Phaser.Tilemap.CSV);
+    this.load.image('tiles', 'phase-2.png', 32, 32);
 }
 
 function createPreloader(){
