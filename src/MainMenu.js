@@ -11,20 +11,20 @@ function createMenu(game){
     game.add.sprite(0,0,'sky');
 
     this.createText(game, 'Hi, I am a title', 800/3, 100, '40px Arial', '#FFF', 'center');
-
+    console.log(game.world.centerX, game.world.centerY);
     // title.anchor.setTo(0.25, 0.5);
-    this.createButton(game, 'Play Game', game.world.centerX, game.world.centerY - 50,
+    this.createButton(game, 'Play Game', 800, 350,
                       200, 50, function(){
                           console.log('level1');
                           this.state.start('Level1');
                       });
     
-    this.createButton(game, 'About', game.world.centerX, game.world.centerY + 50,
+    this.createButton(game, 'About', 800, 450,
                       200, 50, function(){
                           console.log('about');
                           this.state.start('InfoModal');
                       });
-    this.createButton(game, 'High Scores', game.world.centerX, game.world.centerY + 150,
+    this.createButton(game, 'High Scores', 800, 550,
                       200, 50, function(){
                           console.log('High Scores');
                           this.state.start('HighScores');

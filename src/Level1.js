@@ -81,10 +81,11 @@ function createLevel1(game) {
       this.timer = game.time.create();
       this.timer.add(30000,
       ()=>{
+          this.camera.reset();
           this.state.start('GameOver');
       }, this);
       this.timer.start();
-      this.timerTxt = createText(game, `Timer: ${this.timer.duration}s`, 600, 50, '30px Arial', '#ffffff', 'center');
+      this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 600, 50, '30px Arial', '#ffffff', 'center');
       this.scoreText = this.game.add.text(16, 16, 'Score: 0',
       {fontSize: '32px', fill: '#ffffff'});
 }
@@ -122,5 +123,5 @@ function updateLevel1(game) {
 				this.score += 10;
 				this.scoreText.text = 'Score: ' + this.score;
 			}
-      this.timerTxt.setText(`Timer: ${this.timer.duration}s`);
+      this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
 }
