@@ -72,8 +72,8 @@ function createLevel1(game) {
 			this.stars = game.add.group();
 			this.stars.enableBody = true;
 
-			for(let i = 0; i < 15; i++) {
-				let star = this.stars.create(i * 50, 0, 'star');
+			for(let i = 0; i < 5; i++) {
+				let star = this.stars.create(i * 100, 0, 'star');
 				star.body.gravity.y = 500;
 				star.body.bounce.y= 0.5 + Math.random() * 0.2;
 			}
@@ -108,7 +108,7 @@ function updateLevel1(game) {
 				this.player.animations.play('down');
 			} else {
         this.player.animations.stop();
-        this.player.frame = 7; //fourth frame in spritesheet is standing still
+        this.player.frame = 7; //seventh frame in spritesheet is standing still
       }
 
       //can take out the last two conditions in if statement to allow for jumping in midair
