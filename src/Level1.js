@@ -1,3 +1,4 @@
+'use strict';
 
 Game.Level1 = function(game){
 };
@@ -12,6 +13,7 @@ function initLevel1() {
       let score;
 			let scoreText;
       let timer;
+      let map;
       let timerTxt;
       let layer;
 }
@@ -115,11 +117,9 @@ function updateLevel1(game) {
         this.player.body.velocity.y = -350; //the height of the jump
       }
 
-			console.log('should be 0', this.score);
 			function collectStar(player, star) {
 				star.kill();
 				this.score += 10;
-				console.log('should be 10', this.score);
 				this.scoreText.text = 'Score: ' + this.score;
 			}
       this.timerTxt.setText(`Timer: ${this.timer.duration}s`);
