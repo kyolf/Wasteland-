@@ -10,7 +10,7 @@ Game.MainMenu.prototype = {create:createMenu,
 function createMenu(game){
     game.add.sprite(0,0,'sky');
 
-    this.createText(game, 'WASTELAND', 800/3, 100, '40px Arial', '#FFF', 'center');
+    this.createText(game, 'Wasteland', 800/3, 100, '40px Arial', '#FFF', 'center');
 
     // title.anchor.setTo(0.25, 0.5);
     this.createButton(game, 'Play Game', game.world.centerX, game.world.centerY - 50,
