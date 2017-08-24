@@ -21,6 +21,8 @@ function preloader(){
     this.load.spritesheet('dude3', 'dude4.png', 141.2, 200, 13); //width div frames, height 
     this.load.tilemap('map', 'level2.csv', null, Phaser.Tilemap.CSV);
     this.load.image('tiles', 'phase-2.png', 32, 32);
+    this.load.spritesheet('rain', 'rain.png', 17, 17);
+    
 }
 
 function createPreloader(){
