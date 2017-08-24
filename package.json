@@ -1,0 +1,18 @@
+{
+  "name": "phaser-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "rm -rf build && cp -r static/ build/ && cp -r src build/js/",
+    "dev": "npm run build && npm run start",
+    "heroku-postbuild": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
