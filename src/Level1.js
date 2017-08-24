@@ -31,6 +31,7 @@ function createLevel1(game) {
       this.layer.resizeWorld();
       
       map.setCollisionBetween(0, 1000);
+      
 
       //see collision blocks
       //this.layer.debug = true;
@@ -39,6 +40,8 @@ function createLevel1(game) {
       game.physics.arcade.enable(this.player);
 
       this.player.body.bounce.y = 0.2;
+
+      game.camera.follow(this.player);
 
       //tried increasing this to 500 and couldn't really jump
       this.player.body.gravity.y = 300; 
