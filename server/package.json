@@ -1,15 +1,11 @@
 {
-  "name": "wasteland",
+  "name": "wasteland-sever",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd server && node index.js",
-    "build": "rm -rf build && cp -r static/ build/ && cp -r src build/js/",
-    "dev": "npm run build && npm run start",
-    "heroku-postbuild": "npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
