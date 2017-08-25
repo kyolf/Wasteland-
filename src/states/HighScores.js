@@ -3,9 +3,9 @@ Game.HighScores = function(game){
 }
 
 Game.HighScores.prototype = {
-    init: function() {
-        let highScores = fetchHighScores();
-    },
+    // init: function() {
+    //     let highScores;
+    // },
     create: function(game) {
         game.add.sprite(0,0,'bg2');
     
@@ -23,10 +23,17 @@ Game.HighScores.prototype = {
         createText(game, highScore, 500, 150, '20px Arial', '#FFF', 'center');
         
         let yPosText = 200;
-        highScores.map(highScore =>{
-            createText(game, highScore.initials, 200, yPosText, '20px Arial', '#FFF');
-            createText(game, highScore.score, 500, yPosText, '20px Arial', '#FFF');
-            yPosText += 50;
+        fetchTopScores()
+        .then(topScores=>{
+    
+            topScores.map(topScore =>{
+                createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
+                createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
+                yPosText += 50;
+            });
+        })
+        .catch(err => {
+            return err;
         });
     }
 };
