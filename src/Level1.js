@@ -98,13 +98,13 @@ function updateLevel1(game) {
       this.player.body.velocity.x = 0;
       //can make movement more complex
       if(this.cursors.left.isDown) {
-        this.player.body.velocity.x = -150;
+        this.player.body.velocity.x = -550;
         this.player.animations.play('left');
       } else if(this.cursors.right.isDown) {
-        this.player.body.velocity.x = 150;
+        this.player.body.velocity.x = 550;
         this.player.animations.play('right');
       } else if(this.cursors.down.isDown) {
-				this.player.body.velocity.y = 350;
+				this.player.body.velocity.y = 550;
 				this.player.animations.play('down');
 			} else {
         this.player.animations.stop();
@@ -114,7 +114,7 @@ function updateLevel1(game) {
       //can take out the last two conditions in if statement to allow for jumping in midair
       //possible powerup situation
       if(this.cursors.up.isDown && hitPlatforms) {
-        this.player.body.velocity.y = -350; //the height of the jump
+        this.player.body.velocity.y = -550; //the height of the jump
       }
 
 			function collectStar(player, star) {
