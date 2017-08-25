@@ -29,33 +29,33 @@ function createMaps(game, tileMapStr){
 }
 
 function createPlayer(game, gravityNum = 300, bounceY = 0.2){
-  let player = game.add.sprite(32, game.world.height - 350, 'dude3');
-  game.physics.arcade.enable(player);
+    let player = game.add.sprite(32, game.world.height - 350, 'dude3');
+    game.physics.arcade.enable(player);
 
-  player.body.bounce.y = bounceY;
+    player.body.bounce.y = bounceY;
 
-  game.camera.follow(player);
+    game.camera.follow(player);
 
-  //tried increasing this to 500 and couldn't really jump
-  player.body.gravity.y = gravityNum; 
+    //tried increasing this to 500 and couldn't really jump
+    player.body.gravity.y = gravityNum; 
 
-  //this is true or body will rebound back into the world
-  //if false, then body will leave the world upon collision
-  player.body.collideWorldBounds = true;
+    //this is true or body will rebound back into the world
+    //if false, then body will leave the world upon collision
+    player.body.collideWorldBounds = true;
 
-  return player;
+    return player;
 }
 
 function createBatteries(game, pixelsApart = 100, numBatteries = 5){
-  let batteries = game.add.group();
-  batteries.enableBody = true;
+    let batteries = game.add.group();
+    batteries.enableBody = true;
 
-  for(let i = 0; i < numBatteries; i++) {
-      let battery = batteries.create(i * pixelsApart, 0, 'battery');
-      battery.body.gravity.y = 500;
-      battery.body.bounce.y= 0.5 + Math.random() * 0.2;
-  }
-  return batteries;
+    for(let i = 0; i < numBatteries; i++) {
+        let battery = batteries.create(i * pixelsApart, 0, 'battery');
+        battery.body.gravity.y = 500;
+        battery.body.bounce.y= 0.5 + Math.random() * 0.2;
+    }
+    return batteries;
 }
 
 function createTimer(game, callback, duration = 30000){
