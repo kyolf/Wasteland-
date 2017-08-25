@@ -30,12 +30,12 @@ Game.Level1.prototype = {
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
-      //ALL CODE BELOW IS FOR RAIN EFFECT
+        //ALL CODE BELOW IS FOR RAIN EFFECT
 
-      var emitter = game.add.emitter(game.world.centerX, 0, 400);
+        var emitter = game.add.emitter(game.world.centerX, 0, 400);
       
         emitter.width = game.world.width;
-       // emitter.angle = 30; // uncomment to set an angle for the rain.
+        // emitter.angle = 30; // uncomment to set an angle for the rain.
       
         emitter.makeParticles('rain');
       
@@ -50,10 +50,7 @@ Game.Level1.prototype = {
       
         emitter.start(false, 1600, 5, 0);
 
-      //RAIN EFFECT CODE ENDS
-
-      this.player = game.add.sprite(32, game.world.height - 350, 'dude3');
-      game.physics.arcade.enable(this.player);
+        //RAIN EFFECT CODE ENDS
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
         this.cursors = game.input.keyboard.createCursorKeys();
