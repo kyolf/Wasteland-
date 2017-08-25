@@ -80,7 +80,7 @@ function playerActions(cursors, player, hitPlatforms){
         player.animations.play('down');
     } else {
         player.animations.stop();
-        player.frame = 7; //seventh frame in spritesheet is standing still
+        player.frame = 6; //sixth frame in spritesheet is standing still
     }
 
     //can take out the last two conditions in if statement to allow for jumping in midair
