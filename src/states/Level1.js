@@ -76,7 +76,7 @@ Game.Level1.prototype = {
 
         this.scoreText = createText(game, 'Score: 0', 16, 16, '32px', '#FFF');
     }, 
-    update:function(game) {
+    update: function(game) {
         let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.batteries, this.layer);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
