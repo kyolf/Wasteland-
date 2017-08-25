@@ -1,4 +1,5 @@
 window.onload = function() {
+<<<<<<< HEAD
 
 	// var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
 
@@ -11,6 +12,9 @@ window.onload = function() {
 	// 	logo.anchor.setTo(0.5, 0.5);
 	// }
     let game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+=======
+    let game = new Phaser.Game(1600, 800, Phaser.AUTO, '');
+>>>>>>> dev
     game.state.add('Boot', Game.Boot);
     game.state.add('Preloader', Game.Preloader);
     game.state.add('MainMenu', Game.MainMenu);
