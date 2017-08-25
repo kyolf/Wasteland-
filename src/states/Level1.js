@@ -19,8 +19,9 @@ Game.Level1.prototype = {
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        let sky = game.add.sprite(0, 0, 'bg2');
-
+        game.add.sprite(0, 0, 'bg2');
+        game.add.sprite(1600, 0, 'bg2');
+         
         this.layer = createMaps(game, 'map');
       
         //see collision blocks
