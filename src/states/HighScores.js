@@ -7,7 +7,7 @@ Game.HighScores.prototype = {create:createHighScores,
                              createText:createText};
 
 function createHighScores(game){
-    game.add.sprite(0,0,'sky');
+    game.add.sprite(0,0,'bg2');
 
     this.createText(game, 'High Scores', 800/3, 50, '40px Arial', '#FFF', 'center');
 
