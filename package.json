@@ -4,13 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
-    "start": "cd server && node index.js",
-    "build": "rm -rf build && cp -r static/ build/ && cp -r src build/js/",
-=======
     "start": "node index.js",
     "build": "rm -rf build && cp -r static/ build/ && cp -r src/ build/js/",
->>>>>>> dev
     "dev": "npm run build && npm run start",
     "heroku-postbuild": "npm run build"
   },
