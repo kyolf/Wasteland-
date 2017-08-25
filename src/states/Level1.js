@@ -19,8 +19,10 @@ Game.Level1.prototype = {
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        game.add.sprite(0, 0, 'bg2');
-        game.add.sprite(1600, 0, 'bg2');
+        // game.add.sprite(0, 0, 'bg2');
+        let background = game.add.sprite(0, 0, 'bg2');
+        background.scale.setTo(0.5, 1);
+
          
         this.layer = createMaps(game, 'map');
       
