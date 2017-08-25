@@ -25,7 +25,6 @@ Game.HighScores.prototype = {
         let yPosText = 200;
         fetchTopScores()
         .then(topScores=>{
-    
             topScores.map(topScore =>{
                 createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
                 createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
