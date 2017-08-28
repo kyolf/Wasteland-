@@ -16,6 +16,7 @@ function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, 
         align: align
     });
     txt.anchor.setTo(anchorX, anchorY);
+    txt.anchor.x = Math.round(txt.width * 0.5) / txt.width;
     return txt;
 }
 
@@ -28,7 +29,7 @@ function createMaps(game, tileMapStr){
     return layer;
 }
 
-function createPlayer(game, gravityNum = 300, bounceY = 0.2){
+function createPlayer(game, gravityNum = 500, bounceY = 0.2){
     let player = game.add.sprite(32, game.world.height - 350, 'dude3');
     game.physics.arcade.enable(player);
 
