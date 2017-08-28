@@ -8,6 +8,8 @@ Game.Level1.prototype = {
         let platforms;
         let player;
         let cursors;
+        let shadowTexture;
+        let lightSprite;
         let batteries;
         let score;
         let scoreText;
@@ -22,7 +24,6 @@ Game.Level1.prototype = {
         // game.add.sprite(0, 0, 'bg2');
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(0.5, 1);
-
          
         this.layer = createMaps(game, 'map');
       
@@ -77,6 +78,12 @@ Game.Level1.prototype = {
         this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 600, 50, '30px Arial', '#FFF', 'center');
 
         this.scoreText = createText(game, 'Score: 0', 16, 16, '32px', '#FFF');
+
+        ///////LIGHTING EFFECT//////////
+        this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
+        this.lightSprite = this.game.add.image(this.game.camera.x, this.game.camera.y, this.shadowTexture);
+        this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+
     }, 
     update: function(game) {
         let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
@@ -86,6 +93,11 @@ Game.Level1.prototype = {
         playerActions(this.cursors, this.player, hitPlatforms);
 
         this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
-    }
+
+        // ///////LIGHT EFFECTS/////////
+        // this.lightSprite.reset(this.game.camera.x, this.game.camera.y);
+        // this.updateShadowTexture();
+    },
+
 
 };
