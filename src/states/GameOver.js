@@ -10,7 +10,7 @@ Game.GameOver.prototype = {
       if (highScores.length >= 10) {
         if (highScores[highScores.length - 1].score < this.game.global.score) {
           console.log('player score', this.game.global.score);
-          let textInput = game.add.inputField(10, 90)
+          postTopScores(this.game.global.score, this.game.global.initials).then(scores => {console.log(scores)});
         } else{
           //only show the highscores
         }

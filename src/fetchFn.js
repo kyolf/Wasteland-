@@ -8,18 +8,18 @@ function fetchTopScores() {
     });
 }
 
-function postTopScores() {
-    return fetch('/api/postScores', {
+function postTopScores(score, initials) {
+    return fetch('/api/topScores', {
       method: 'POST',
-      body: {
-        "score": this.game.global.score,
-        "initials": this.game.global.initials
-      }
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({score, initials})
     })
     .then(res => {
         if(!res.ok){
             return Promise.reject(res.statusText);
         }
-        return fetchTopScores();
+        return res.json();
     });
 }
