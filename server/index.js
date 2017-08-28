@@ -28,7 +28,7 @@ app.get('/api/topScores', (req, res) => {
     });
 });
 
-app.post('/api/topScores', (req, res) => {
+app.post('/api/postScores', (req, res) => {
   const requiredFields = ['score', 'initials'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
