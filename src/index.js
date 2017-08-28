@@ -2,7 +2,7 @@ window.onload = function() {
     let game = new Phaser.Game(1600, 800, Phaser.AUTO, '');
     game.global = {
       score: 0,
-      initials: 'Bob',
+      initials: '',
       topScores: [],
       input: false
     };
