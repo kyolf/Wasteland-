@@ -2,9 +2,7 @@ window.onload = function() {
     let game = new Phaser.Game(1600, 800, Phaser.AUTO, '');
     game.global = {
       score: 0,
-      initials: '',
-      topScores: [],
-      input: false
+      initials: ''
     };
     game.state.add('Boot', Game.Boot);
     game.state.add('Preloader', Game.Preloader);
