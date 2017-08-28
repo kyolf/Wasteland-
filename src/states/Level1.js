@@ -26,6 +26,7 @@ Game.Level1.prototype = {
         background.scale.setTo(0.5, 1);
          
         this.layer = createMaps(game, 'map');
+        game.input.onDown.add(resize, this);
       
         //see collision blocks
         //this.layer.debug = true;
@@ -36,7 +37,7 @@ Game.Level1.prototype = {
 
         //ALL CODE BELOW IS FOR RAIN EFFECT
 
-        var emitter = game.add.emitter(game.world.centerX, 0, 400);
+        let emitter = game.add.emitter(game.world.centerX, 0, 400);
       
         emitter.width = game.world.width;
         // emitter.angle = 30; // uncomment to set an angle for the rain.
@@ -79,10 +80,10 @@ Game.Level1.prototype = {
 
         this.scoreText = createText(game, 'Score: 0', 16, 16, '32px', '#FFF');
 
-        ///////LIGHTING EFFECT//////////
-        this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
-        this.lightSprite = this.game.add.image(this.game.camera.x, this.game.camera.y, this.shadowTexture);
-        this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
+        // ///////LIGHTING EFFECT//////////
+        // this.shadowTexture = this.game.add.bitmapData(this.game.width, this.game.height);
+        // this.lightSprite = this.game.add.image(this.game.camera.x, this.game.camera.y, this.shadowTexture);
+        // this.lightSprite.blendMode = Phaser.blendModes.MULTIPLY;
 
     }, 
     update: function(game) {

@@ -24,7 +24,8 @@ function createMaps(game, tileMapStr){
     let map = game.add.tilemap(tileMapStr, 32, 32);
     map.addTilesetImage('tiles');
     game.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    let layer = map.createLayer(0);
+    let layer = map.createLayer(0, 400, 200);
+    layer.scale.set(2);
     layer.resizeWorld();
     map.setCollisionBetween(0, 1000);
     return layer;
@@ -96,6 +97,14 @@ function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
     this.scoreText.text = 'Score: ' + this.score;
+}
+
+function resize() {
+    if(layer.displayWidth !== undefined && layer.width < 1500) {
+        let w = layer.displayWidth + 100;
+        let h = layer.displayHeight + 100;
+        layer.resize(w, h);
+    } 
 }
 
 /////////LIGHT EFFECT//////////
