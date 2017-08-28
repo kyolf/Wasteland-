@@ -8,7 +8,6 @@ Game.GameOver.prototype = {
         .then(highScores => {
             if (highScores.length >= 10) {
                 if (highScores[highScores.length - 1].score < this.game.global.score) {
-                    console.log('player score', this.game.global.score);
                     let name = prompt("Congrats! Your score is in the top 10! Please enter your initials.", "Anonymous");if(name) {this.game.global.initials = name;}
                     postTopScores(this.game.global.score, this.game.global.initials)
                     .then(scores => {
@@ -57,5 +56,8 @@ Game.GameOver.prototype = {
         createText(game, highScore, 500, 150, '20px Arial', '#FFF', 'center');
             
         let yPosText = 200;
+
+        this.game.global.score = 0;
+        this.game.global.initials = '';
     }
 };
