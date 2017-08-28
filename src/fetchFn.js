@@ -20,6 +20,6 @@ function postTopScores(score, initials) {
         if(!res.ok){
             return Promise.reject(res.statusText);
         }
-        return res.json();
+        return fetchTopScores();
     });
 }

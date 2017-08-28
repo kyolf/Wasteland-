@@ -10,8 +10,9 @@ Game.GameOver.prototype = {
       if (highScores.length >= 10) {
         if (highScores[highScores.length - 1].score < this.game.global.score) {
           console.log('player score', this.game.global.score);
+          let name = prompt("Congrats! Your score is in the top 10! Please enter your initials.", "Anonymous");if(name) {this.game.global.initials = name;}
           postTopScores(this.game.global.score, this.game.global.initials).then(scores => {console.log(scores)});
-        } else{
+        } else {
           //only show the highscores
         }
       } else {

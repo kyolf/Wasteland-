@@ -6,9 +6,6 @@ window.onload = function() {
       topScores: [],
       input: false
     };
-    Phaser.Device.whenReady(function() {
-        game.add.plugin(PhaserInput.Plugin);
-    });
     game.state.add('Boot', Game.Boot);
     game.state.add('Preloader', Game.Preloader);
     game.state.add('MainMenu', Game.MainMenu);
