@@ -18,15 +18,20 @@ Game.Level1.prototype = {
         let layer;
     }, 
     create: function(game) {
+        game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
+        game.scale.parentIsWindow = true;
+        // game.scale.fullScreenScaleMode = Phaser.ScaleManager.RESIZE;
+
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
         // game.add.sprite(0, 0, 'bg2');
         let background = game.add.sprite(0, 0, 'bg2');
+        game.add.sprite(1500, 0, 'bg2');
         background.scale.setTo(0.5, 1);
          
         this.layer = createMaps(game, 'map');
-        game.input.onDown.add(resize, this);
+        // game.input.onDown.add(resize, this);
       
         //see collision blocks
         //this.layer.debug = true;
@@ -99,6 +104,13 @@ Game.Level1.prototype = {
         // this.lightSprite.reset(this.game.camera.x, this.game.camera.y);
         // this.updateShadowTexture();
     },
+    render: function(game) {
+        game.debug.spriteInfo(this.piglet, 32, 32);
+        game.debug.body(this.piglet);
+        game.debug.bodyInfo(this.piglet, 32, 128);
+        game.debug.body(this.player);
+        game.debug.bodyInfo(this.player, 32, 256);
+    }
 
 
 };

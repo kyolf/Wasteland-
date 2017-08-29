@@ -1,7 +1,7 @@
 //Create Functions
 function createButton(game,textOfButton,x,y,w,h,callback){
     let button1 = game.add.button(x,y,'platform',callback,this,2,1,0);
-    
+
     button1.anchor.setTo(0.5,0.5);
     button1.width = w;
     button1.height = h;
@@ -24,8 +24,8 @@ function createMaps(game, tileMapStr){
     let map = game.add.tilemap(tileMapStr, 32, 32);
     map.addTilesetImage('tiles');
     game.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    let layer = map.createLayer(0, 400, 200);
-    layer.scale.set(2);
+    let layer = map.createLayer(0);
+    // layer.scale.set(2);
     layer.resizeWorld();
     map.setCollisionBetween(0, 1000);
     return layer;
@@ -88,7 +88,7 @@ function playerActions(cursors, player, hitPlatforms){
 
     //can take out the last two conditions in if statement to allow for jumping in midair
     //possible powerup situation
-    if(cursors.up.isDown && hitPlatforms) {
+    if(cursors.up.isDown && player.body.blocked.down && hitPlatforms) {
         player.body.velocity.y = -350; //the height of the jump
     }
 }
@@ -99,13 +99,13 @@ function collectBattery(player, battery) {
     this.scoreText.text = 'Score: ' + this.score;
 }
 
-function resize() {
-    if(layer.displayWidth !== undefined && layer.width < 1500) {
-        let w = layer.displayWidth + 100;
-        let h = layer.displayHeight + 100;
-        layer.resize(w, h);
-    } 
-}
+// function resize() {
+//     if(layer.displayWidth !== undefined && layer.width < 1500) {
+//         let w = layer.displayWidth + 100;
+//         let h = layer.displayHeight + 100;
+//         layer.resize(w, h);
+//     } 
+// }
 
 /////////LIGHT EFFECT//////////
 // function updateShadowTexture(game, player) {
