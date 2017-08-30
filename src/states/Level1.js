@@ -74,9 +74,11 @@ Game.Level1.prototype = {
                                     this.state.start('GameOver');
                                 });
 
-        this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 800, 50, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt.fixedToCamera = true;
 
-        this.scoreText = createText(game, 'Score: 0', 50, 50, '30px Freckle Face', '#FFF');
+        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
+        this.scoreText.fixedToCamera = true;
     }, 
     update: function(game) {
         let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
