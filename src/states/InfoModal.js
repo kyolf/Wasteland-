@@ -8,7 +8,7 @@ Game.InfoModal.prototype = {
       
         createText(game, 'Instructions', 600, 50, '70px Freckle Face', '#FFF', 'center');
     
-        createButton(game, 'Go Back to Menu', 175, 85, 250, 50, 
+        createButton(game, 'Go Back to Menu', 175, 75, 250, 50, 
                     () => {
                         this.state.start('MainMenu');
                     }
