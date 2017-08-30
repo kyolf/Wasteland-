@@ -85,7 +85,7 @@ function playerActions(cursors, player, hitPlatforms){
 
     //can take out the last two conditions in if statement to allow for jumping in midair
     //possible powerup situation
-    if(cursors.up.isDown && hitPlatforms) {
+    if(cursors.up.isDown && player.body.blocked.down && hitPlatforms) {
         player.body.velocity.y = -350; //the height of the jump
     }
 }
