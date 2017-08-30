@@ -14,9 +14,7 @@ Game.Level1.prototype = {
         let timer;
         let timerTxt;
         let layer;
-        let pigletObj1;
         let enemyGroup;
-        let piglet;
     }, 
     create: function(game) {
         this.score = 0;
