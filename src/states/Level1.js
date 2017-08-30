@@ -20,8 +20,33 @@ Game.Level1.prototype = {
         game.add.sprite(0, 0, 'bg2');
         game.add.sprite(1600, 0, 'bg2');
          
-        this.layer = createMaps(game, 'map');
+        // this.layer = createMaps(game, 'map');
+
+        this.platforms = game.add.group();
+
+        this.platforms.enableBody = true;
+
+        //for a solid green ground
+        // let ground = this.platforms.create(0, game.world.height - 64, 'ground');
+        // ground.scale.setTo( 5, 2);
+        // ground.body.immovable = true;
+
+        //individual ground
+        let ground = this.platforms.create(0, game.world.height - 58, 'ground');
+        ground.body.immovable = true;
+
+        let ledge = this.platforms.create(783, game.world.height - 58, 'ground');
+        ledge.body.immovable = true;
       
+        // ledge = this.platforms.create(1,566, 58, 'ground');
+        // ledge.body.immovable = true;
+
+        // ledge = this.platforms.create(2,349, 58, 'ground');
+        // ledge.body.immovable = true;
+
+        // ledge = this.platforms.create(1,566, 58, 'ground');
+        // ledge.body.immovable = true;
+
         //see collision blocks
         //this.layer.debug = true;
         this.player = createPlayer(game);
@@ -75,8 +100,8 @@ Game.Level1.prototype = {
         this.scoreText = createText(game, 'Score: 0', 16, 16, '32px', '#FFF');
     }, 
     update: function(game) {
-        let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
-        game.physics.arcade.collide(this.batteries, this.layer);
+        let hitPlatforms = this.game.physics.arcade.collide(this.player, this.platforms);
+        game.physics.arcade.collide(this.batteries, this.platforms);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
 

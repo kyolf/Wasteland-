@@ -25,7 +25,26 @@ Game.MainMenu.prototype = {
         createButton(game, 'High Scores', 800, 550, 200, 50,
                     () => {
                         this.state.start('HighScores');
-                    });    
+                    }); 
+
+        //rain effects
+        var emitter = game.add.emitter(game.world.centerX, 0, 400);
+      
+        emitter.width = game.world.width;
+         // uncomment to set an angle for the rain.
+      
+        emitter.makeParticles('rain');
+      
+        emitter.minParticleScale = 0.1;
+        emitter.maxParticleScale = 0.5;
+      
+        emitter.setYSpeed(300, 500);
+        emitter.setXSpeed(-5, 5);
+      
+        emitter.minRotation = 0;
+        emitter.maxRotation = 0;
+      
+        emitter.start(false, 1600, 5, 0);
     },
     update: function() {
 

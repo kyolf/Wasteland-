@@ -21,6 +21,9 @@ Game.Preloader.prototype = {
         this.load.tilemap('map', 'assets/level2.csv', null, Phaser.Tilemap.CSV);
         this.load.image('tiles', 'assets/phase-2.png', 32, 32);
         this.load.spritesheet('rain', 'assets/rain.png', 17, 17);
+        this.load.image('ground', 'assets/ground.png');
+        this.load.image('grass', 'assets/grass.png');
+        this.load.image('rock', 'assets/rock.png');
     },
     create: function(){
         this.state.start('MainMenu');
