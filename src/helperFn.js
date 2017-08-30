@@ -60,12 +60,12 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 5){
     return batteries;
 }
 
-function createTimer(game, callback, duration = 30000){
-    let timer = game.time.create();
-    timer.add(duration, callback, this);
-    timer.start();
-    return timer;
-}
+// function createTimer(game, callback, duration = 30000){
+//     let timer = game.time.create();
+//     timer.add(duration, callback, this);
+//     timer.start();
+//     return timer;
+// }
 
 function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxXSpeed = 5,
     minParticleScale = 0.1, maxParticleScale = 0.5, minRotation = 0, maxRotation = 0, angle = 30){

@@ -13,7 +13,6 @@ Game.Level1.prototype = {
         let scoreText;
         let timer;
         let totalTime;
-        let seconds;
         let timerTxt;
         let layer;
         let enemyGroup;
@@ -68,9 +67,9 @@ Game.Level1.prototype = {
 
         ////////TRYING TO CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
-        console.log('initial time', this.totalTime);
+        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 50, '30px Freckle Face', '#FFF', 'center');
         this.timerTxt.anchor.set(0.5, 0.5);
+        this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
         
 
