@@ -27,7 +27,7 @@ Game.HighScores.prototype = {
         .then(topScores=>{
             topScores.map(topScore =>{
                 createText(game, topScore.initials, 500, yPosText, '25px Freckle Face', '#FFF');
-                createText(game, topScore.score, 1000, yPosText, '25px Freckle Face', '#FFF');
+                createText(game, topScore.score, 1025, yPosText, '25px Freckle Face', '#FFF');
                 yPosText += 50;
             });
         })
