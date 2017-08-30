@@ -28,7 +28,7 @@ function createMaps(game, tileMapStr){
     return layer;
 }
 
-function createPlayer(game, gravityNum = 300, bounceY = 0.2){
+function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     let player = game.add.sprite(32, game.world.height - 350, 'dude3');
     game.physics.arcade.enable(player);
 
@@ -38,6 +38,7 @@ function createPlayer(game, gravityNum = 300, bounceY = 0.2){
 
     //tried increasing this to 500 and couldn't really jump
     player.body.gravity.y = gravityNum; 
+    player.body.velocity.y = 300;
 
     //this is true or body will rebound back into the world
     //if false, then body will leave the world upon collision
@@ -70,13 +71,13 @@ function playerActions(cursors, player, hitPlatforms){
     player.body.velocity.x = 0;
     //can make movement more complex
     if(cursors.left.isDown) {
-        player.body.velocity.x = -150;
+        player.body.velocity.x = -350;
         player.animations.play('left');
     } else if(cursors.right.isDown) {
-        player.body.velocity.x = 150;
+        player.body.velocity.x = 350;
         player.animations.play('right');
     } else if(cursors.down.isDown) {
-        player.body.velocity.y = 350;
+        player.body.velocity.y = 550;
         player.animations.play('down');
     } else {
         player.animations.stop();
@@ -93,7 +94,8 @@ function playerActions(cursors, player, hitPlatforms){
 function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
-    this.timer.pause();
+    this.timer.pause(5000);
+    this.timer.resume();
     console.log('this is the time now', this.timer.duration);
 
     // game.time.now.duration += 10000;
