@@ -67,9 +67,7 @@ Game.Level1.prototype = {
         // 	'right': Phaser.Keyboard.RIGHT
         // });
         
-        //Piglet #1
-        // this.pigletObj1 = new Piglet(game, 500, game.world.height - 400, 100, this.layer);
-        // this.piglet = this.pigletObj1.create(this, this.piglet);
+        //Creating Piglets
         this.enemyGroup = game.add.group();
         new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.enemyGroup);
         new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.enemyGroup);
@@ -90,11 +88,11 @@ Game.Level1.prototype = {
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.batteries, this.layer);
-        //game.physics.arcade.collide(this.piglet, this.layer);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         playerActions(this.cursors, this.player, hitPlatforms);
-        console.log(this.enemyGroup);
+
+        //tile collision with enemies
         game.physics.arcade.collide(this.enemyGroup, this.layer);
         this.enemyGroup.forEach(function(enemy){
             if(enemy.previousPosition.x >= enemy.position.x){
@@ -104,6 +102,7 @@ Game.Level1.prototype = {
             }
         });
 
+        //player collision with enemies
         game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
 
 
