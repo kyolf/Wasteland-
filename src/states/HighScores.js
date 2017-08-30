@@ -9,9 +9,9 @@ Game.HighScores.prototype = {
     create: function(game) {
         game.add.sprite(0,0,'bg2');
     
-        createText(game, 'High Scores', 800/3, 50, '40px Arial', '#FFF', 'center');
+        createText(game, 'High Scores', 675, 50, '70px Freckle Face', '#FFF', 'center');
     
-        createButton(game, 'Go Back to Menu', 125, 75, 200, 50, 
+        createButton(game, 'Go Back to Menu', 175, 75, 250, 50, 
         () => {
             this.state.start('MainMenu');
         });
