@@ -116,5 +116,6 @@ function playerActions(cursors, player, hitPlatforms){
 function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
+    this.totalTime += 5;
     this.scoreText.text = 'Score: ' + this.score;
 }
