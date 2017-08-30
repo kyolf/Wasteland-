@@ -15,6 +15,7 @@ Game.Level1.prototype = {
         let timerTxt;
         let layer;
         let pigletObj1;
+        let enemyGroup;
         let piglet;
     }, 
     create: function(game) {
@@ -67,9 +68,12 @@ Game.Level1.prototype = {
         // });
         
         //Piglet #1
-        this.pigletObj1 = new Piglet(game, 500, game.world.height - 400, 100, this.layer);
-        this.piglet = this.pigletObj1.create(this, this.piglet);
-
+        // this.pigletObj1 = new Piglet(game, 500, game.world.height - 400, 100, this.layer);
+        // this.piglet = this.pigletObj1.create(this, this.piglet);
+        this.enemyGroup = game.add.group();
+        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.enemyGroup);
+        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.enemyGroup);
+        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.enemyGroup);
 
         this.batteries = createBatteries(game);
 
@@ -90,15 +94,39 @@ Game.Level1.prototype = {
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         playerActions(this.cursors, this.player, hitPlatforms);
-        this.pigletObj1.update(game, this.piglet);
+        console.log(this.enemyGroup);
+        game.physics.arcade.collide(this.enemyGroup, this.layer);
+        this.enemyGroup.forEach(function(enemy){
+            if(enemy.previousPosition.x >= enemy.position.x){
+                enemy.animations.play('left');
+            }else{
+                enemy.animations.play('right');
+            }
+        });
+
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
+
+
+        //If we want game over
+        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+        //     this.state.start('GameOver');
+        // });
+
         this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
+    },
+    resetPlayer: function(player, enemyGroup){
+        // player.reset(32, 650);
+        this.state.start('GameOver');
     },
     render:function(game) {
         
         // Sprite debug info
-        game.debug.spriteInfo(this.piglet, 32, 32);
-        game.debug.body(this.piglet);
-        game.debug.bodyInfo(this.piglet, 32, 128);
+        // game.debug.spriteInfo(this.piglet, 32, 32);
+        let y = 0;
+        this.enemyGroup.forEach(function(enemy){
+            game.debug.body(enemy);
+            game.debug.bodyInfo(enemy, 32, y=y+128);
+        });
         game.debug.body(this.player);
         game.debug.bodyInfo(this.player, 32, 256);
     }
