@@ -50,7 +50,7 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 5){
     let batteries = game.add.group();
     batteries.enableBody = true;
 
-    for(let i = 0; i < numBatteries; i++) {
+    for(let i = 1; i < numBatteries; i++) {
         let battery = batteries.create(i * pixelsApart, 500, 'battery');
         battery.body.gravity.y = 500;
         battery.body.bounce.y= 0.5 + Math.random() * 0.2;
@@ -93,6 +93,9 @@ function playerActions(cursors, player, hitPlatforms){
 function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
+    this.timer.pause();
+    console.log('this is the time now', this.timer.duration);
+
     // game.time.now.duration += 10000;
     this.scoreText.text = 'Score: ' + this.score;
 }

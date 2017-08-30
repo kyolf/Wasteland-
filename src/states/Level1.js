@@ -35,7 +35,7 @@ Game.Level1.prototype = {
 
         //ALL CODE BELOW IS FOR RAIN EFFECT
 
-        var emitter = game.add.emitter(game.world.centerX, 0, 400);
+        let emitter = game.add.emitter(game.world.centerX, 0, 400);
       
         emitter.width = game.world.width;
         // emitter.angle = 30; // uncomment to set an angle for the rain.
@@ -73,6 +73,7 @@ Game.Level1.prototype = {
                                     this.camera.reset();
                                     this.state.start('GameOver');
                                 });
+
 
         this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
         this.timerTxt.fixedToCamera = true;
