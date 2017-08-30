@@ -15,7 +15,7 @@ Game.Level1.prototype = {
         let scoreText;
         let timer;
         let timerTxt;
-        let layer;
+        // let layer;
     }, 
     create: function(game) {
         game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
@@ -28,17 +28,27 @@ Game.Level1.prototype = {
         // game.add.sprite(0, 0, 'bg2');
         let background = game.add.sprite(0, 0, 'bg2');
         game.add.sprite(1500, 0, 'bg2');
-        background.scale.setTo(0.5, 1);
+        
+        let platforms = game.add.group();
+        platforms.enableBody = true;
+
+        let ground = platforms.create(0, game.world.height - 64, 'platform');
+        ground.scale.setTo(5, 2);
+        ground.body.immovable = true;
+
+        let ledge = platforms.create(400, 400, 'platform');
+        ledge.body.immovable = true;
+
+        ledge = platforms.create(-150, 250, 'platform');
+        ledge.body.immovable = true;
          
-        this.layer = createMaps(game, 'map');
+        // this.layer = createMaps(game, 'map');
         // game.input.onDown.add(resize, this);
       
         //see collision blocks
         //this.layer.debug = true;
         this.player = createPlayer(game);
 
-        this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
-        this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
         //ALL CODE BELOW IS FOR RAIN EFFECT
 
@@ -92,8 +102,12 @@ Game.Level1.prototype = {
 
     }, 
     update: function(game) {
-        let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
-        game.physics.arcade.collide(this.batteries, this.layer);
+        // let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
+        // game.physics.arcade.collide(this.batteries, this.layer);
+
+        let hitPlatforms = this.game.physics.arcade.collide(this.player, this.platforms);
+        game.physics.arcade.collide(this.batteries, this.platforms);
+
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         playerActions(this.cursors, this.player, hitPlatforms);

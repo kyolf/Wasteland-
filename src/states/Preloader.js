@@ -18,7 +18,7 @@ Game.Preloader.prototype = {
         this.load.image('platform', 'assets/platform.png');
         this.load.image('battery', 'assets/battery.png');
         this.load.spritesheet('dude3', 'assets/dude4_small.png', 71, 100); //width div frames, height 
-        this.load.tilemap('map', 'assets/level2.csv', null, Phaser.Tilemap.CSV);
+        // this.load.tilemap('map', 'assets/level2.csv', null, Phaser.Tilemap.CSV);
         this.load.image('tiles', 'assets/phase-2.png', 32, 32);
         this.load.spritesheet('rain', 'assets/rain.png', 17, 17);
     },

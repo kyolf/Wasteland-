@@ -20,16 +20,16 @@ function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, 
     return txt;
 }
 
-function createMaps(game, tileMapStr){
-    let map = game.add.tilemap(tileMapStr, 32, 32);
-    map.addTilesetImage('tiles');
-    game.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    let layer = map.createLayer(0);
-    // layer.scale.set(2);
-    layer.resizeWorld();
-    map.setCollisionBetween(0, 1000);
-    return layer;
-}
+// function createMaps(game, tileMapStr){
+//     let map = game.add.tilemap(tileMapStr, 32, 32);
+//     map.addTilesetImage('tiles');
+//     game.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+//     let layer = map.createLayer(0);
+//     // layer.scale.set(2);
+//     layer.resizeWorld();
+//     map.setCollisionBetween(0, 1000);
+//     return layer;
+// }
 
 function createPlayer(game, gravityNum = 300, bounceY = 0.2){
     let player = game.add.sprite(32, game.world.height - 350, 'dude3');
@@ -46,10 +46,13 @@ function createPlayer(game, gravityNum = 300, bounceY = 0.2){
     //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
 
+    player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
+    player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true); 
+
     return player;
 }
 
-function createBatteries(game, pixelsApart = 100, numBatteries = 5){
+function createBatteries(game, pixelsApart = 200, numBatteries = 5){
     let batteries = game.add.group();
     batteries.enableBody = true;
 
@@ -88,7 +91,7 @@ function playerActions(cursors, player, hitPlatforms){
 
     //can take out the last two conditions in if statement to allow for jumping in midair
     //possible powerup situation
-    if(cursors.up.isDown && player.body.blocked.down && hitPlatforms) {
+    if(cursors.up.isDown && player.body.touching.down && hitPlatforms) {
         player.body.velocity.y = -350; //the height of the jump
     }
 }
