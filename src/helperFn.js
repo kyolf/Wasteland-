@@ -31,6 +31,7 @@ function createMaps(game, tileMapStr){
 function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     let player = game.add.sprite(32, game.world.height - 350, 'dude3');
     game.physics.arcade.enable(player);
+    player.body.setSize(20, 90, 25, 10);
 
     player.body.bounce.y = bounceY;
 
