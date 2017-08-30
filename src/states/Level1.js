@@ -22,8 +22,10 @@ Game.Level1.prototype = {
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        game.add.sprite(0, 0, 'bg2');
-        game.add.sprite(1600, 0, 'bg2');
+        // game.add.sprite(0, 0, 'bg2');
+        let background = game.add.sprite(0, 0, 'bg2');
+        background.scale.setTo(0.5, 1);
+
          
         this.layer = createMaps(game, 'map');
       
@@ -81,9 +83,11 @@ Game.Level1.prototype = {
                                     this.state.start('GameOver');
                                 });
 
-        this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 600, 50, '30px Arial', '#FFF', 'center');
+        this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt.fixedToCamera = true;
 
-        this.scoreText = createText(game, 'Score: 0', 16, 16, '32px', '#FFF');
+        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
+        this.scoreText.fixedToCamera = true;
     }, 
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);

@@ -9,25 +9,25 @@ Game.HighScores.prototype = {
     create: function(game) {
         game.add.sprite(0,0,'bg2');
     
-        createText(game, 'High Scores', 800/3, 50, '40px Arial', '#FFF', 'center');
+        createText(game, 'High Scores', 675, 50, '70px Freckle Face', '#FFF', 'center');
     
-        createButton(game, 'Go Back to Menu', 125, 75, 200, 50, 
+        createButton(game, 'Go Back to Menu', 175, 75, 250, 50, 
         () => {
             this.state.start('MainMenu');
         });
     
         let highScore = 'Name';
-        createText(game, highScore, 200, 150, '20px Arial', '#FFF', 'center');
+        createText(game, highScore, 500, 175, '40px Freckle Face', '#FFF', 'center');
     
         highScore = 'Score';
-        createText(game, highScore, 500, 150, '20px Arial', '#FFF', 'center');
+        createText(game, highScore, 1000, 175, '40px Freckle Face', '#FFF', 'center');
         
-        let yPosText = 200;
+        let yPosText = 250;
         fetchTopScores()
         .then(topScores=>{
             topScores.map(topScore =>{
-                createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
-                createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
+                createText(game, topScore.initials, 500, yPosText, '25px Freckle Face', '#FFF');
+                createText(game, topScore.score, 1025, yPosText, '25px Freckle Face', '#FFF');
                 yPosText += 50;
             });
         })
