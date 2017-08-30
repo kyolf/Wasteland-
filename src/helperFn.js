@@ -1,6 +1,6 @@
 //Create Functions
 function createButton(game,textOfButton,x,y,w,h,callback){
-    let button1 = game.add.button(x,y,'platform',callback,this,2,1,0);
+    let button1 = game.add.button(x,y,'grass',callback,this,2,1,0);
     
     button1.anchor.setTo(0.5,0.5);
     button1.width = w;

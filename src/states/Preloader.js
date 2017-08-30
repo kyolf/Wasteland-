@@ -15,6 +15,7 @@ Game.Preloader.prototype = {
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
         this.load.image('platform', 'assets/platform.png');
+        this.load.image('grass', 'assets/Grass_Platform.png');
         this.load.image('battery', 'assets/battery.png');
         this.load.spritesheet('dude3', 'assets/dude4_small.png', 71, 100); //width div frames, height 
         this.load.tilemap('map', 'assets/level2.csv', null, Phaser.Tilemap.CSV);
