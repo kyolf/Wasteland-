@@ -22,8 +22,7 @@ Game.Level1.prototype = {
         // game.add.sprite(0, 0, 'bg2');
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(0.5, 1);
-
-         
+        
         this.layer = createMaps(game, 'map');
       
         //see collision blocks

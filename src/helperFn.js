@@ -94,10 +94,5 @@ function playerActions(cursors, player, hitPlatforms){
 function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
-    this.timer.pause(5000);
-    this.timer.resume();
-    console.log('this is the time now', this.timer.duration);
-
-    // game.time.now.duration += 10000;
     this.scoreText.text = 'Score: ' + this.score;
 }

@@ -12,7 +12,6 @@ Game.Preloader.prototype = {
         // this.time.advancedTiming = true;
 
         // this.load.setPreloaderSprite(this.preloadBar);
-
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
         this.load.image('platform', 'assets/platform.png');
