@@ -118,19 +118,18 @@ Game.Level1.prototype = {
         this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
     },
     resetPlayer: function(player, enemyGroup){
-        // player.reset(32, 650);
-        this.state.start('GameOver');
+        player.reset(32, 650);
     },
     render:function(game) {
         
         // Sprite debug info
         // game.debug.spriteInfo(this.piglet, 32, 32);
-        let y = 0;
-        this.enemyGroup.forEach(function(enemy){
-            game.debug.body(enemy);
-            game.debug.bodyInfo(enemy, 32, y=y+128);
-        });
-        game.debug.body(this.player);
-        game.debug.bodyInfo(this.player, 32, 256);
+        // let y = 0;
+        // this.enemyGroup.forEach(function(enemy){
+        //     game.debug.body(enemy);
+        //     game.debug.bodyInfo(enemy, 32, y=y+128);
+        // });
+        // game.debug.body(this.player);
+        // game.debug.bodyInfo(this.player, 32, 256);
     }
 };
