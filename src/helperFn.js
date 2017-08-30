@@ -6,7 +6,7 @@ function createButton(game,textOfButton,x,y,w,h,callback){
     button1.width = w;
     button1.height = h;
 
-    createText(game, textOfButton, x, y, '14px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfButton, x, y, '32px Freckle Face', '#FFF', 'center', 0.5, 0.5);
 }
 
 function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, anchorY = 0){
