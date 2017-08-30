@@ -66,6 +66,27 @@ function createTimer(game, callback, duration = 30000){
     return timer;
 }
 
+function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxXSpeed = 5,
+    minParticleScale = 0.1, maxParticleScale = 0.5, minRotation = 0, maxRotation = 0, angle = 30){
+    var emitter = game.add.emitter(game.world.centerX, 0, 400);
+    
+    emitter.width = game.world.width;
+    // emitter.angle = 30; // uncomment to set an angle for the rain.
+
+    emitter.makeParticles('rain');
+
+    emitter.minParticleScale = minParticleScale;
+    emitter.maxParticleScale = maxParticleScale;
+
+    emitter.setYSpeed(minYSpeed, maxYSpeed);
+    emitter.setXSpeed(minXSpeed, maxXSpeed);
+
+    emitter.minRotation = minRotation;
+    emitter.maxRotation = maxRotation;
+
+    emitter.start(false, 1600, 5, 0);
+}
+
 //Update Functions
 function playerActions(cursors, player, hitPlatforms){
     player.body.velocity.x = 0;
