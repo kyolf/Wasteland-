@@ -17,17 +17,17 @@ Game.HighScores.prototype = {
         });
     
         let highScore = 'Name';
-        createText(game, highScore, 200, 150, '20px Arial', '#FFF', 'center');
+        createText(game, highScore, 500, 175, '40px Freckle Face', '#FFF', 'center');
     
         highScore = 'Score';
-        createText(game, highScore, 500, 150, '20px Arial', '#FFF', 'center');
+        createText(game, highScore, 1000, 175, '40px Freckle Face', '#FFF', 'center');
         
-        let yPosText = 200;
+        let yPosText = 250;
         fetchTopScores()
         .then(topScores=>{
             topScores.map(topScore =>{
-                createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
-                createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
+                createText(game, topScore.initials, 500, yPosText, '25px Freckle Face', '#FFF');
+                createText(game, topScore.score, 1000, yPosText, '25px Freckle Face', '#FFF');
                 yPosText += 50;
             });
         })
