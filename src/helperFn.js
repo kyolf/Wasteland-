@@ -95,3 +95,28 @@ function collectBattery(player, battery) {
     this.score += 10;
     this.scoreText.text = 'Score: ' + this.score;
 }
+let flipped = false;
+function enemyActions(enemy, platform) {
+    console.log(enemy,platform);
+    console.log('checking',enemy.body.touching.right, enemy.body.touching.left, enemy.body.velocity.x);
+    console.log('checking2', enemy.x > platform.x + (platform.width - enemy.width), enemy.x < platform.x);
+    console.log(platform.worldX, platform.width, enemy.width, enemy.x);
+    console.log(enemy.previousPosition.x === enemy.position.x);
+    if(enemy.body.velocity.x > 0 && enemy.previousPosition.x === enemy.position.x ) {
+        enemy.body.velocity.x = -80;
+    }
+    // else if(enemy.body.velocity.x < 0 && enemy.previousPosition.x === enemy.position.x){
+    //     enemy.body.velocity.x = 80;
+    // }
+    else{
+        enemy.body.velocity.x = 80;
+    }
+    if(enemy.body.velocity.x < 0){
+        enemy.animations.play('left');
+    }
+    else{
+        enemy.animations.play('right');
+    }
+    // xPos = platform.x;
+    
+}

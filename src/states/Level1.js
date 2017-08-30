@@ -14,6 +14,8 @@ Game.Level1.prototype = {
         let timer;
         let timerTxt;
         let layer;
+        let pigletObj1;
+        let piglet;
     }, 
     create: function(game) {
         this.score = 0;
@@ -63,6 +65,11 @@ Game.Level1.prototype = {
         // 	'left': Phaser.Keyboard.LEFT,
         // 	'right': Phaser.Keyboard.RIGHT
         // });
+        
+        //Piglet #1
+        this.pigletObj1 = new Piglet(game, 500, game.world.height - 400, 100, this.layer);
+        this.piglet = this.pigletObj1.create(this, this.piglet);
+
 
         this.batteries = createBatteries(game);
 
@@ -77,13 +84,22 @@ Game.Level1.prototype = {
         this.scoreText = createText(game, 'Score: 0', 16, 16, '32px', '#FFF');
     }, 
     update: function(game) {
-        let hitPlatforms = this.game.physics.arcade.collide(this.player, this.layer);
+        let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.batteries, this.layer);
+        //game.physics.arcade.collide(this.piglet, this.layer);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         playerActions(this.cursors, this.player, hitPlatforms);
-
+        this.pigletObj1.update(game, this.piglet);
         this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
+    },
+    render:function(game) {
+        
+        // Sprite debug info
+        game.debug.spriteInfo(this.piglet, 32, 32);
+        game.debug.body(this.piglet);
+        game.debug.bodyInfo(this.piglet, 32, 128);
+        game.debug.body(this.player);
+        game.debug.bodyInfo(this.player, 32, 256);
     }
-
 };
