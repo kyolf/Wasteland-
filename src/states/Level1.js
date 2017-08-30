@@ -16,10 +16,36 @@ Game.Level1.prototype = {
         let timerTxt;
         let layer;
         let enemyGroup;
+        let light;
     }, 
     create: function(game) {
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.plugins.add(Phaser.Plugin.PhaserIlluminated);
+
+        this.LIGHT_RADIUS = 300;
+        ///LIGHTING///
+        // let Lamp = illuminated.Lamp;
+        // new Lamp({  
+        //     position: new Vec2(100, 300),  
+        //     distance: 100,  
+        //     diffuse: 0.8,  
+        //     color: 'rgba(250,220,150,0.8)',  
+        //     radius: 100,  
+        //     samples: 1,  
+        //     angle: 50,     
+        // });
+
+        // game.add.illuminated.lamp(200, 200);
+        // let myObj = game.add.illuminated.rectangleObject(420, 210, 40, 30);
+        // let myObjs = [myObj];
+
+        // let myLamp2 = createLighting(myObjs);
+
+        // let myLamps = [myLamp];
+        // let myMask = game.add.illuminated.darkMask(myLamps);
+
+        /////LIGHTING ENDS/////
         
         // game.add.sprite(0, 0, 'bg2');
         let background = game.add.sprite(0, 0, 'bg2');
@@ -80,7 +106,7 @@ Game.Level1.prototype = {
     }, 
     tick: function(game) {
         this.totalTime--;
-        console.log('subtract time', this.totalTime);
+        // console.log('subtract time', this.totalTime);
         if(this.totalTime === 0) {
             this.camera.reset();
             this.state.start('GameOver');
@@ -90,6 +116,10 @@ Game.Level1.prototype = {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.batteries, this.layer);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
+
+        /////LIGHTING//////
+        // this.myLight.refresh();
+        // this.myMask.refresh();
 
         playerActions(this.cursors, this.player, hitPlatforms);
 
