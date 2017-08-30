@@ -26,7 +26,6 @@ Game.Level1.prototype = {
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(0.5, 1);
 
-         
         this.layer = createMaps(game, 'map');
       
         //see collision blocks
@@ -36,27 +35,7 @@ Game.Level1.prototype = {
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
-        //ALL CODE BELOW IS FOR RAIN EFFECT
-
-        var emitter = game.add.emitter(game.world.centerX, 0, 400);
-      
-        emitter.width = game.world.width;
-        // emitter.angle = 30; // uncomment to set an angle for the rain.
-      
-        emitter.makeParticles('rain');
-      
-        emitter.minParticleScale = 0.1;
-        emitter.maxParticleScale = 0.5;
-      
-        emitter.setYSpeed(300, 500);
-        emitter.setXSpeed(-5, 5);
-      
-        emitter.minRotation = 0;
-        emitter.maxRotation = 0;
-      
-        emitter.start(false, 1600, 5, 0);
-
-        //RAIN EFFECT CODE ENDS
+        createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
         this.cursors = game.input.keyboard.createCursorKeys();
@@ -109,8 +88,7 @@ Game.Level1.prototype = {
         //player collision with enemies
         game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
 
-
-        //If we want game over
+        //////////////////////////If we want game over//////////////////////////////
         // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
         //     this.state.start('GameOver');
         // });
