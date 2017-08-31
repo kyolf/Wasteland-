@@ -1,5 +1,3 @@
-'use strict';
-
 Game.Level1 = function(game){
 };
 
@@ -9,7 +7,6 @@ Game.Level1.prototype = {
         let player;
         let cursors;
         let batteries;
-        let score;
         let scoreText;
         let timer;
         let totalTime;
@@ -20,7 +17,7 @@ Game.Level1.prototype = {
         let tentacleFrame = 'start';
     }, 
     create: function(game) {
-        this.score = 0;
+        this.game.global.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
         // game.add.sprite(0, 0, 'bg2');
@@ -115,6 +112,7 @@ Game.Level1.prototype = {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.batteries, this.layer);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
+
 
         playerActions(this.cursors, this.player, hitPlatforms);
 

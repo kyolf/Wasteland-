@@ -129,9 +129,9 @@ function playerActions(cursors, player, hitPlatforms){
 
 function collectBattery(player, battery) {
     battery.kill();
-    this.score += 10;
+    this.game.global.score += 10;
     this.totalTime += 5;
-    this.scoreText.text = 'Score: ' + this.score;
+    this.scoreText.text = 'Score: ' + this.game.global.score;
 }
 
 function updateHitBox(enemy, w, h, frame) {

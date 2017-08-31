@@ -12,6 +12,8 @@ Game.Boot.prototype = {
         this.input.maxPointers = 1;
         //prevent users to pause the game by clicking away
         this.stage.disableVisibilityChange = true;
+        //adding input plugin
+        // this.game.add.plugin(PhaserInput.Plugin);
     },
     preload: function() {
         // this.load.image('preloaderBar', 'assets/preloader.png');
