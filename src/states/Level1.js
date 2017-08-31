@@ -12,6 +12,7 @@ Game.Level1.prototype = {
         let score;
         let scoreText;
         let timer;
+        let totalTime;
         let timerTxt;
         let layer;
         let enemyGroup;
@@ -54,19 +55,37 @@ Game.Level1.prototype = {
 
         this.batteries = createBatteries(game);
 
-        this.timer = createTimer(game,
-                                ()=>{
-                                    this.camera.reset();
-                                    this.state.start('GameOver');
-                                });
+        // this.timer = createTimer(game,
+        //                         ()=>{
+        //                             this.camera.reset();
+        //                             this.state.start('GameOver');
+        //                         });
 
 
-        this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
+        // this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
+        // this.timerTxt.fixedToCamera = true;
+
+        ////////TRYING TO CREATE CUSTOM TIMER///////////////////
+        this.totalTime = 30;
+        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 50, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt.anchor.set(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
+        this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
+        
+
+        ///////////////CUSTOM TIMER ATTEMPT ABOVE///////////////////
 
         this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
         this.scoreText.fixedToCamera = true;
     }, 
+    tick: function(game) {
+        this.totalTime--;
+        console.log('subtract time', this.totalTime);
+        if(this.totalTime === 0) {
+            this.camera.reset();
+            this.state.start('GameOver');
+        }
+    },
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);
         game.physics.arcade.collide(this.batteries, this.layer);
@@ -92,7 +111,10 @@ Game.Level1.prototype = {
         //     this.state.start('GameOver');
         // });
 
-        this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
+        // this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
+        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+        
+
     },
     resetPlayer: function(player, enemyGroup){
         player.reset(32, 650);
@@ -104,7 +126,7 @@ Game.Level1.prototype = {
         // let y = 0;
         // this.enemyGroup.forEach(function(enemy){
         //     game.debug.body(enemy);
-        //     game.debug.bodyInfo(enemy, 32, y=y+128);
+        //     // game.debug.bodyInfo(enemy, 32, y=y+128);
         // });
         // game.debug.body(this.player);
         // game.debug.bodyInfo(this.player, 32, 256);

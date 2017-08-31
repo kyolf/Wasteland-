@@ -45,6 +45,7 @@ function createMaps(game, tileMapStr){
 function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     let player = game.add.sprite(32, game.world.height - 350, 'dude3');
     game.physics.arcade.enable(player);
+    player.body.setSize(20, 90, 25, 10);
 
     player.body.bounce.y = bounceY;
 
@@ -73,12 +74,12 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 5){
     return batteries;
 }
 
-function createTimer(game, callback, duration = 30000){
-    let timer = game.time.create();
-    timer.add(duration, callback, this);
-    timer.start();
-    return timer;
-}
+// function createTimer(game, callback, duration = 30000){
+//     let timer = game.time.create();
+//     timer.add(duration, callback, this);
+//     timer.start();
+//     return timer;
+// }
 
 function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxXSpeed = 5,
     minParticleScale = 0.1, maxParticleScale = 0.5, minRotation = 0, maxRotation = 0, angle = 30){
@@ -129,5 +130,6 @@ function playerActions(cursors, player, hitPlatforms){
 function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
+    this.totalTime += 5;
     this.scoreText.text = 'Score: ' + this.score;
 }
