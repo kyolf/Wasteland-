@@ -62,7 +62,7 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     return player;
 }
 
-function createBatteries(game, pixelsApart = 500, numBatteries = 5){
+function createBatteries(game, pixelsApart = 500, numBatteries = 7){
     let batteries = game.add.group();
     batteries.enableBody = true;
 
@@ -131,6 +131,7 @@ function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
     this.totalTime += 5;
+    this.lightRadius += 30;
     this.scoreText.text = 'Score: ' + this.score;
 }
 

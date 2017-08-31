@@ -69,18 +69,9 @@ Game.Level1.prototype = {
         // this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
         // this.timerTxt.fixedToCamera = true;
 
-           ////////////LIGHTING ATTEMPT///////////
-        this.lightRadius = 300;
-        this.shadowTexture = game.add.bitmapData(3200, 1000);
-        
-        this.light = game.add.sprite(this.player.x/2, this.player.y/5, this.shadowTexture);
-        this.light.blendMode = Phaser.blendModes.MULTIPLY;
-
-        ///////////////LIGHTING ATTEMPT ENDS/////////////
-
         ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 50, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
         this.timerTxt.anchor.set(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
@@ -93,10 +84,22 @@ Game.Level1.prototype = {
 
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
 
+
+         ////////////LIGHTING ATTEMPT///////////
+        this.lightRadius = 300;
+        this.shadowTexture = game.add.bitmapData(3200, 1000);
+        
+        this.light = game.add.sprite(this.player.x/2, this.player.y/5, this.shadowTexture);
+        this.light.blendMode = Phaser.blendModes.MULTIPLY;
+
+        ///////////////LIGHTING ATTEMPT ENDS/////////////
+
     }, 
     tick: function(game) {
         this.totalTime--;
-        if(this.totalTime === 0) {
+        this.lightRadius -= 10;
+        console.log('light radius in tick', this.lightRadius);
+        if(this.totalTime === 0 || this.lightRadius === 0) {
             this.camera.reset();
             this.state.start('GameOver');
         }
