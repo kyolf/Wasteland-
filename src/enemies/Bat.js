@@ -7,9 +7,9 @@ const Bat = function(game, x, y, destination, platforms, group){
     this.bat.collideWorldBounds = true;
     this.bat.enableBody = true;
 
-    this.bat.animations.add('right', [5, 6, 7], 5, true);
-    this.bat.animations.add('left', [13, 14, 15], 5, true);  
-    
+    this.bat.animations.add('left', [13,14,15], 5, true); 
+    this.bat.animations.add('right', [5,6,7], 5, true);
+     
     this.bat.body.collideWorldBounds = true;  
     // this.bat.body.gravity.y = 400;
 

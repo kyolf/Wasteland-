@@ -55,10 +55,14 @@ Game.Level1.prototype = {
         new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.enemyGroup);
         new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.enemyGroup);
 
+        this.enemyGroup.setAll('body.immovable', true);
+
         this.flyingGroup = game.add.group();
-        new Bat(game, 900, game.world.height - 500, 100, this.layer, this.enemyGroup);
-        // new Bat(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
-        // new Bat(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
+        new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.enemyGroup);
+        new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.enemyGroup);
+        new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.enemyGroup);
+
+        this.flyingGroup.setAll('body.immovable', true);
 
         this.batteries = createBatteries(game);
 
