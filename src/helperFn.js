@@ -62,7 +62,7 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     return player;
 }
 
-function createBatteries(game, pixelsApart = 500, numBatteries = 5){
+function createBatteries(game, pixelsApart = 500, numBatteries = 7){
     let batteries = game.add.group();
     batteries.enableBody = true;
 
@@ -131,5 +131,24 @@ function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
     this.totalTime += 5;
+    this.lightRadius += 30;
     this.scoreText.text = 'Score: ' + this.score;
 }
+
+// function updateShadowTexture(game, player) {
+//     this.shadowTexture.ctx.fillStyle = '#ff0000';
+//     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);
+
+//     let gradient = this.shadowTexture.ctx.createRadialGradient(
+//         player.body.x, player.body.y, this.LIGHT_RADIUS * 0.75,
+//         player.body.x, player.body.y, this.LIGHT_RADIUS
+//     );
+//     gradient.addColorStop(0, '#ff000');
+//     gradient.addColorStop(1, '#ff000');
+
+//     this.shadowTexture.ctx.beginPath();
+//     this.shadowTexture.ctx.fillStyle = gradient;
+//     this.shadowTexture.ctx.arc(player.body.x, player.body.y, this.LIGHT_RADIUS, 0, Math.PI * 2);
+//     this.shadowTexture.ctx.fill();
+//     this.shadowTexture.dirty = true;
+// }
