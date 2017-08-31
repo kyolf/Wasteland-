@@ -26,6 +26,8 @@ Game.Level1.prototype = {
        
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(1, 1);
+
+        game.stage.backgroundColor = '#43484f';
         
         this.layer = createMaps(game, 'map');
       
@@ -48,15 +50,6 @@ Game.Level1.prototype = {
         // 	'left': Phaser.Keyboard.LEFT,
         // 	'right': Phaser.Keyboard.RIGHT
         // });
-
-        ////////////LIGHTING ATTEMPT///////////
-        this.lightRadius = 300;
-        this.shadowTexture = game.add.bitmapData(1600, 800);
-        
-        this.light = game.add.sprite(this.player.x, this.player.y, this.shadowTexture);
-        this.light.blendMode = Phaser.blendModes.MULTIPLY;
-
-        ///////////////LIGHTING ATTEMPT ENDS/////////////
         
         //Creating Piglets
         this.enemyGroup = game.add.group();
@@ -76,7 +69,16 @@ Game.Level1.prototype = {
         // this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
         // this.timerTxt.fixedToCamera = true;
 
-        ////////REATE CUSTOM TIMER///////////////////
+           ////////////LIGHTING ATTEMPT///////////
+        this.lightRadius = 300;
+        this.shadowTexture = game.add.bitmapData(3200, 1000);
+        
+        this.light = game.add.sprite(this.player.x/2, this.player.y/5, this.shadowTexture);
+        this.light.blendMode = Phaser.blendModes.MULTIPLY;
+
+        ///////////////LIGHTING ATTEMPT ENDS/////////////
+
+        ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
         this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 50, '30px Freckle Face', '#FFF', 'center');
         this.timerTxt.anchor.set(0.5, 0.5);
@@ -105,7 +107,6 @@ Game.Level1.prototype = {
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         /////LIGHTING BEGINS//////
-        this.light.reset(game.camera.x, game.camera.y);
         this.updateShadowTexture();
 
         //////////////LIGHTING ENDS//////////////
@@ -134,12 +135,16 @@ Game.Level1.prototype = {
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
     },
     updateShadowTexture: function (game, player) {
+        this.shadowTexture.ctx.fillStyle = '#43484f';
+        this.shadowTexture.ctx.fillRect(0, 0, 3200, 1000);
+
+
         let gradient = this.shadowTexture.ctx.createRadialGradient(
             this.player.x, this.player.y, this.lightRadius * 0.65,
             this.player.x, this.player.y, this.lightRadius
         );
-        gradient.addColorStop(0, '#eaf204');
-        gradient.addColorStop(1, '#eaf204');
+        gradient.addColorStop(0, '#ffffff');
+        gradient.addColorStop(1, '#ffffff');
 
         this.shadowTexture.ctx.beginPath();
         this.shadowTexture.ctx.fillStyle = gradient;
