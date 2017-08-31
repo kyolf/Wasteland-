@@ -140,8 +140,7 @@ Game.Level1.prototype = {
     updateShadowTexture: function (game, player) {
         this.shadowTexture.ctx.fillStyle = '#43484f';
         this.shadowTexture.ctx.fillRect(0, 0, 3200, 1000);
-
-
+    
         let gradient = this.shadowTexture.ctx.createRadialGradient(
             this.player.x, this.player.y, this.lightRadius * 0.65,
             this.player.x, this.player.y, this.lightRadius
