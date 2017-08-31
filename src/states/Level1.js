@@ -46,11 +46,19 @@ Game.Level1.prototype = {
         // 	'right': Phaser.Keyboard.RIGHT
         // });
         
-        //Creating Piglets
+        //Creating Shadows
         this.enemyGroup = game.add.group();
-        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.enemyGroup);
-        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.enemyGroup);
-        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
+        new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.enemyGroup);
+        new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.enemyGroup);
+        new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.enemyGroup);
+
+        this.flyingGroup = game.add.group();
+        new Bat(game, 900, game.world.height - 500, 100, this.layer, this.enemyGroup);
+        // new Bat(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
+        // new Bat(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
 
         this.batteries = createBatteries(game);
 
@@ -77,6 +85,12 @@ Game.Level1.prototype = {
         //tile collision with enemies
         game.physics.arcade.collide(this.enemyGroup, this.layer);
         this.enemyGroup.forEach(function(enemy){
+            enemy.animations.play('rise');
+
+        });
+
+        game.physics.arcade.collide(this.flyingGroup, this.layer);
+        this.flyingGroup.forEach(function(enemy){
             if(enemy.previousPosition.x >= enemy.position.x){
                 enemy.animations.play('left');
             }else{
@@ -100,13 +114,13 @@ Game.Level1.prototype = {
     render:function(game) {
         
         // Sprite debug info
-        // game.debug.spriteInfo(this.piglet, 32, 32);
+        // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
-        // this.enemyGroup.forEach(function(enemy){
-        //     game.debug.body(enemy);
-        //     game.debug.bodyInfo(enemy, 32, y=y+128);
-        // });
-        // game.debug.body(this.player);
+        this.enemyGroup.forEach(function(enemy){
+            game.debug.body(enemy);
+            // game.debug.bodyInfo(enemy, 32, y=y+128);
+        });
+        game.debug.body(this.player);
         // game.debug.bodyInfo(this.player, 32, 256);
     }
 };
