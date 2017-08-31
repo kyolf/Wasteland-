@@ -9,6 +9,20 @@ function createButton(game,textOfButton,x,y,w,h,callback){
     createText(game, textOfButton, x, y, '32px Freckle Face', '#FFF', 'center', 0.5, 0.5);
 }
 
+function createImageButton(game, textOfImage,x,y,w,h){
+    let button = game.add.image(x,y,'grass');
+    
+    button.anchor.setTo(0.5,0.5);
+    button.width = w;
+    button.height = h;
+    button.scale.x = 0.5;
+    button.scale.y = 0.5;
+    button.tweenAnimation = game.add.tween(button.scale).to({x: 0.7, y: 0.7},500,'Linear',true,0,-1,true); 
+    
+    createText(game, textOfImage, x, y, '32px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+    return button;
+}
+
 function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, anchorY = 0){
     let txt = game.add.text(x, y, str, {
         font: font,
