@@ -33,21 +33,6 @@ Game.MainMenu.prototype = {
 
         createRain(game, 300, 500, -5, 5, 0.1, 0.5, 0, 0, 30);
         //Buttons
-<<<<<<< HEAD
-        createButton(game, 'Play Game', 800, 350, 250, 60,
-                    () => {
-                        this.state.start('Level1');
-                    });
-        
-        createButton(game, 'About', 800, 450, 250, 60,
-                    () => {
-                        this.state.start('InfoModal');
-                    });
-        createButton(game, 'High Scores', 800, 550, 250, 60,
-                    () => {
-                        this.state.start('HighScores');
-                    });    
-=======
         // createButton(game, 'Play Game', 800, 350, 200, 50,
         //             () => {
         //                 this.state.start('Level1');
@@ -61,7 +46,6 @@ Game.MainMenu.prototype = {
         //             () => {
         //                 this.state.start('HighScores');
         //             });    
->>>>>>> dev
     },
     update: function(game) {
         this.buttonArr[this.buttonIndex].scale.x = 0.5;
