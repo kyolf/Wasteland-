@@ -133,3 +133,9 @@ function collectBattery(player, battery) {
     this.totalTime += 5;
     this.scoreText.text = 'Score: ' + this.score;
 }
+
+function updateHitBox(enemy, w, h, frame) {
+  enemy.body.width = w;
+  enemy.body.height = h;
+  this.tentacleFrame = frame;
+};

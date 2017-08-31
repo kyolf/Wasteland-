@@ -17,7 +17,7 @@ Game.Level1.prototype = {
         let layer;
         let enemyGroup;
         let exit;
-        let tentacleFrame;
+        let tentacleFrame = 'start';
     }, 
     create: function(game) {
         this.score = 0;
@@ -54,11 +54,15 @@ Game.Level1.prototype = {
         new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
         new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
         new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
-        new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.enemyGroup);
-        new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.enemyGroup);
-        new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.enemyGroup);
 
         this.enemyGroup.setAll('body.immovable', true);
+
+        this.tentacleGroup = game.add.group();
+        new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.tentacleGroup);
+
+        this.tentacleGroup.setAll('body.immovable', true);
 
         this.flyingGroup = game.add.group();
         new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.enemyGroup);
@@ -118,8 +122,29 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.enemyGroup, this.layer);
         this.enemyGroup.forEach(function(enemy){
             enemy.animations.play('rise');
-
         });
+
+        game.physics.arcade.collide(this.tentacleGroup, this.layer);
+        console.log('outside', this.tentacleFrame);
+        this.tentacleGroup.forEach(function(enemy){
+          console.log(this.tentacleFrame);
+            if (this.tentacleFrame === 'start'){
+                enemy.animations.play('start');
+                setTimeout(updateHitBox(enemy, 25, 70), 2000, 'rise');
+            } else if (this.tentacleFrame === 'rise') {
+                enemy.animations.play('rise');
+                setTimeout(updateHitBox(enemy, 25, 90) , 1000, 'final');
+            } else if (this.tentacleFrame === 'final') {
+                enemy.animations.play('final');
+                setTimeout(updateHitBox(enemy, 25, 70), 4000, 'fall');
+            } else if (this.tentacleFrame === 'fall') {
+                enemy.animations.play('fall');
+                setTimeout(updateHitBox(enemy, 25, 25), 1000, 'end');
+            } else {
+                enemy.animations.play('end');
+                setTimeout(updateHitBox(enemy, 25, 70), 1000, 'start');
+            }
+        })
 
         game.physics.arcade.collide(this.flyingGroup, this.layer);
         this.flyingGroup.forEach(function(enemy){
