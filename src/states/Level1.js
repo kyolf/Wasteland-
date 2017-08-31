@@ -17,39 +17,15 @@ Game.Level1.prototype = {
         let layer;
         let enemyGroup;
         let light;
+        let shadowTexture;
+        let lightRadius;
     }, 
     create: function(game) {
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        game.plugins.add(Phaser.Plugin.PhaserIlluminated);
-
-        this.LIGHT_RADIUS = 300;
-        ///LIGHTING///
-        // let Lamp = illuminated.Lamp;
-        // new Lamp({  
-        //     position: new Vec2(100, 300),  
-        //     distance: 100,  
-        //     diffuse: 0.8,  
-        //     color: 'rgba(250,220,150,0.8)',  
-        //     radius: 100,  
-        //     samples: 1,  
-        //     angle: 50,     
-        // });
-
-        // game.add.illuminated.lamp(200, 200);
-        // let myObj = game.add.illuminated.rectangleObject(420, 210, 40, 30);
-        // let myObjs = [myObj];
-
-        // let myLamp2 = createLighting(myObjs);
-
-        // let myLamps = [myLamp];
-        // let myMask = game.add.illuminated.darkMask(myLamps);
-
-        /////LIGHTING ENDS/////
-        
-        // game.add.sprite(0, 0, 'bg2');
+       
         let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(0.5, 1);
+        background.scale.setTo(1, 1);
         
         this.layer = createMaps(game, 'map');
       
@@ -72,6 +48,15 @@ Game.Level1.prototype = {
         // 	'left': Phaser.Keyboard.LEFT,
         // 	'right': Phaser.Keyboard.RIGHT
         // });
+
+        ////////////LIGHTING ATTEMPT///////////
+        this.lightRadius = 300;
+        this.shadowTexture = game.add.bitmapData(1600, 800);
+        
+        this.light = game.add.sprite(this.player.x, this.player.y, this.shadowTexture);
+        this.light.blendMode = Phaser.blendModes.MULTIPLY;
+
+        ///////////////LIGHTING ATTEMPT ENDS/////////////
         
         //Creating Piglets
         this.enemyGroup = game.add.group();
@@ -91,22 +76,24 @@ Game.Level1.prototype = {
         // this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
         // this.timerTxt.fixedToCamera = true;
 
-        ////////TRYING TO CREATE CUSTOM TIMER///////////////////
+        ////////REATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
         this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 50, '30px Freckle Face', '#FFF', 'center');
         this.timerTxt.anchor.set(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
-        
 
-        ///////////////CUSTOM TIMER ATTEMPT ABOVE///////////////////
+        ///////////////CUSTOM TIMER ABOVE///////////////////
 
         this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
         this.scoreText.fixedToCamera = true;
+
+
+        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+
     }, 
     tick: function(game) {
         this.totalTime--;
-        // console.log('subtract time', this.totalTime);
         if(this.totalTime === 0) {
             this.camera.reset();
             this.state.start('GameOver');
@@ -117,9 +104,11 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.batteries, this.layer);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
-        /////LIGHTING//////
-        // this.myLight.refresh();
-        // this.myMask.refresh();
+        /////LIGHTING BEGINS//////
+        this.light.reset(game.camera.x, game.camera.y);
+        this.updateShadowTexture();
+
+        //////////////LIGHTING ENDS//////////////
 
         playerActions(this.cursors, this.player, hitPlatforms);
 
@@ -143,8 +132,20 @@ Game.Level1.prototype = {
 
         // this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
-        
+    },
+    updateShadowTexture: function (game, player) {
+        let gradient = this.shadowTexture.ctx.createRadialGradient(
+            this.player.x, this.player.y, this.lightRadius * 0.65,
+            this.player.x, this.player.y, this.lightRadius
+        );
+        gradient.addColorStop(0, '#eaf204');
+        gradient.addColorStop(1, '#eaf204');
 
+        this.shadowTexture.ctx.beginPath();
+        this.shadowTexture.ctx.fillStyle = gradient;
+        this.shadowTexture.ctx.arc(this.player.x, this.player.y, this.lightRadius, 0, Math.PI * 2);
+        this.shadowTexture.ctx.fill();
+        this.shadowTexture.dirty = true;
     },
     resetPlayer: function(player, enemyGroup){
         player.reset(32, 650);
