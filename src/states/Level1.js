@@ -15,6 +15,7 @@ Game.Level1.prototype = {
         let timerTxt;
         let layer;
         let enemyGroup;
+        let exit;
     }, 
     create: function(game) {
         this.score = 0;
@@ -65,6 +66,8 @@ Game.Level1.prototype = {
         this.flyingGroup.setAll('body.immovable', true);
 
         this.batteries = createBatteries(game);
+
+        this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
         this.timer = createTimer(game,
                                 ()=>{
@@ -121,10 +124,10 @@ Game.Level1.prototype = {
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
         this.enemyGroup.forEach(function(enemy){
-            game.debug.body(enemy);
+            // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
-        game.debug.body(this.player);
+        // game.debug.body(this.player);
         // game.debug.bodyInfo(this.player, 32, 256);
     }
 };

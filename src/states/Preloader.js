@@ -25,6 +25,7 @@ Game.Preloader.prototype = {
         this.load.spritesheet('shadow', 'assets/shadow.png', 80, 70);
         this.load.spritesheet('tentacle', 'assets/tentacle.png', 25, 90);
         this.load.spritesheet('bat', 'assets/bat.png', 32, 32);
+        this.load.image('tree', 'assets/tree.png', 70, 32);
     },
     create: function(){
         this.state.start('MainMenu');
