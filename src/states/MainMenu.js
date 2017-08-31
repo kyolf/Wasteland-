@@ -26,9 +26,10 @@ Game.MainMenu.prototype = {
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
 
-        this.arrow = game.add.sprite(650, 350, 'piglet');
+        this.arrow = game.add.sprite(625, 350, 'piglet');
         this.arrow.anchor.setTo(0.5, 0.5);
         this.arrow.canMove = true;
+        this.arrow.animations.add('right', [2,3], 5, true);
 
         createRain(game, 300, 500, -5, 5, 0.1, 0.5, 0, 0, 30);
         //Buttons
@@ -49,6 +50,8 @@ Game.MainMenu.prototype = {
     update: function(game) {
         this.buttonArr[this.buttonIndex].scale.x = 0.5;
         this.buttonArr[this.buttonIndex].scale.y = 0.5;
+        this.arrow.animations.play('right');
+
         if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && this.buttonIndex < 2 && this.arrow.canMove) {
             this.buttonArr[this.buttonIndex].tweenAnimation.pause();
             this.buttonIndex++;
