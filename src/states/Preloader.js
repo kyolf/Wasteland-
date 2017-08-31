@@ -7,16 +7,21 @@ Game.Preloader = function(game){
 
 Game.Preloader.prototype = {
     preload: function(){
+        //Background loading bar
         this.preloadBG = this.add.sprite(this.world.centerX, this.world.centerY, 'loadingBG');
         this.preloadBG.anchor.setTo(0.5,0.5);
+        
+        //loading bar
         this.preloaderBar = this.add.sprite(this.world.centerX -250, this.world.centerY, 'loading');
-
         this.preloaderBar.anchor.setTo(0,0.5);
+        
         this.time.advancedTiming = true;
-
+        
+        //Does the Loading
         this.load.setPreloadSprite(this.preloaderBar);
         this.load.onLoadStart.add(this.loadStart, this);
         this.load.onLoadComplete.add(this.startMainMenu, this);
+        
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
         this.load.image('platform', 'assets/platform.png');
