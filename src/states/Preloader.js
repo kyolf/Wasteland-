@@ -25,6 +25,7 @@ Game.Preloader.prototype = {
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
         this.load.image('victory', 'assets/victory.jpg');
+        this.load.image('grim', 'assets/grim_reaper.png');
         this.load.image('platform', 'assets/platform.png');
         this.load.image('grass', 'assets/Grass_Platform.png');
         this.load.image('battery', 'assets/battery.png');
