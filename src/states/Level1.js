@@ -147,12 +147,12 @@ Game.Level1.prototype = {
         });
 
         //player collision with enemies
-        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
+        // game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
 
         //////////////////////////If we want game over//////////////////////////////
-        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
-        //     this.state.start('GameOver');
-        // });
+        game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+            this.state.start('Victory');
+        });
 
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
 

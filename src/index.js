@@ -7,5 +7,6 @@ window.onload = function() {
     game.state.add('HighScores', Game.HighScores);
     game.state.add('Level1', Game.Level1);
     game.state.add('GameOver', Game.GameOver);
+    game.state.add('Victory', Game.Victory);
     game.state.start('Boot');
 };

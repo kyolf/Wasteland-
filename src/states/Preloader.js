@@ -24,6 +24,7 @@ Game.Preloader.prototype = {
         
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
+        this.load.image('victory', 'assets/victory.jpg');
         this.load.image('platform', 'assets/platform.png');
         this.load.image('grass', 'assets/Grass_Platform.png');
         this.load.image('battery', 'assets/battery.png');
@@ -32,6 +33,7 @@ Game.Preloader.prototype = {
         this.load.image('tiles', 'assets/phase-2.png', 32, 32);
         this.load.spritesheet('rain', 'assets/rain.png', 17, 17);
         this.load.spritesheet('piglet', 'assets/baddie.png', 32, 32);
+        
     
         //Music
         this.load.audio('menu_music', 'music/96-Blocks.ogg');
