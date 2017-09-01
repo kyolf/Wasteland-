@@ -56,15 +56,15 @@ Game.Level1.prototype = {
         new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
         new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
         new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
-        // new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.enemyGroup);
-        // new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.enemyGroup);
-        // new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.enemyGroup);
+        new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.enemyGroup);
+        new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.enemyGroup);
+        new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.enemyGroup);
 
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
         //new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.tentacleGroup);
+        //new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.tentacleGroup);
         //new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.tentacleGroup);
 
         this.tentacleGroup.setAll('body.immovable', true);
@@ -176,6 +176,7 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer);
 
         //////////////////////////If we want game over//////////////////////////////
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel);
         // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
         //     this.state.start('GameOver');
         // });
@@ -184,6 +185,9 @@ Game.Level1.prototype = {
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
         
 
+    },
+    nextLevel: function(){
+      this.state.start('Level1')
     },
     resetPlayer: function(player, enemyGroup){
         player.reset(32, 650);
