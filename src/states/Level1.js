@@ -17,6 +17,7 @@ Game.Level1.prototype = {
         let shadowTexture;
         let lightRadius;
         this.losingTime = false;
+        this.lifes = 3;
     }, 
     create: function(game) {
         this.game.global.score = 0;
