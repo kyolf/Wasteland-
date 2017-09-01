@@ -7,6 +7,7 @@ const Tentacle = function(game, x, y, destination, platforms, group){
     this.tentacle.collideWorldBounds = true;
     this.tentacle.enableBody = true;
 
+
      //two seconds
     this.tentacle.animations.add('start', [0,1,2,3,4,5], 3, true);
     //one second
@@ -15,7 +16,7 @@ const Tentacle = function(game, x, y, destination, platforms, group){
     this.tentacle.animations.add('final', [10,11,12,13,14,15,16,17,18,19,19,18,17,16,15,14,13,12,11,10], 5, true);
     //one second
     this.tentacle.animations.add('fall', [9,8,7,6], 4, true);
-    //one seconds
+    // //one seconds
     this.tentacle.animations.add('end', [5,4,3,2,1], 5, true);
 
     this.tentacle.body.collideWorldBounds = true;  
@@ -23,7 +24,7 @@ const Tentacle = function(game, x, y, destination, platforms, group){
 
     //sprite move back and forth
     //this.tentacleTween = game.add.tween(this.tentacle).to({x: this.tentacle.x + destination},2000,'Linear',true,0,-1,true);
-    this.tentacleTween = game.add.tween(this.tentacle)
+    this.tentacleTween = game.add.tween(this.tentacle);
     group.add(this.tentacle);
 };
 
