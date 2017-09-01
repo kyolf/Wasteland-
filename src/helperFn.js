@@ -129,10 +129,11 @@ function playerActions(cursors, player, hitPlatforms){
 
 function collectBattery(player, battery) {
     battery.kill();
-    this.score += 10;
+    this.game.global.score += 10;
     this.totalTime += 2;
     this.lightRadius += 80;
-    this.scoreText.text = 'Score: ' + this.score;
+    this.scoreText.text = 'Score: ' + this.game.global.score;
+    console.log(this.game.global.score, 'star collected');
 }
 
 // function updateShadowTexture(game, player) {

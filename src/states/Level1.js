@@ -1,5 +1,3 @@
-'use strict';
-
 Game.Level1 = function(game){
 };
 
@@ -9,7 +7,6 @@ Game.Level1.prototype = {
         let player;
         let cursors;
         let batteries;
-        let score;
         let scoreText;
         let timer;
         let totalTime;
@@ -22,7 +19,9 @@ Game.Level1.prototype = {
         this.losingTime = false;
     }, 
     create: function(game) {
-        this.score = 0;
+        this.game.global.score = 0;
+        this.game.global.initials = '';
+        
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         game.stage.backgroundColor = '#00112d';
