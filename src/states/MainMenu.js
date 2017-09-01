@@ -35,7 +35,7 @@ Game.MainMenu.prototype = {
         createRain(game, 300, 500, -5, 5, 0.1, 0.5, 0, 0, 30);
 
         this.music = game.add.audio('menu_music');
-        this.music.fadeIn(100, true, '');
+        // this.music.fadeIn(100, true, '');
         this.music.play('', 0, 1, true, true);
         //Buttons
         // createButton(game, 'Play Game', 800, 350, 200, 50,
