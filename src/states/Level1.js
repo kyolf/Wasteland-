@@ -93,9 +93,9 @@ Game.Level1.prototype = {
     }, 
     tick: function(game) {
         this.totalTime--;
-        this.lightRadius -= 10;
+        this.lightRadius -= 20;
         
-        if(this.totalTime <= 10 && !this.losingTime){
+        if(this.totalTime <= 10 || this.lightRadius <= 60 && !this.losingTime){
             this.music.pause();
             if(!this.music1Created){
                 this.music1 = this.add.audio('losing_light');
