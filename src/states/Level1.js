@@ -85,16 +85,6 @@ Game.Level1.prototype = {
 
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
-        this.timer = createTimer(game,
-                                ()=>{
-                                    this.camera.reset();
-                                    this.state.start('GameOver');
-                                });
-        // this.timer = createTimer(game,
-        //                         ()=>{
-        //                             this.camera.reset();
-        //                             this.state.start('GameOver');
-        //                         });
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
