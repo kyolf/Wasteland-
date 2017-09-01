@@ -7,6 +7,7 @@ Game.MainMenu.prototype = {
         this.buttonArr = [];
         this.buttonIndex = 0;
         this.arrow = null;
+        this.music = null;
     },
     create:function(game) {
         //Background
@@ -32,6 +33,10 @@ Game.MainMenu.prototype = {
         this.arrow.animations.add('right', [2,3], 5, true);
 
         createRain(game, 300, 500, -5, 5, 0.1, 0.5, 0, 0, 30);
+
+        this.music = game.add.audio('menu_music');
+        this.music.fadeIn(100, true, '');
+        this.music.play('', 0, 1, true, true);
         //Buttons
         // createButton(game, 'Play Game', 800, 350, 200, 50,
         //             () => {
@@ -76,6 +81,7 @@ Game.MainMenu.prototype = {
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
             if(this.buttonIndex === 0){
                 game.state.start('Level1');
+                this.music.stop();
             }else if(this.buttonIndex === 1){
                 game.state.start('InfoModal');
             }else{

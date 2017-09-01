@@ -19,6 +19,7 @@ Game.Level1.prototype = {
         let light;
         let shadowTexture;
         let lightRadius;
+        this.losingTime = false;
     }, 
     create: function(game) {
         this.score = 0;
@@ -59,6 +60,9 @@ Game.Level1.prototype = {
 
         this.batteries = createBatteries(game);
 
+        //Music
+        this.music = game.add.audio('level1_music');
+        this.music.play('', 0, 1, true, true);
         // this.timer = createTimer(game,
         //                         ()=>{
         //                             this.camera.reset();
@@ -98,9 +102,18 @@ Game.Level1.prototype = {
     tick: function(game) {
         this.totalTime--;
         this.lightRadius -= 10;
+        
+        if(this.totalTime < 10 && !this.losingTime){
+            this.music.stop();
+            this.music = this.add.audio('losing_light');
+            this.music.play('', 0, 1, true, true);
+            this.losingTime = true;
+        }
+
         console.log('light radius in tick', this.lightRadius);
         if(this.totalTime === 0 || this.lightRadius === 0) {
             this.camera.reset();
+            this.music.stop();
             this.state.start('GameOver');
         }
     },

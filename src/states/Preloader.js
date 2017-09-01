@@ -33,6 +33,10 @@ Game.Preloader.prototype = {
         this.load.spritesheet('rain', 'assets/rain.png', 17, 17);
         this.load.spritesheet('piglet', 'assets/baddie.png', 32, 32);
     
+        //Music
+        this.load.audio('menu_music', 'music/96-Blocks.ogg');
+        this.load.audio('level1_music', 'music/Moonlit-Streets.ogg');
+        this.load.audio('losing_light', 'music/Theyre-Closing-In.ogg');
     },
     loadStart: function(){
         this.loadingText = createText(this, 'Loading', this.world.centerX, this.world.centerY - 100, 
