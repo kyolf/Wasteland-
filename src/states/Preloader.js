@@ -40,7 +40,7 @@ Game.Preloader.prototype = {
     },
     loadStart: function(){
         this.loadingText = createText(this, 'Loading', this.world.centerX, this.world.centerY - 100, 
-        '100px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+        '100px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
     },
     startMainMenu: function(){
         this.state.start('MainMenu');

@@ -77,19 +77,18 @@ Game.Level1.prototype = {
 
          ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Architects Daughter', '#FFF', 'center');
         this.timerTxt.anchor.setTo(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
 
-        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
+        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Architects Daughter', '#FFF');
         this.scoreText.fixedToCamera = true;
 
 
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
-
 
     }, 
     tick: function(game) {
@@ -157,7 +156,7 @@ Game.Level1.prototype = {
 
     },
     updateShadowTexture: function (game, player) {
-        this.shadowTexture.context.fillStyle = '#4e535b';
+        this.shadowTexture.context.fillStyle = '#00040c';
         this.shadowTexture.context.fillRect(0, 0, 3600, 1000);
     
         let gradient = this.shadowTexture.context.createRadialGradient(

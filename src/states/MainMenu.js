@@ -14,7 +14,7 @@ Game.MainMenu.prototype = {
         game.add.sprite(0,0,'bg2');
 
         //Title
-        createText(game, 'Wasteland', 600, 175, '100px Freckle Face', '#FFF', 'center');
+        createText(game, 'Wasteland', 600, 175, '100px Architects Daughter', '#FFF', 'center');
 
         console.log(game.world.centerX, game.world.centerY);
         
