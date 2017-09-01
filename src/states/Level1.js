@@ -63,15 +63,7 @@ Game.Level1.prototype = {
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
         this.music1Created = false;
-        // this.timer = createTimer(game,
-        //                         ()=>{
-        //                             this.camera.reset();
-        //                             this.state.start('GameOver');
-        //                         });
-
-
-        // this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
-        // this.timerTxt.fixedToCamera = true;
+     
 
         ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
@@ -89,14 +81,14 @@ Game.Level1.prototype = {
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
 
 
-         ////////////LIGHTING ATTEMPT///////////
+         ////////////LIGHTING BEGINS///////////
         this.lightRadius = 300;
         this.shadowTexture = game.add.bitmapData(3600, 1000);
         
         this.light = game.add.image(0, 0, this.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
 
-        ///////////////LIGHTING ATTEMPT ENDS/////////////
+        ///////////////LIGHTING ENDS/////////////
 
     }, 
     tick: function(game) {
@@ -177,9 +169,10 @@ Game.Level1.prototype = {
 
         this.shadowTexture.context.beginPath();
         this.shadowTexture.context.fillStyle = gradient;
-        this.shadowTexture.context.arc(this.player.x, this.player.y, this.lightRadius, 0, Math.PI * 2);
+        this.shadowTexture.context.arc(this.player.x + 35, this.player.y + 10, this.lightRadius, 0, Math.PI * 2);
         this.shadowTexture.context.fill();
         this.shadowTexture.dirty = true;
+
     },
     resetPlayer: function(player, enemyGroup){
         player.reset(32, 650);
