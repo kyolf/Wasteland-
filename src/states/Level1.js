@@ -63,6 +63,7 @@ Game.Level1.prototype = {
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
+        this.music1Created = false;
         // this.timer = createTimer(game,
         //                         ()=>{
         //                             this.camera.reset();
@@ -103,16 +104,30 @@ Game.Level1.prototype = {
         this.totalTime--;
         this.lightRadius -= 10;
         
-        if(this.totalTime < 10 && !this.losingTime){
-            this.music.stop();
-            this.music = this.add.audio('losing_light');
-            this.music.play('', 0, 1, true, true);
+        if(this.totalTime <= 10 && !this.losingTime){
+            this.music.pause();
+            if(!this.music1Created){
+                this.music1 = this.add.audio('losing_light');
+                this.music1.play('', 0, 1, true, true);
+                this.music1Created = true;
+            }
+            else{
+                this.music1.resume();
+            }
             this.losingTime = true;
+            this.music1Played = true;
+        }
+        else if(this.totalTime > 10 && this.losingTime && this.music1Played){
+            this.music1.pause();
+            this.music.resume();
+            this.losingTime = false;
+            this.music1Played = false;
         }
 
         console.log('light radius in tick', this.lightRadius);
         if(this.totalTime === 0 || this.lightRadius === 0) {
             this.camera.reset();
+            this.music1.stop();
             this.music.stop();
             this.state.start('GameOver');
         }
