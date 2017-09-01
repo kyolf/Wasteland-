@@ -133,7 +133,6 @@ function collectBattery(player, battery) {
     this.totalTime += 2;
     this.lightRadius += 80;
     this.scoreText.text = 'Score: ' + this.game.global.score;
-    console.log(this.game.global.score, 'star collected');
 }
 
 // function updateShadowTexture(game, player) {
