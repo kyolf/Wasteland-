@@ -23,11 +23,10 @@ Game.Level1.prototype = {
     create: function(game) {
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
-       
+        game.stage.backgroundColor = '#00112d';
+
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(1, 1);
-
-        game.stage.backgroundColor = '#43484f';
         
         this.layer = createMaps(game, 'map');
       
@@ -59,20 +58,10 @@ Game.Level1.prototype = {
 
         this.batteries = createBatteries(game);
 
-        // this.timer = createTimer(game,
-        //                         ()=>{
-        //                             this.camera.reset();
-        //                             this.state.start('GameOver');
-        //                         });
-
-
-        // this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
-        // this.timerTxt.fixedToCamera = true;
-
         ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
         this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
-        this.timerTxt.anchor.set(0.5, 0.5);
+        this.timerTxt.anchor.setTo(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
 
@@ -87,9 +76,9 @@ Game.Level1.prototype = {
 
          ////////////LIGHTING ATTEMPT///////////
         this.lightRadius = 300;
-        this.shadowTexture = game.add.bitmapData(3200, 1000);
+        this.shadowTexture = game.add.bitmapData(3600, 1000);
         
-        this.light = game.add.sprite(this.player.x/2, this.player.y/5, this.shadowTexture);
+        this.light = game.add.image(0, 0, this.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
 
         ///////////////LIGHTING ATTEMPT ENDS/////////////
@@ -134,24 +123,24 @@ Game.Level1.prototype = {
         //     this.state.start('GameOver');
         // });
 
-        // this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+
     },
     updateShadowTexture: function (game, player) {
-        this.shadowTexture.ctx.fillStyle = '#43484f';
-        this.shadowTexture.ctx.fillRect(0, 0, 3200, 1000);
+        this.shadowTexture.context.fillStyle = '#43484f';
+        this.shadowTexture.context.fillRect(0, 0, 3600, 1000);
     
-        let gradient = this.shadowTexture.ctx.createRadialGradient(
+        let gradient = this.shadowTexture.context.createRadialGradient(
             this.player.x, this.player.y, this.lightRadius * 0.65,
             this.player.x, this.player.y, this.lightRadius
         );
         gradient.addColorStop(0, '#ffffff');
         gradient.addColorStop(1, '#ffffff');
 
-        this.shadowTexture.ctx.beginPath();
-        this.shadowTexture.ctx.fillStyle = gradient;
-        this.shadowTexture.ctx.arc(this.player.x, this.player.y, this.lightRadius, 0, Math.PI * 2);
-        this.shadowTexture.ctx.fill();
+        this.shadowTexture.context.beginPath();
+        this.shadowTexture.context.fillStyle = gradient;
+        this.shadowTexture.context.arc(this.player.x, this.player.y, this.lightRadius, 0, Math.PI * 2);
+        this.shadowTexture.context.fill();
         this.shadowTexture.dirty = true;
     },
     resetPlayer: function(player, enemyGroup){
