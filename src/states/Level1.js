@@ -18,16 +18,24 @@ Game.Level1.prototype = {
         let exit;
         let flyingGroup;
         let tentacleGroup;
+        let light;
+        let shadowTexture;
+        let lightRadius;
+        this.losingTime = false;
     }, 
     create: function(game) {
         this.game.global.score = 0;
+        this.game.global.initials = '';
         this.game.global.tentacleFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        // game.add.sprite(0, 0, 'bg2');
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        game.stage.backgroundColor = '#00112d';
+
         let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(0.5, 1);
+        background.scale.setTo(1, 1);
         
         this.layer = createMaps(game, 'map');
       
@@ -87,29 +95,67 @@ Game.Level1.prototype = {
         //                             this.camera.reset();
         //                             this.state.start('GameOver');
         //                         });
+        //Music
+        this.music = game.add.audio('level1_music');
+        this.music.play('', 0, 1, true, true);
+        this.music1Created = false;
+     
 
+         ////////////LIGHTING BEGINS///////////
+        this.lightRadius = 400;
+        this.shadowTexture = game.add.bitmapData(3600, 1000);
+        
+        this.light = game.add.image(0, 0, this.shadowTexture);
+        this.light.blendMode = Phaser.blendModes.MULTIPLY;
 
-        // this.timerTxt = createText(game, `Timer: ${(this.timer.duration/1000).toPrecision(2)}s`, 1300, 50, '30px Freckle Face', '#FFF', 'center');
-        // this.timerTxt.fixedToCamera = true;
+        ///////////////LIGHTING ENDS/////////////
 
-        ////////TRYING TO CREATE CUSTOM TIMER///////////////////
+         ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 50, '30px Freckle Face', '#FFF', 'center');
-        this.timerTxt.anchor.set(0.5, 0.5);
+        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt.anchor.setTo(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
-        
 
-        ///////////////CUSTOM TIMER ATTEMPT ABOVE///////////////////
+        ///////////////CUSTOM TIMER ABOVE///////////////////
 
         this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
         this.scoreText.fixedToCamera = true;
+
+
+        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+
+
     }, 
     tick: function(game) {
         this.totalTime--;
-        console.log('subtract time', this.totalTime);
-        if(this.totalTime === 0) {
+        this.lightRadius -= 20;
+        
+        if(this.totalTime <= 10 || this.lightRadius <= 60 && !this.losingTime){
+            this.music.pause();
+            if(!this.music1Created){
+                this.music1 = this.add.audio('losing_light');
+                this.music1.play('', 0, 1, true, true);
+                this.music1Created = true;
+            }
+            else{
+                this.music1.resume();
+            }
+            this.losingTime = true;
+            this.music1Played = true;
+        }
+        else if(this.totalTime > 10 && this.losingTime && this.music1Played){
+            this.music1.pause();
+            this.music.resume();
+            this.losingTime = false;
+            this.music1Played = false;
+        }
+
+        console.log('light radius in tick', this.lightRadius);
+        if(this.totalTime === 0 || this.lightRadius === 0) {
             this.camera.reset();
+            this.music1.stop();
+            this.music.stop();
             this.state.start('GameOver');
         }
     },
@@ -118,6 +164,10 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.batteries, this.layer);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
+        /////LIGHTING BEGINS//////
+        this.updateShadowTexture();
+
+        //////////////LIGHTING ENDS//////////////
 
         playerActions(this.cursors, this.player, hitPlatforms);
 
@@ -186,9 +236,30 @@ Game.Level1.prototype = {
         //     this.state.start('GameOver');
         // });
 
-        // this.timerTxt.setText(`Timer: ${(this.timer.duration/1000).toPrecision(2)}s`);
+        //Uncomment for collision to spark victory
+        //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+        //     this.state.start('Victory');
+        // });
+
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
-        
+
+    },
+    updateShadowTexture: function (game, player) {
+        this.shadowTexture.context.fillStyle = '#4e535b';
+        this.shadowTexture.context.fillRect(0, 0, 3600, 1000);
+    
+        let gradient = this.shadowTexture.context.createRadialGradient(
+            this.player.x, this.player.y, this.lightRadius * 0.65,
+            this.player.x, this.player.y, this.lightRadius
+        );
+        gradient.addColorStop(0, '#ffffff');
+        gradient.addColorStop(1, '#ffffff');
+
+        this.shadowTexture.context.beginPath();
+        this.shadowTexture.context.fillStyle = gradient;
+        this.shadowTexture.context.arc(this.player.x + 35, this.player.y + 10, this.lightRadius, 0, Math.PI * 2);
+        this.shadowTexture.context.fill();
+        this.shadowTexture.dirty = true;
 
     },
     nextLevel: function(){
