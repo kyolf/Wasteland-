@@ -56,15 +56,15 @@ Game.Level1.prototype = {
         new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
         new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
         new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
-        new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.enemyGroup);
-        new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.enemyGroup);
-        new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.enemyGroup);
+        // new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.enemyGroup);
+        // new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.enemyGroup);
+        // new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.enemyGroup);
 
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
         //new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.tentacleGroup);
-        //new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.tentacleGroup);
         //new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.tentacleGroup);
 
         this.tentacleGroup.setAll('body.immovable', true);
@@ -137,23 +137,25 @@ Game.Level1.prototype = {
         this.tentacleGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
                 enemy.animations.play('rise');
-                enemy.body.setSize(25, 25, 0, -50);
+                enemy.body.setSize(25, 25, 0, 65);
                 enemy.game.global.tentacleFrame = 'rise';
                 // updateHitBox(enemy, 25, 25, 50,'rise');
-            } else if (enemy.animations.currentFrame.index === 5 && enemy.game.global.tentacleFrame === 'rise') {
-                enemy.body.setSize(25, 75, 0, 0);
+            } else if (enemy.animations.currentFrame.index === 8 && enemy.game.global.tentacleFrame === 'rise') {
+                enemy.body.setSize(25, 65, 0, 25);
                 enemy.game.global.tentacleFrame = 'final';
                 //updateHitBox(enemy, 25, 25, 0, 'final');
-            } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'final') {
+            } else if (enemy.animations.currentFrame.index === 13 && enemy.game.global.tentacleFrame === 'final') {
+                console.log('hit');
                 enemy.body.setSize(25, 90,0, 0);
                 enemy.game.global.tentacleFrame = 'fall';
                 //updateHitBox(enemy, 25, 25, 50, 'fall');
-            } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'fall') {
-              enemy.body.setSize(25, 75, 0, 0);
+            } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+              console.log('retreat')
+              enemy.body.setSize(25, 65, 0, 25);
                 enemy.game.global.tentacleFrame = 'end';
                 //updateHitBox(enemy, 25, 25, 90, 'end');
-            } else if (enemy.animations.currentFrame.index === 6 && enemy.game.global.tentacleFrame === 'end'){
-              enemy.body.setSize(25, 25, 0, 0);
+            } else if (enemy.animations.currentFrame.index === 8 && enemy.game.global.tentacleFrame === 'end'){
+              enemy.body.setSize(25, 25, 0, 65);
                 enemy.game.global.tentacleFrame = 'start';
                 //updateHitBox(enemy, 25, 25, 90, 'start');
             } else {
