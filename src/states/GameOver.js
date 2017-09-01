@@ -4,7 +4,8 @@ Game.GameOver = function(game){
 
 Game.GameOver.prototype = {
     create: function(game) {
-        game.add.sprite(0,0,'bg2');
+        let background = game.add.sprite(0,0,'gameover');
+        background.scale.setTo(0.8, 1);
         let grim = game.add.sprite(800, 350, 'grim');
         grim.anchor.setTo(0.5,0.5);
         grim.scale.setTo(0.7,0.7);
