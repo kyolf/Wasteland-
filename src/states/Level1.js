@@ -17,7 +17,6 @@ Game.Level1.prototype = {
         let shadowTexture;
         let lightRadius;
         this.losingTime = false;
-        this.lifes = 3;
     }, 
     create: function(game) {
         this.game.global.score = 0;
@@ -53,18 +52,20 @@ Game.Level1.prototype = {
         // });
         
         //Creating Piglets
-        this.enemyGroup = game.add.group();
-        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.enemyGroup);
-        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.enemyGroup);
-        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.enemyGroup);
+        this.lifesGroup = game.add.group();
+        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.lifesGroup);
+        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
+        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
 
+        this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+        
         this.batteries = createBatteries(game);
 
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
         this.music1Created = false;
-     
+        
 
          ////////////LIGHTING BEGINS///////////
         this.lightRadius = 400;
@@ -137,23 +138,21 @@ Game.Level1.prototype = {
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with enemies
-        game.physics.arcade.collide(this.enemyGroup, this.layer);
-        this.enemyGroup.forEach(function(enemy){
-            if(enemy.previousPosition.x >= enemy.position.x){
-                enemy.animations.play('left');
+        game.physics.arcade.collide(this.lifesGroup, this.layer);
+        this.lifesGroup.forEach(function(piglet){
+            if(piglet.previousPosition.x >= piglet.position.x){
+                piglet.animations.play('left');
             }else{
-                enemy.animations.play('right');
+                piglet.animations.play('right');
             }
         });
 
         //player collision with enemies
-        // game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
+        // game.physics.arcade.collide(this.player, this.lifesGroup, this.resetPlayer);
 
-        //////////////////////////If we want game over//////////////////////////////
-        game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
-            this.state.start('Victory');
-        });
-
+        game.physics.arcade.collide(this.player, this.lifesGroup, gainLife);
+        
+        this.lifeTxt.setText(`Lifes: ${this.player.lifes}`);
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
 
     },
