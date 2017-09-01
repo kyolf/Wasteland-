@@ -3,7 +3,8 @@ window.onload = function() {
     game.global = {
       score: 0,
       initials: '',
-      tentacleFrame: 'start'
+      tentacleFrame: 'start',
+      shadowFrame: 'start'
     };
     game.state.add('Boot', Game.Boot);
     game.state.add('Preloader', Game.Preloader);
