@@ -116,7 +116,6 @@ Game.Level1.prototype = {
             this.music1Played = false;
         }
 
-        console.log('light radius in tick', this.lightRadius);
         if(this.totalTime === 0 || this.lightRadius === 0) {
             this.camera.reset();
             this.music1.stop();
