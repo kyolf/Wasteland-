@@ -135,8 +135,8 @@ function collectBattery(player, battery) {
 }
 
 function updateHitBox(enemy, w, h, frame) {
-    console.log('hit', enemy.game.global, frame);
-    enemy.body.width = w;
-    enemy.body.height = h;
+    console.log(enemy.animations.currentFrame.index);
+    console.log(enemy.body);
+    enemy.body.setSize(w, h, 0, 0);
     enemy.game.global.tentacleFrame = frame;
 };

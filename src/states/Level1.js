@@ -61,9 +61,9 @@ Game.Level1.prototype = {
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
-        new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.tentacleGroup);
+        //new Tentacle(game, 1300, game.world.height - 290, 100, this.layer, this.tentacleGroup);
         new Tentacle(game, 350, game.world.height - 190, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.tentacleGroup);
+        //new Tentacle(game, 2460, game.world.height - 490, 100, this.layer, this.tentacleGroup);
 
         this.tentacleGroup.setAll('body.immovable', true);
 
@@ -129,31 +129,31 @@ Game.Level1.prototype = {
         });
 
         game.physics.arcade.collide(this.tentacleGroup, this.layer);
-        this.tentacleGroup.forEach(function(enemy){
-            enemy.animations.play('final');
-        });
         // this.tentacleGroup.forEach(function(enemy){
-        //     console.log(enemy.game.global);
-        //     console.log(enemy.game.global.tentacleFrame);
-        //     if (enemy.game.global.tentacleFrame === 'start'){
-        //          enemy.animations.play('start');
-                    // enemy.body.width = 25;
-                    // enemy.body.height = 25;
-        //         setTimeout(updateHitBox(enemy, 25, 70, 'rise'), 2000);
-        //     } else if (enemy.game.global.tentacleFrame === 'rise') {
-        //         enemy.animations.play('rise');
-        //         setTimeout(updateHitBox(enemy, 25, 90, 'final') , 1000);
-        //     } else if (enemy.game.global.tentacleFrame === 'final') {
-        //         enemy.animations.play('final');
-        //         setTimeout(updateHitBox(enemy, 25, 70, 'fall'), 4000);
-        //     } else if (enemy.game.global.tentacleFrame === 'fall') {
-        //         enemy.animations.play('fall');
-        //         setTimeout(updateHitBox(enemy, 25, 25, 'end'), 1000);
-        //     } else {
-        //         enemy.animations.play('end');
-        //         setTimeout(updateHitBox(enemy, 25, 70, 'start'), 1000);
-        //     }
-        // })
+        //     enemy.animations.play('final');
+        // });
+        this.tentacleGroup.forEach(function(enemy){
+            if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+                console.log(enemy.animations.currentFrame);
+                enemy.animations.play('start');
+                enemy.body.setSize(25, 25, 0, 0);
+                updateHitBox(enemy, 25, 50, 'rise');
+            } else if (enemy.animations.currentFrame.index === 5 && enemy.game.global.tentacleFrame === 'rise') {
+                enemy.animations.play('rise');
+                updateHitBox(enemy, 25, 90, 'final');
+            } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'final') {
+                enemy.animations.play('final');
+                updateHitBox(enemy, 25, 50, 'fall');
+            } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'fall') {
+                enemy.animations.play('fall');
+                updateHitBox(enemy, 25, 25, 'end');
+            } else if (enemy.animations.currentFrame.index === 6 && enemy.game.global.tentacleFrame === 'end'){
+                enemy.animations.play('end');
+                updateHitBox(enemy, 25, 25, 'start');
+            } else {
+              return;
+            }
+        })
 
         game.physics.arcade.collide(this.flyingGroup, this.layer);
         this.flyingGroup.forEach(function(enemy){
@@ -166,6 +166,8 @@ Game.Level1.prototype = {
 
         //player collision with enemies
         game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer);
 
         //////////////////////////If we want game over//////////////////////////////
         // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
