@@ -11,34 +11,36 @@ Game.GameOver.prototype = {
                     let name = prompt("Congrats! Your score is in the top 10! Please enter your initials.", "Anonymous");if(name) {this.game.global.initials = name;}
                     postTopScores(this.game.global.score, this.game.global.initials)
                     .then(scores => {
-                        scores.map(topScore => {
-                            createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
-                            createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
-                            yPosText += 50;
-                        });
+                        // scores.map(topScore => {
+                        //     createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
+                        //     createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
+                        //     yPosText += 50;
+                        // });
+                        game.state.start('HighScores');
                     });
                 } else {
-                    fetchTopScores()
-                    .then(topScores=>{
-                        topScores.map(topScore => {
-                        createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
-                        createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
-                        yPosText += 50;
-                        });
-                    })
-                    .catch(err => {
-                        return err;
-                    });
+                    // fetchTopScores()
+                    // .then(topScores=>{
+                    //     topScores.map(topScore => {
+                    //     createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
+                    //     createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
+                    //     yPosText += 50;
+                    //     });
+                    // })
+                    // .catch(err => {
+                    //     return err;
+                    // });
                 }
             } else {
                 let name = prompt("Congrats! Your score is in the top 10! Please enter your initials.", "Anonymous");if(name) {this.game.global.initials = name;}
                 postTopScores(this.game.global.score, this.game.global.initials)
                 .then(scores => {
-                    scores.map(topScore => {
-                        createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
-                        createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
-                        yPosText += 50;
-                    });
+                    // scores.map(topScore => {
+                    //     createText(game, topScore.initials, 200, yPosText, '20px Arial', '#FFF');
+                    //     createText(game, topScore.score, 500, yPosText, '20px Arial', '#FFF');
+                    //     yPosText += 50;
+                    // });
+                    game.state.start('HighScores');
                 });
           }
         })
@@ -55,12 +57,12 @@ Game.GameOver.prototype = {
             this.state.start('MainMenu');
         });
 
-        let highScore = 'Name';
-        createText(game, highScore, 200, 150, '20px Arial', '#FFF', 'center');
+        // let highScore = 'Name';
+        // createText(game, highScore, 200, 150, '20px Arial', '#FFF', 'center');
         
-        highScore = 'Score';
-        createText(game, highScore, 500, 150, '20px Arial', '#FFF', 'center');
+        // highScore = 'Score';
+        // createText(game, highScore, 500, 150, '20px Arial', '#FFF', 'center');
             
-        let yPosText = 200;
+        // let yPosText = 200;
     }
 };
