@@ -134,9 +134,9 @@ function collectBattery(player, battery) {
     this.scoreText.text = 'Score: ' + this.game.global.score;
 }
 
-function updateHitBox(enemy, w, h, frame) {
-    console.log(enemy.animations.currentFrame.index);
+function updateHitBox(enemy, w, h, y, frame) {
+    console.log(enemy.animations.currentFrame.index, y, frame);
     console.log(enemy.body);
-    enemy.body.setSize(w, h, 0, 0);
+    enemy.body.setSize(w, h, 0, y);
     enemy.game.global.tentacleFrame = frame;
 };

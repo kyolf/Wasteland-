@@ -21,6 +21,8 @@ Game.Level1.prototype = {
     }, 
     create: function(game) {
         this.game.global.score = 0;
+        this.game.global.tentacleFrame = 'start';
+
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
         // game.add.sprite(0, 0, 'bg2');
@@ -134,22 +136,17 @@ Game.Level1.prototype = {
         // });
         this.tentacleGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
-                console.log(enemy.animations.currentFrame);
-                enemy.animations.play('start');
-                enemy.body.setSize(25, 25, 0, 0);
-                updateHitBox(enemy, 25, 50, 'rise');
-            } else if (enemy.animations.currentFrame.index === 5 && enemy.game.global.tentacleFrame === 'rise') {
                 enemy.animations.play('rise');
-                updateHitBox(enemy, 25, 90, 'final');
+                enemy.body.setSize(25, 25, 0, 0);
+                updateHitBox(enemy, 25, 25, 50,'rise');
+            } else if (enemy.animations.currentFrame.index === 5 && enemy.game.global.tentacleFrame === 'rise') {
+                updateHitBox(enemy, 25, 25, 0, 'final');
             } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'final') {
-                enemy.animations.play('final');
-                updateHitBox(enemy, 25, 50, 'fall');
+                updateHitBox(enemy, 25, 25, 50, 'fall');
             } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'fall') {
-                enemy.animations.play('fall');
-                updateHitBox(enemy, 25, 25, 'end');
+                updateHitBox(enemy, 25, 25, 90, 'end');
             } else if (enemy.animations.currentFrame.index === 6 && enemy.game.global.tentacleFrame === 'end'){
-                enemy.animations.play('end');
-                updateHitBox(enemy, 25, 25, 'start');
+                updateHitBox(enemy, 25, 25, 90, 'start');
             } else {
               return;
             }
