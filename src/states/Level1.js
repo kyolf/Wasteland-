@@ -24,6 +24,7 @@ Game.Level1.prototype = {
     create: function(game) {
         this.score = 0;
         game.physics.startSystem(Phaser.Physics.ARCADE);
+
         game.stage.backgroundColor = '#00112d';
 
         let background = game.add.sprite(0, 0, 'bg2');
@@ -65,7 +66,16 @@ Game.Level1.prototype = {
         this.music1Created = false;
      
 
-        ////////CREATE CUSTOM TIMER///////////////////
+         ////////////LIGHTING BEGINS///////////
+        this.lightRadius = 400;
+        this.shadowTexture = game.add.bitmapData(3600, 1000);
+        
+        this.light = game.add.image(0, 0, this.shadowTexture);
+        this.light.blendMode = Phaser.blendModes.MULTIPLY;
+
+        ///////////////LIGHTING ENDS/////////////
+
+         ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
         this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
         this.timerTxt.anchor.setTo(0.5, 0.5);
@@ -80,15 +90,6 @@ Game.Level1.prototype = {
 
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
 
-
-         ////////////LIGHTING BEGINS///////////
-        this.lightRadius = 300;
-        this.shadowTexture = game.add.bitmapData(3600, 1000);
-        
-        this.light = game.add.image(0, 0, this.shadowTexture);
-        this.light.blendMode = Phaser.blendModes.MULTIPLY;
-
-        ///////////////LIGHTING ENDS/////////////
 
     }, 
     tick: function(game) {
@@ -157,7 +158,7 @@ Game.Level1.prototype = {
 
     },
     updateShadowTexture: function (game, player) {
-        this.shadowTexture.context.fillStyle = '#43484f';
+        this.shadowTexture.context.fillStyle = '#4e535b';
         this.shadowTexture.context.fillRect(0, 0, 3600, 1000);
     
         let gradient = this.shadowTexture.context.createRadialGradient(

@@ -131,7 +131,7 @@ function collectBattery(player, battery) {
     battery.kill();
     this.score += 10;
     this.totalTime += 2;
-    this.lightRadius += 60;
+    this.lightRadius += 80;
     this.scoreText.text = 'Score: ' + this.score;
 }
 
