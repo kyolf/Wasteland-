@@ -137,16 +137,25 @@ Game.Level1.prototype = {
         this.tentacleGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
                 enemy.animations.play('rise');
-                enemy.body.setSize(25, 25, 0, 0);
-                updateHitBox(enemy, 25, 25, 50,'rise');
+                enemy.body.setSize(25, 25, 0, -50);
+                enemy.game.global.tentacleFrame = 'rise';
+                // updateHitBox(enemy, 25, 25, 50,'rise');
             } else if (enemy.animations.currentFrame.index === 5 && enemy.game.global.tentacleFrame === 'rise') {
-                updateHitBox(enemy, 25, 25, 0, 'final');
+                enemy.body.setSize(25, 75, 0, 0);
+                enemy.game.global.tentacleFrame = 'final';
+                //updateHitBox(enemy, 25, 25, 0, 'final');
             } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'final') {
-                updateHitBox(enemy, 25, 25, 50, 'fall');
+                enemy.body.setSize(25, 90,0, 0);
+                enemy.game.global.tentacleFrame = 'fall';
+                //updateHitBox(enemy, 25, 25, 50, 'fall');
             } else if (enemy.animations.currentFrame.index === 9 && enemy.game.global.tentacleFrame === 'fall') {
-                updateHitBox(enemy, 25, 25, 90, 'end');
+              enemy.body.setSize(25, 75, 0, 0);
+                enemy.game.global.tentacleFrame = 'end';
+                //updateHitBox(enemy, 25, 25, 90, 'end');
             } else if (enemy.animations.currentFrame.index === 6 && enemy.game.global.tentacleFrame === 'end'){
-                updateHitBox(enemy, 25, 25, 90, 'start');
+              enemy.body.setSize(25, 25, 0, 0);
+                enemy.game.global.tentacleFrame = 'start';
+                //updateHitBox(enemy, 25, 25, 90, 'start');
             } else {
               return;
             }
