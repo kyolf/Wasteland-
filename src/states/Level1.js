@@ -87,8 +87,6 @@ Game.Level1.prototype = {
 
         this.flyingGroup.setAll('body.immovable', true);
         
-        this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
-        
         this.batteries = createBatteries(game);
 
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
@@ -143,9 +141,11 @@ Game.Level1.prototype = {
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
 
+        this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+        this.lifeTxt.fixedToCamera = true;
+
         this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
         this.scoreText.fixedToCamera = true;
-
 
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
 
@@ -248,14 +248,14 @@ Game.Level1.prototype = {
             } else {
                 return;
             }
-        })
+        });
 
         game.physics.arcade.collide(this.flyingGroup, this.layer);
         this.flyingGroup.forEach(function(enemy){
             if(enemy.previousPosition.x >= enemy.position.x){
                 enemy.animations.play('left');
             }else{
-                piglet.animations.play('right');
+                enemy.animations.play('right');
             }
         });
 
@@ -274,6 +274,16 @@ Game.Level1.prototype = {
         //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
         //     this.state.start('Victory');
         // });
+
+        if(this.player.lifes === 0){
+            this.music.stop();
+            
+            if(this.music1Created){
+                this.music1.stop();
+            }
+            
+            this.state.start('GameOver');
+        }
 
         game.physics.arcade.collide(this.player, this.lifesGroup, gainLife);
         
@@ -300,9 +310,10 @@ Game.Level1.prototype = {
 
     },
     nextLevel: function(){
-      this.state.start('Level1')
+      this.state.start('Level1');
     },
     resetPlayer: function(player, enemyGroup){
+        player.lifes--;
         player.reset(32, 650);
     },
     render:function(game) {
