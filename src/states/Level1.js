@@ -1,3 +1,5 @@
+'use strict';
+
 Game.Level1 = function(game){
 };
 
@@ -13,6 +15,9 @@ Game.Level1.prototype = {
         let timerTxt;
         let layer;
         let enemyGroup;
+        let exit;
+        let flyingGroup;
+        let tentacleGroup;
         let light;
         let shadowTexture;
         let lightRadius;
@@ -21,6 +26,9 @@ Game.Level1.prototype = {
     create: function(game) {
         this.game.global.score = 0;
         this.game.global.initials = '';
+        this.game.global.tentacleFrame = 'start';
+
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -57,9 +65,33 @@ Game.Level1.prototype = {
         new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
         new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
 
+        //Creating Shadows
+        this.enemyGroup = game.add.group();
+        new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
+
+        this.enemyGroup.setAll('body.immovable', true);
+
+        this.tentacleGroup = game.add.group();
+        new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
+
+        this.tentacleGroup.setAll('body.immovable', true);
+
+        this.flyingGroup = game.add.group();
+        new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.flyingGroup);
+        new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
+        new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
+
+        this.flyingGroup.setAll('body.immovable', true);
+
         this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
         
         this.batteries = createBatteries(game);
+
+        this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
         //Music
         this.music = game.add.audio('level1_music');
@@ -142,13 +174,80 @@ Game.Level1.prototype = {
         this.lifesGroup.forEach(function(piglet){
             if(piglet.previousPosition.x >= piglet.position.x){
                 piglet.animations.play('left');
+            }
+            else{
+                piglet.animations.play('right');
+            }
+        });
+        
+        game.physics.arcade.collide(this.enemyGroup, this.layer);
+        this.enemyGroup.forEach(function(enemy){
+            if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
+                enemy.animations.play('rise');
+                enemy.body.setSize(25, 10, 30, 55);
+            } else if (enemy.animations.currentFrame.index === 3) {
+                enemy.body.setSize(80, 25, 0, 45);
+            } else if (enemy.animations.currentFrame.index === 8) {
+                enemy.body.setSize(80, 45, 0, 25);
+            } else if (enemy.animations.currentFrame.index === 12) {
+                enemy.body.setSize(80, 70, 0, 0);
+                enemy.game.global.tentacleFrame = 'fall';
+            } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.tentacleFrame === 'fall') {
+                enemy.body.setSize(80, 45, 0, 25);
+            } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.tentacleFrame === 'fall') {
+              enemy.body.setSize(80, 25, 0, 45);
+            } else if (enemy.animations.currentFrame.index === 4 && enemy.game.global.tentacleFrame === 'fall') {
+              enemy.body.setSize(25, 10, 30, 55);
+              enemy.game.global.tentacleFrame = 'start';
+            } else {
+              return;
+            }
+        });
+
+        game.physics.arcade.collide(this.tentacleGroup, this.layer);
+        this.tentacleGroup.forEach(function(enemy){
+            if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+                enemy.animations.play('rise');
+                enemy.body.setSize(25, 25, 0, 65);
+            } else if (enemy.animations.currentFrame.index === 9) {
+                enemy.body.setSize(25, 65, 0, 25);
+            } else if (enemy.animations.currentFrame.index === 13) {
+                enemy.body.setSize(25, 90, 0, 0);
+                enemy.game.global.tentacleFrame = 'fall';
+            } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+                enemy.body.setSize(25, 65, 0, 25);
+            } else if (enemy.animations.currentFrame.index === 8){
+                enemy.body.setSize(25, 25, 0, 65);
+                enemy.game.global.tentacleFrame = 'start';
+            } else {
+                return;
+            }
+        })
+
+        game.physics.arcade.collide(this.flyingGroup, this.layer);
+        this.flyingGroup.forEach(function(enemy){
+            if(enemy.previousPosition.x >= enemy.position.x){
+                enemy.animations.play('left');
             }else{
                 piglet.animations.play('right');
             }
         });
 
         //player collision with enemies
-        // game.physics.arcade.collide(this.player, this.lifesGroup, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer);
+
+        //////////////////////////If we want game over//////////////////////////////
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel);
+        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+        //     this.state.start('GameOver');
+        // });
+
+        //Uncomment for collision to spark victory
+        //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+        //     this.state.start('Victory');
+        // });
 
         game.physics.arcade.collide(this.player, this.lifesGroup, gainLife);
         
@@ -174,18 +273,29 @@ Game.Level1.prototype = {
         this.shadowTexture.dirty = true;
 
     },
+    nextLevel: function(){
+      this.state.start('Level1')
+    },
     resetPlayer: function(player, enemyGroup){
         player.reset(32, 650);
     },
     render:function(game) {
         
         // Sprite debug info
-        // game.debug.spriteInfo(this.piglet, 32, 32);
+        // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
-        // this.enemyGroup.forEach(function(enemy){
-        //     game.debug.body(enemy);
-        //     // game.debug.bodyInfo(enemy, 32, y=y+128);
-        // });
+        this.enemyGroup.forEach(function(enemy){
+            //game.debug.body(enemy);
+            // game.debug.bodyInfo(enemy, 32, y=y+128);
+        });
+        this.tentacleGroup.forEach(function(enemy){
+            //game.debug.body(enemy);
+            // game.debug.bodyInfo(enemy, 32, y=y+128);
+        });
+        this.flyingGroup.forEach(function(enemy){
+            //game.debug.body(enemy);
+            // game.debug.bodyInfo(enemy, 32, y=y+128);
+        });
         // game.debug.body(this.player);
         // game.debug.bodyInfo(this.player, 32, 256);
     }

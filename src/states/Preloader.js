@@ -35,6 +35,10 @@ Game.Preloader.prototype = {
         this.load.image('tiles', 'assets/phase-2.png', 32, 32);
         this.load.spritesheet('rain', 'assets/rain.png', 17, 17);
         this.load.spritesheet('piglet', 'assets/baddie.png', 32, 32);
+        this.load.spritesheet('shadow', 'assets/shadow.png', 80, 70);
+        this.load.spritesheet('tentacle', 'assets/tentacle.png', 25, 90);
+        this.load.spritesheet('bat', 'assets/bat.png', 32, 32);
+        this.load.image('tree', 'assets/tree.png', 70, 32);
         
     
         //Music
