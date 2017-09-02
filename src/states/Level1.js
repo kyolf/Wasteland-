@@ -86,9 +86,35 @@ Game.Level1.prototype = {
         new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
-
+        
         this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
         
+        this.batteries = createBatteries(game);
+
+        this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
+
+                //Creating Shadows
+        this.enemyGroup = game.add.group();
+        new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
+
+        this.enemyGroup.setAll('body.immovable', true);
+
+        this.tentacleGroup = game.add.group();
+        new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
+
+        this.tentacleGroup.setAll('body.immovable', true);
+
+        this.flyingGroup = game.add.group();
+        new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.flyingGroup);
+        new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
+        new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
+
+        this.flyingGroup.setAll('body.immovable', true);
+
         this.batteries = createBatteries(game);
 
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
