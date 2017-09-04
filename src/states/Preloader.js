@@ -24,6 +24,9 @@ Game.Preloader.prototype = {
         
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
+        this.load.image('lvl1bg', 'assets/lvl1bg.jpg');
+        this.load.image('lvl2bg', 'assets/lvl2bg.png');
+        this.load.image('lvl3bg', 'assets/lvl3bg.jpg');
         this.load.image('victory', 'assets/victory.jpg');
         this.load.image('gameover', 'assets/gameover.jpg');
         this.load.image('grim', 'assets/grim_reaper.png');
@@ -31,8 +34,11 @@ Game.Preloader.prototype = {
         this.load.image('grass', 'assets/Grass_Platform.png');
         this.load.image('battery', 'assets/battery.png');
         this.load.spritesheet('dude3', 'assets/dude4_small.png', 71, 100); //width div frames, height 
-        this.load.tilemap('map', 'assets/level2.csv', null, Phaser.Tilemap.CSV);
+        this.load.tilemap('map1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.tilemap('map2', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON);
+        this.load.tilemap('map3', 'assets/level3.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.image('tiles', 'assets/phase-2.png', 32, 32);
+        this.load.image('phase-2', 'assets/phase-2.png', 32, 32);
         this.load.spritesheet('rain', 'assets/rain.png', 17, 17);
         this.load.spritesheet('piglet', 'assets/baddie.png', 32, 32);
         this.load.spritesheet('shadow', 'assets/shadow.png', 80, 70);
