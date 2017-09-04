@@ -132,8 +132,7 @@ function playerActions(cursors, player, hitPlatforms){
 function collectBattery(player, battery) {
     battery.kill();
     this.game.global.score += 10;
-    this.totalTime += 2;
-    this.lightRadius += 80;
+    this.totalTime += 5;
     this.scoreText.text = 'Score: ' + this.game.global.score;
 }
 
