@@ -274,15 +274,15 @@ Game.Level1.prototype = {
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
         this.enemyGroup.forEach(function(enemy){
-            //game.debug.body(enemy);
+            // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
         this.tentacleGroup.forEach(function(enemy){
-            //game.debug.body(enemy);
+            // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
         this.flyingGroup.forEach(function(enemy){
-            //game.debug.body(enemy);
+            // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
         // game.debug.body(this.player);
