@@ -59,6 +59,8 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
 
+    player.lifes = 3;
+
     return player;
 }
 
@@ -133,6 +135,11 @@ function collectBattery(player, battery) {
     this.totalTime += 2;
     this.lightRadius += 80;
     this.scoreText.text = 'Score: ' + this.game.global.score;
+}
+
+function gainLife(player, piglet) {
+    player.lifes++;
+    piglet.kill();
 }
 
 // function updateShadowTexture(game, player) {
