@@ -182,9 +182,22 @@ Game.Level1.prototype = {
     }, 
     tick: function(game) {
         this.totalTime--;
-        this.lightRadius -= 20;
+        //this.lightRadius -= 20;
         
-        if(this.totalTime <= 10 || this.lightRadius <= 60 && !this.losingTime){
+        if(this.totalTime >= 30){
+            this.lightRadius = 400;
+        }
+        else if(this.totalTime >= 20){
+            this.lightRadius = 300;
+        }
+        else if(this.totalTime >= 10){
+            this.lightRadius = 200;
+        }
+        else{
+            this.lightRadius = 100;
+        }
+
+        if(this.totalTime <= 10 && !this.losingTime){
             this.music.pause();
             if(!this.music1Created){
                 this.music1 = this.add.audio('losing_light');
@@ -205,7 +218,7 @@ Game.Level1.prototype = {
         }
 
         console.log('light radius in tick', this.lightRadius);
-        if(this.totalTime === 0 || this.lightRadius === 0) {
+        if(this.totalTime === 0) {
             this.camera.reset();
             this.music1.stop();
             this.music.stop();
@@ -224,7 +237,7 @@ Game.Level1.prototype = {
 
         playerActions(this.cursors, this.player, hitPlatforms);
 
-        //tile collision with enemies
+        //tile collision with piglet
         game.physics.arcade.collide(this.lifesGroup, this.layer);
         this.lifesGroup.forEach(function(piglet){
             if(piglet.previousPosition.x >= piglet.position.x){
@@ -235,6 +248,7 @@ Game.Level1.prototype = {
             }
         });
         
+        //tile collision with enemies
         game.physics.arcade.collide(this.enemyGroup, this.layer);
         game.physics.arcade.collide(this.enemyGroup, this.layer2);
         this.enemyGroup.forEach(function(enemy){
