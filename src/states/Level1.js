@@ -37,7 +37,36 @@ Game.Level1.prototype = {
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(1, 1);
         
-        this.layer = createMaps(game, 'map');
+
+        //////////////BEGIN CREATE LEVEL////////////////////////////////////////////////
+
+        // This is where createMaps was called, in the helperFn file..
+        //it has been set this way for now because the createMaps function
+        //needs to be refactored to use the new JSON map and two layer system
+
+        // This is what changes to test the 3 levels
+        //map1, map2, or map3. Likewise lvl1bg, lvl2bg, lvl3bg
+
+        let map = this.add.tilemap('map1');
+
+        map.addTilesetImage('lvl1bg');
+
+        //Nothing below changes. The same for all levels
+
+        map.addTilesetImage('phase-2');
+
+
+        this.layer1 = map.createLayer('Tile Layer 1');
+        this.layer2 = map.createLayer('Tile Layer 2');
+        
+        map.setCollisionBetween(2000, 3000, true, this.layer2);
+
+        this.layer1.resizeWorld();
+
+        
+        /////////////END CREATE LEVEL/////////////////////////////////////////////////////
+
+        //this.layer = createMaps(game, 'map');
       
         //see collision blocks
         //this.layer.debug = true;
@@ -160,8 +189,8 @@ Game.Level1.prototype = {
         }
     },
     update: function(game) {
-        let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);
-        game.physics.arcade.collide(this.batteries, this.layer);
+        let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
+        game.physics.arcade.collide(this.batteries, this.layer2);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         /////LIGHTING BEGINS//////
@@ -172,7 +201,7 @@ Game.Level1.prototype = {
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with enemies
-        game.physics.arcade.collide(this.enemyGroup, this.layer);
+        game.physics.arcade.collide(this.enemyGroup, this.layer2);
         this.enemyGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
                 enemy.animations.play('rise');
@@ -196,7 +225,7 @@ Game.Level1.prototype = {
             }
         });
 
-        game.physics.arcade.collide(this.tentacleGroup, this.layer);
+        game.physics.arcade.collide(this.tentacleGroup, this.layer2);
         this.tentacleGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
                 enemy.animations.play('rise');
@@ -216,7 +245,7 @@ Game.Level1.prototype = {
             }
         })
 
-        game.physics.arcade.collide(this.flyingGroup, this.layer);
+        game.physics.arcade.collide(this.flyingGroup, this.layer2);
         this.flyingGroup.forEach(function(enemy){
             if(enemy.previousPosition.x >= enemy.position.x){
                 enemy.animations.play('left');
