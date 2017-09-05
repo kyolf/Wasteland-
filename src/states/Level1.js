@@ -37,8 +37,6 @@ Game.Level1.prototype = {
         game.global.tentacleFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        
-        game.physics.startSystem(Phaser.Physics.ARCADE);
 
         game.stage.backgroundColor = '#00112d';
 
@@ -120,7 +118,7 @@ Game.Level1.prototype = {
         
          ////////////LIGHTING BEGINS///////////
         game.global.lightRadius = 350;
-        this.shadowTexture = game.add.bitmapData(4000, 4000);
+        this.shadowTexture = game.add.bitmapData(8000, 8000);
         
         this.light = game.add.image(0, 0, this.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
