@@ -90,33 +90,8 @@ Game.Level1.prototype = {
         this.batteries = createBatteries(game);
 
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
-
-                //Creating Shadows
-        this.enemyGroup = game.add.group();
-        new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
-
-        this.enemyGroup.setAll('body.immovable', true);
-
-        this.tentacleGroup = game.add.group();
-        new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
-
-        this.tentacleGroup.setAll('body.immovable', true);
-
-        this.flyingGroup = game.add.group();
-        new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.flyingGroup);
-        new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
-        new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
-
-        this.flyingGroup.setAll('body.immovable', true);
-
-        this.batteries = createBatteries(game);
-
-        this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
-
+        game.physics.arcade.enable(this.exit);
+        this.exit.enableBody = true;
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
@@ -265,10 +240,10 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer);
 
         //////////////////////////If we want game over//////////////////////////////
-        game.physics.arcade.collide(this.player, this.exit, this.nextLevel);
-        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
-        //     this.state.start('GameOver');
-        // });
+        game.physics.arcade.collide(this.player, this.exit, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+            this.state.start('GameOver');
+        });
 
         //Uncomment for collision to spark victory
         //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
@@ -333,7 +308,7 @@ Game.Level1.prototype = {
             // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
-        // game.debug.body(this.player);
+        game.debug.body(this.exit);
         // game.debug.bodyInfo(this.player, 32, 256);
     }
 };
