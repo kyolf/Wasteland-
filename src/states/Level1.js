@@ -255,23 +255,19 @@ Game.Level1.prototype = {
         this.enemyGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
                 enemy.animations.play('rise');
-                enemy.body.setSize(25, 10, 30, 55);
-            } else if (enemy.animations.currentFrame.index === 3) {
-                enemy.body.setSize(80, 25, 0, 45);
+                enemy.body.setSize(0, 0, 0, 0);
             } else if (enemy.animations.currentFrame.index === 8) {
                 enemy.body.setSize(80, 45, 0, 25);
             } else if (enemy.animations.currentFrame.index === 12) {
                 enemy.body.setSize(80, 70, 0, 0);
-                enemy.game.global.tentacleFrame = 'fall';
-            } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.tentacleFrame === 'fall') {
+                enemy.game.global.shadowFrame = 'fall';
+            } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
                 enemy.body.setSize(80, 45, 0, 25);
-            } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.tentacleFrame === 'fall') {
-              enemy.body.setSize(80, 25, 0, 45);
-            } else if (enemy.animations.currentFrame.index === 4 && enemy.game.global.tentacleFrame === 'fall') {
-              enemy.body.setSize(25, 10, 30, 55);
-              enemy.game.global.tentacleFrame = 'start';
+            } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
+                enemy.body.setSize(0, 0, 0, 0);
+                enemy.game.global.shadowFrame = 'start';
             } else {
-              return;
+                return;
             }
         });
 
@@ -367,7 +363,7 @@ Game.Level1.prototype = {
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
         this.enemyGroup.forEach(function(enemy){
-            // game.debug.body(enemy);
+            game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
         this.tentacleGroup.forEach(function(enemy){
