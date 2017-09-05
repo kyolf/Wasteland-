@@ -285,27 +285,41 @@ function musicPlayed(time, bgMusic, hbSlow, hbFast) {
     }
 }
 
-function goToGameOver(bgMusic, hbSlow, hbFast, state) {
-    bgMusic.stop();
+function goToGameOver(hbSlow, hbFast, state) {
     hbSlow.stop();
     hbFast.stop();
     state.start('GameOver');
 }
 
-// function updateShadowTexture(game, player) {
-//     this.shadowTexture.ctx.fillStyle = '#ff0000';
-//     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);
+function updateShadowTexture(game, player, shadowTexture) {
+    shadowTexture.context.fillStyle = '#00040c';
+    shadowTexture.context.fillRect(0, 0, 4000, 8000);
 
-//     let gradient = this.shadowTexture.ctx.createRadialGradient(
-//         player.body.x, player.body.y, this.LIGHT_RADIUS * 0.75,
-//         player.body.x, player.body.y, this.LIGHT_RADIUS
-//     );
-//     gradient.addColorStop(0, '#ff000');
-//     gradient.addColorStop(1, '#ff000');
+    let gradient = shadowTexture.context.createRadialGradient(
+        player.x, player.y, game.global.lightRadius * 0.65,
+        player.x, player.y, game.global.lightRadius
+    );
+    gradient.addColorStop(0, '#ffffff');
+    gradient.addColorStop(1, '#ffffff');
 
-//     this.shadowTexture.ctx.beginPath();
-//     this.shadowTexture.ctx.fillStyle = gradient;
-//     this.shadowTexture.ctx.arc(player.body.x, player.body.y, this.LIGHT_RADIUS, 0, Math.PI * 2);
-//     this.shadowTexture.ctx.fill();
-//     this.shadowTexture.dirty = true;
-// }
+    shadowTexture.context.beginPath();
+    shadowTexture.context.fillStyle = gradient;
+    shadowTexture.context.arc(player.x + 35, player.y + 10, game.global.lightRadius, 0, Math.PI * 2);
+    shadowTexture.context.fill();
+    shadowTexture.dirty = true;
+
+}
+
+function tick() {
+    this.global.time--;
+
+    this.global.lightRadius = lightRadiusSize(this.global.time);
+
+    musicPlayed(this.global.time, window.music, window.music1, window.music2);
+    
+    if(this.global.time === 0) {
+        window.music.stop();
+        window.music = null;
+        goToGameOver(window.music1, window.music2, this.state);
+    }
+}
