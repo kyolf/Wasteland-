@@ -7,27 +7,28 @@ Game.HighScores.prototype = {
     //     let highScores;
     // },
     create: function(game) {
-        game.add.sprite(0,0,'bg2');
+        let bg = game.add.sprite(0,0,'bg2');
+        bg.set.scaleTo(0.5, 0.5);
     
-        createText(game, 'High Scores', 675, 50, '70px Architects Daughter', '#FFF', 'center');
+        createText(game, 'High Scores', 275, 60, '80px murderFont', '#FFF', 'center');
     
-        createButton(game, 'Go Back to Menu', 175, 75, 275, 60, 
+        createButton(game, 'Go Back to Menu', 175, 50, 200, 50, 
         () => {
             this.state.start('MainMenu');
         });
     
         let highScore = 'Name';
-        createText(game, highScore, 500, 175, '40px Architects Daughter', '#FFF', 'center');
+        createText(game, highScore, 150, 150, '40px murderFont', '#FFF', 'center');
     
         highScore = 'Score';
-        createText(game, highScore, 1050, 175, '40px Architects Daughter', '#FFF', 'center');
+        createText(game, highScore, 600, 150, '40px murderFont', '#FFF', 'center');
         
-        let yPosText = 250;
+        let yPosText = 200;
         fetchTopScores()
         .then(topScores=>{
             topScores.map(topScore =>{
-                createText(game, topScore.initials, 500, yPosText, '25px Architects Daughter', '#FFF');
-                createText(game, topScore.score, 1075, yPosText, '25px Architects Daughter', '#FFF');
+                createText(game, topScore.initials, 150, yPosText, '25px murderFont', '#FFF');
+                createText(game, topScore.score, 625, yPosText, '25px murderFont', '#FFF');
                 yPosText += 50;
             });
         })

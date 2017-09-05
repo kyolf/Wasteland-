@@ -1,5 +1,5 @@
 window.onload = function() {
-    let game = new Phaser.Game(1600, 800, Phaser.AUTO, '');
+    let game = new Phaser.Game(800, 600, Phaser.AUTO, '');
     game.global = {
       score: 0,
       time: 30,
@@ -8,6 +8,7 @@ window.onload = function() {
       tentacleFrame: 'start',
       shadowFrame: 'start'
     };
+
     game.state.add('Boot', Game.Boot);
     game.state.add('Preloader', Game.Preloader);
     game.state.add('MainMenu', Game.MainMenu);

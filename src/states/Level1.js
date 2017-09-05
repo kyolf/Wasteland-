@@ -27,16 +27,23 @@ Game.Level1.prototype = {
         this.losingTime = false;
     }, 
     create: function(game) {
+        //////CENTERS PHASER GAME WINDOW/////////
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
+        this.game.scale.refresh();
+
         game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
+
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
         game.stage.backgroundColor = '#00112d';
 
         let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(1, 1);
+        background.scale.setTo(0.5, 0.5);
         
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
@@ -62,10 +69,10 @@ Game.Level1.prototype = {
         // });
         
         //Creating Piglets
-        this.lifesGroup = game.add.group();
-        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.lifesGroup);
-        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
-        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
+        this.livesGroup = game.add.group();
+        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.livesGroup);
+        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.livesGroup);
+        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.livesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
@@ -115,15 +122,6 @@ Game.Level1.prototype = {
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, game);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
-
-        // this.timerTxt = createText(game, `Timer: ${game.global.time}s`, 1350, 75, '30px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
-        // this.timerTxt.fixedToCamera = true;
-
-        // this.scoreText = createText(game, `Score: ${this.game.global.score}`, 150, 50, '30px Architects Daughter', '#FFF');
-        // this.scoreText.fixedToCamera = true;
-
-        // this.lifeTxt = createText(game, `Life:`, 25, 100, '30px Architects Daughter', '#FFF', 'center');
-        // this.lifeTxt.fixedToCamera = true;
         const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px Architects Daughter');
         this.lifeTxt = lifeTxt;
         this.scoreTxt = scoreTxt;

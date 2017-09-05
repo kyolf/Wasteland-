@@ -6,7 +6,7 @@ function createButton(game,textOfButton,x,y,w,h,callback) {
     button1.width = w;
     button1.height = h;
 
-    createText(game, textOfButton, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfButton, x, y, '32px murderFont', '#FFF', 'center', 0.5, 0.5);
 }
 
 function createImageButton(game, textOfImage,x,y,w,h) {
@@ -19,7 +19,7 @@ function createImageButton(game, textOfImage,x,y,w,h) {
     button.scale.y = 0.5;
     button.tweenAnimation = game.add.tween(button.scale).to({x: 0.7, y: 0.7},500,'Linear',true,0,-1,true); 
     
-    createText(game, textOfImage, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfImage, x, y, '40px murderFont', '#FFF', 'center', 0.5, 0.5);
     return button;
 }
 
