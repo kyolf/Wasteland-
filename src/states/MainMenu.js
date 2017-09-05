@@ -83,6 +83,7 @@ Game.MainMenu.prototype = {
             if(this.buttonIndex === 0){
                 game.state.start('Level1');
                 window.music.stop();
+                window.music = null;
             }else if(this.buttonIndex === 1){
                 game.state.start('InfoModal');
             }else{
