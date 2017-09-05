@@ -53,9 +53,9 @@ Game.GameOver.prototype = {
         grim.scale.setTo(0.5, 0.5);
         
         createText(game, 'Game Over', 175, 125, '150px murderFont', '#FFF');
-        createText(game, 'YOUR SOUL IS MINE!', 425, 325, '80px murderFont', '#FFF','center', 0.5, 0.5);
-        createButton(game, 'Go Back to Menu', 175, 50,
-        200, 50, () => {
+        createText(game, 'YOUR SOUL IS MINE!', 425, 350, '80px murderFont', '#FFF','center', 0.5, 0.5);
+        createButton(game, 'Go Back to Menu', 100, 50,
+        175, 50, () => {
             this.state.start('MainMenu');
         });
 

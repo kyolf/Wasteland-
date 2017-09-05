@@ -84,17 +84,6 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 7) {
     return batteries;
 }
 
-// function createLives(game, pixelsApart = 100, numLives = 5) {
-//     let lives = game.add.group();
-//     lives.enableBody = true;
-
-//     for(let i = 1; i <= numLives; i++) {
-//         let life = lives.create(i * pixelsApart, 100, 'life');
-//         life.allowGravity = false;
-//     }
-//     return lives;
-// }
-
 function createTimer(game, callback, duration = 30000){
     let timer = game.time.create();
     timer.add(duration, callback, this);
@@ -174,9 +163,15 @@ function gainLife(player, piglet) {
 
 function lightRadiusSize(time){
     if(time >= 30){
+        return 350;
+    }
+    else if(time > 25) {
         return 300;
     }
     else if(time > 20){
+        return 250;
+    }
+    else if(time > 15) {
         return 200;
     }
     else if(time > 10){
