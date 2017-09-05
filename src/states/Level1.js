@@ -97,9 +97,18 @@ Game.Level1.prototype = {
 
         this.flyingGroup.setAll('body.immovable', true);
         
-        this.batteries = createBatteries(game);
+        //this.batteries = createBatteries(game);
 
-        this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
+        this.batteries = game.add.group();
+        new Batteries(game, 1350, game.world.height - 960, 0, this.layer, this.batteries);
+        new Batteries(game, 2050, game.world.height - 1440, 0, this.layer, this.batteries);
+        new Batteries(game, 2528, game.world.height - 640, 0, this.layer, this.batteries);
+        new Batteries(game, 4256, game.world.height - 550, 0, this.layer, this.batteries);
+
+
+        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        game.physics.arcade.enable(this.exit); 
+        this.exit.enableBody = true;
 
         //Music
         window.music = game.add.audio('level1_music');
@@ -212,7 +221,8 @@ Game.Level1.prototype = {
     },
 
     nextLevel: function(){
-      this.state.start('Level1');
+        player.game.global.score += player.game.global.totalTime;
+        this.state.start('Level2');
     },
     resetPlayer: function(player, enemyGroup){
         this.global.lives--;
