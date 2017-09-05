@@ -70,7 +70,7 @@ Game.MainMenu.prototype = {
         if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && this.buttonIndex < 2 && this.arrow.canMove) {
             this.buttonArr[this.buttonIndex].tweenAnimation.pause();
             this.buttonIndex++;
-            this.arrow.position.y += 100;
+            this.arrow.position.y += 75;
 
             this.buttonArr[this.buttonIndex].tweenAnimation = game.add.tween(this.buttonArr[this.buttonIndex].scale)
                                                                 .to({x: 0.7, y: 0.7},500,'Linear',true,0,-1,true);
@@ -81,7 +81,7 @@ Game.MainMenu.prototype = {
         if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && this.buttonIndex > 0 && this.arrow.canMove) {
             this.buttonArr[this.buttonIndex].tweenAnimation.pause();
             this.buttonIndex--;
-            this.arrow.position.y -= 100;
+            this.arrow.position.y -= 75;
 
             this.buttonArr[this.buttonIndex].tweenAnimation = game.add.tween(this.buttonArr[this.buttonIndex].scale)
                                                                 .to({x: 0.7, y: 0.7},500,'Linear',true,0,-1,true);

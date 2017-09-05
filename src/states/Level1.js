@@ -5,25 +5,25 @@ Game.Level1 = function(game){
 
 Game.Level1.prototype = {
     init: function() {
-        let platforms;
-        let player;
-        let cursors;
-        let batteries;
-        let lives;
-        let lifeTxt;
-        let score;
-        let scoreText;
-        let timer;
-        let totalTime;
-        let timerTxt;
-        let layer;
-        let enemyGroup;
-        let exit;
-        let flyingGroup;
-        let tentacleGroup;
-        let light;
-        let shadowTexture;
-        let lightRadius;
+        this.platforms;
+        this.player;
+        this.cursors;
+        this.batteries;
+        this.lives;
+        this.lifeTxt;
+        this.score;
+        this.scoreText;
+        this.timer;
+        this.totalTime;
+        this.timerTxt;
+        this.layer;
+        this.enemyGroup;
+        this.exit;
+        this.flyingGroup;
+        this.tentacleGroup;
+        this.light;
+        this.shadowTexture;
+        this.lightRadius;
         this.losingTime = false;
     }, 
     create: function(game) {
@@ -272,6 +272,7 @@ Game.Level1.prototype = {
         // Sprite debug info
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
+        // game.debug.bodyInfo(this.layer);
         this.enemyGroup.forEach(function(enemy){
             game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
