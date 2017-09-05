@@ -67,8 +67,6 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
 
-    player.lifes = 3;
-
     return player;
 }
 
@@ -84,16 +82,16 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 7){
     return batteries;
 }
 
-function createLives(game, pixelsApart = 100, numLives = 5) {
-    let lives = game.add.group();
-    lives.enableBody = true;
+// function createLives(game, pixelsApart = 100, numLives = 5) {
+//     let lives = game.add.group();
+//     lives.enableBody = true;
 
-    for(let i = 1; i <= numLives; i++) {
-        let life = lives.create(i * pixelsApart, 100, 'life');
-        life.allowGravity = false;
-    }
-    return lives;
-}
+//     for(let i = 1; i <= numLives; i++) {
+//         let life = lives.create(i * pixelsApart, 100, 'life');
+//         life.allowGravity = false;
+//     }
+//     return lives;
+// }
 
 function createTimer(game, callback, duration = 30000){
     let timer = game.time.create();

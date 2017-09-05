@@ -43,6 +43,7 @@ Game.Level1.prototype = {
         //see collision blocks
         //this.layer2.debug = true;
         this.player = createPlayer(game);
+        this.player.lifes = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
@@ -119,18 +120,10 @@ Game.Level1.prototype = {
         ///////////////CUSTOM TIMER ABOVE///////////////////
 
         this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Architects Daughter', '#FFF');
-        this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
-        this.lifeTxt.fixedToCamera = true;
-
-        // this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
         this.scoreText.fixedToCamera = true;
 
-        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
-
-        ///////CREATE LIVES///////////
         this.lifeTxt = createText(game, `Life:`, 25, 100, '30px Architects Daughter', '#FFF', 'center');
         this.lifeTxt.fixedToCamera = true;
-        this.lives = createLives(game);
 
 
     }, 
