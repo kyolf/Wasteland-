@@ -1,7 +1,6 @@
 'use strict';
 
-const Piglet = function(game, x, y, destination, platforms, group){
-    this.platform = platforms;
+const Piglet = function(game, x, y, destination, group){
     this.piglet = game.add.sprite(x, y, 'piglet');
     game.physics.arcade.enable(this.piglet);
     this.piglet.collideWorldBounds = true;

@@ -1,7 +1,6 @@
 'use strict';
 
-const Bat = function(game, x, y, destination, platforms, group){
-    this.platform = platforms;
+const Bat = function(game, x, y, destination, group){
     this.bat = game.add.sprite(x, y, 'bat');
     game.physics.arcade.enable(this.bat);
     this.bat.collideWorldBounds = true;
@@ -11,7 +10,6 @@ const Bat = function(game, x, y, destination, platforms, group){
     this.bat.animations.add('right', [5,6,7], 5, true);
      
     this.bat.body.collideWorldBounds = true;  
-    // this.bat.body.gravity.y = 400;
 
     //sprite move back and forth
     this.batTween = game.add.tween(this.bat).to({x: this.bat.x + destination},9000,'Linear',true,0,-1,true);

@@ -4,6 +4,7 @@ window.onload = function() {
       score: 0,
       time: 30,
       lifes: 3,
+      lightRadius: 300,
       initials: '',
       tentacleFrame: 'start',
       shadowFrame: 'start'

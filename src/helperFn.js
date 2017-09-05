@@ -84,17 +84,6 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.0){
 //     return batteries;
 // }
 
-// function createLives(game, pixelsApart = 100, numLives = 5) {
-//     let lives = game.add.group();
-//     lives.enableBody = true;
-
-//     for(let i = 1; i <= numLives; i++) {
-//         let life = lives.create(i * pixelsApart, 100, 'life');
-//         life.allowGravity = false;
-//     }
-//     return lives;
-// }
-
 function createTimer(game, callback, duration = 30000){
     let timer = game.time.create();
     timer.add(duration, callback, this);
@@ -106,10 +95,10 @@ function createLevelText(game, font) {
     let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 700, 75, font, '#FFF', 'center', 0.5, 0.5);
     timerTxt.fixedToCamera = true;
 
-    let scoreTxt = createText(game, `Score: ${game.global.score}`, 150, 50, font, '#FFF');
+    let scoreTxt = createText(game, `Score: ${game.global.score}`, 25, 50, font, '#FFF');
     scoreTxt.fixedToCamera = true;
 
-    let lifeTxt = createText(game, `Life: ${game.global.lifes}`, 25, 100, font, '#FFF', 'center');
+    let lifeTxt = createText(game, `Life: ${game.global.lives}`, 400, 50, font, '#FFF', 'center');
     lifeTxt.fixedToCamera = true;
     
     return {timerTxt, scoreTxt, lifeTxt};
@@ -168,19 +157,88 @@ function collectBattery(player, battery) {
 }
 
 function gainLife(player, piglet) {
-    this.global.lifes++;
+    this.global.lives++;
     piglet.kill();
+}
+
+function pigletAnimations(group){
+    group.forEach(function(piglet){
+        if(piglet.previousPosition.x >= piglet.position.x){
+            piglet.animations.play('left');
+        }
+        else{
+            piglet.animations.play('right');
+        }
+    });
+}
+
+function shadowAnimations(group){
+    group.forEach(function(enemy){
+        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
+            enemy.animations.play('rise');
+            enemy.body.setSize(0, 0, 0, 0);
+        } else if (enemy.animations.currentFrame.index === 8) {
+            enemy.body.setSize(80, 45, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 12) {
+            enemy.body.setSize(80, 70, 0, 0);
+            enemy.game.global.shadowFrame = 'fall';
+        } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
+            enemy.body.setSize(80, 45, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
+            enemy.body.setSize(0, 0, 0, 0);
+            enemy.game.global.shadowFrame = 'start';
+        } else {
+            return;
+        }
+    });
+}
+
+function tentacleAnimations(group){
+    group.forEach(function(enemy){
+        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+            enemy.animations.play('rise');
+            enemy.body.setSize(25, 25, 0, 65);
+        } else if (enemy.animations.currentFrame.index === 9) {
+            enemy.body.setSize(25, 65, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 13) {
+            enemy.body.setSize(25, 90, 0, 0);
+            enemy.game.global.tentacleFrame = 'fall';
+        } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+            enemy.body.setSize(25, 65, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 8){
+            enemy.body.setSize(25, 25, 0, 65);
+            enemy.game.global.tentacleFrame = 'start';
+        } else {
+            return;
+        }
+    });
+}
+
+function flyingAnimations(group){
+    group.forEach(function(enemy){
+        if(enemy.previousPosition.x >= enemy.position.x){
+            enemy.animations.play('left');
+        }else{
+            enemy.animations.play('right');
+        }
+    });
 }
 
 function lightRadiusSize(time){
     if(time >= 30){
-        return 400;
+        return 350;
     }
-    else if(time > 20){
+    else if(time > 25) {
         return 300;
     }
-    else if(time > 10){
+    else if(time > 20){
+        return 250;
+    }
+    else if(time > 15) {
         return 200;
+    }
+    else if(time > 10){
+        return 150;
     }
     else{
         return 100;
