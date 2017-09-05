@@ -149,7 +149,10 @@ Game.Level1.prototype = {
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
-        this.music1Created = false;
+        this.music1 = this.add.audio('heart_slow');
+        this.music2 = this.add.audio('heart_fast');
+        this.music1Stopped = true;
+        this.music2Stopped = true;
         
 
          ////////////LIGHTING BEGINS///////////
@@ -187,40 +190,56 @@ Game.Level1.prototype = {
         if(this.totalTime >= 30){
             this.lightRadius = 400;
         }
-        else if(this.totalTime >= 20){
+        else if(this.totalTime > 20){
             this.lightRadius = 300;
         }
-        else if(this.totalTime >= 10){
+        else if(this.totalTime > 10){
             this.lightRadius = 200;
         }
         else{
             this.lightRadius = 100;
         }
 
-        if(this.totalTime <= 10 && !this.losingTime){
-            this.music.pause();
-            if(!this.music1Created){
-                this.music1 = this.add.audio('losing_light');
+        if(this.totalTime > 10){
+            if(!this.music1Stopped){
+                this.music1.stop();
+                this.music1Stopped = true;
+            }
+            if(this.musicPaused){
+                this.music.resume();
+                this.musicPaused = false;
+            }
+        }
+        else if(this.totalTime > 5){
+            if(!this.musicPaused){
+                this.music.pause();
+                this.musicPaused = true;
+            }
+            if(!this.music2Stopped){
+                this.music2.stop();
+                this.music2Stopped = true;
+            }
+            if(this.music1Stopped){
                 this.music1.play('', 0, 1, true, true);
-                this.music1Created = true;
+                this.music1Stopped = false;
             }
-            else{
-                this.music1.resume();
+        }
+        else{
+            if(!this.music1Stopped){
+                this.music1.stop();
+                this.music1Stopped = true;
             }
-            this.losingTime = true;
-            this.music1Played = true;
+            if(this.music2Stopped){
+                this.music2.play('', 0, 1, true, true);
+                this.music2Stopped = false;
+            }
         }
-        else if(this.totalTime > 10 && this.losingTime && this.music1Played){
-            this.music1.pause();
-            this.music.resume();
-            this.losingTime = false;
-            this.music1Played = false;
-        }
+        
 
         console.log('light radius in tick', this.lightRadius);
         if(this.totalTime === 0) {
             this.camera.reset();
-            this.music1.stop();
+            this.music2.stop();
             this.music.stop();
             this.state.start('GameOver');
         }
@@ -358,7 +377,7 @@ Game.Level1.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         player.lifes--;
-        player.reset(32, 650);
+        player.reset(632, this.world.height - 1550);
     },
     render:function(game) {
         
