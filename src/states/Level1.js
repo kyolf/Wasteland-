@@ -5,25 +5,6 @@ Game.Level1 = function(game){
 
 Game.Level1.prototype = {
     init: function() {
-        let platforms;
-        let player;
-        let cursors;
-        let batteries;
-        let lives;
-        let lifeTxt;
-        let score;
-        let scoreText;
-        let timer;
-        let totalTime;
-        let timerTxt;
-        let layer;
-        let enemyGroup;
-        let exit;
-        let flyingGroup;
-        let tentacleGroup;
-        let light;
-        let shadowTexture;
-        let lightRadius;
         this.losingTime = false;
     }, 
     create: function(game) {
@@ -120,7 +101,7 @@ Game.Level1.prototype = {
 
          ////////CREATE CUSTOM TIMER///////////////////
         game.global.time = 30;
-        this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, game);
+        this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, game);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
         const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px murderFont');
@@ -129,25 +110,24 @@ Game.Level1.prototype = {
         this.timerTxt = timerTxt;
 
     }, 
-    tick: function(game) {
-        this.global.time--;
+    // tick: function() {
+    //     this.global.time--;
 
-        this.global.lightRadius = lightRadiusSize(this.global.time);
-        console.log('light radius', this.global.lightRadius, this.global.time);
+    //     this.global.lightRadius = lightRadiusSize(this.global.time);
 
-        musicPlayed(this.global.time, window.music, window.music1, window.music2);
+    //     musicPlayed(this.global.time, window.music, window.music1, window.music2);
         
-        if(this.global.time === 0) {
-            goToGameOver(window.music, window.music1, window.music2, this.state);
-        }
-    },
+    //     if(this.global.time === 0) {
+    //         goToGameOver(window.music, window.music1, window.music2, this.state);
+    //     }
+    // },
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
         game.physics.arcade.collide(this.batteries, this.layer2);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
 
         /////LIGHTING BEGINS//////
-        this.updateShadowTexture(game);
+        updateShadowTexture(game, this.player, this.shadowTexture);
 
         //////////////LIGHTING ENDS//////////////
 
@@ -182,7 +162,9 @@ Game.Level1.prototype = {
         // });
 
         if(game.global.lives === 0){
-            goToGameOver(window.music, window.music1, window.music2, game.state);
+            window.music.stop();
+            window.music = null;
+            goToGameOver(window.music1, window.music2, game.state);
         }
 
         game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, game);
@@ -192,25 +174,6 @@ Game.Level1.prototype = {
         this.timerTxt.setText(`Timer: ${game.global.time}s`);
 
     },
-    updateShadowTexture: function (game, player) {
-        this.shadowTexture.context.fillStyle = '#00040c';
-        this.shadowTexture.context.fillRect(0, 0, 4000, 8000);
-    
-        let gradient = this.shadowTexture.context.createRadialGradient(
-            this.player.x, this.player.y, game.global.lightRadius * 0.65,
-            this.player.x, this.player.y, game.global.lightRadius
-        );
-        gradient.addColorStop(0, '#ffffff');
-        gradient.addColorStop(1, '#ffffff');
-
-        this.shadowTexture.context.beginPath();
-        this.shadowTexture.context.fillStyle = gradient;
-        this.shadowTexture.context.arc(this.player.x + 35, this.player.y + 10, game.global.lightRadius, 0, Math.PI * 2);
-        this.shadowTexture.context.fill();
-        this.shadowTexture.dirty = true;
-
-    },
-
     nextLevel: function(){
       this.state.start('Level1');
     },
@@ -223,7 +186,7 @@ Game.Level1.prototype = {
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
         this.enemyGroup.forEach(function(enemy){
-            game.debug.body(enemy);
+            // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
         this.tentacleGroup.forEach(function(enemy){
