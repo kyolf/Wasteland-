@@ -172,6 +172,48 @@ function gainLife(player, piglet) {
     piglet.kill();
 }
 
+function pigletAnimations(group){
+    group.forEach(function(piglet){
+        if(piglet.previousPosition.x >= piglet.position.x){
+            piglet.animations.play('left');
+        }
+        else{
+            piglet.animations.play('right');
+        }
+    });
+}
+
+function tentacleAnimations(group){
+    group.forEach(function(enemy){
+        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+            enemy.animations.play('rise');
+            enemy.body.setSize(25, 25, 0, 65);
+        } else if (enemy.animations.currentFrame.index === 9) {
+            enemy.body.setSize(25, 65, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 13) {
+            enemy.body.setSize(25, 90, 0, 0);
+            enemy.game.global.tentacleFrame = 'fall';
+        } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+            enemy.body.setSize(25, 65, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 8){
+            enemy.body.setSize(25, 25, 0, 65);
+            enemy.game.global.tentacleFrame = 'start';
+        } else {
+            return;
+        }
+    });
+}
+
+function flyingAnimations(group){
+    group.forEach(function(enemy){
+        if(enemy.previousPosition.x >= enemy.position.x){
+            enemy.animations.play('left');
+        }else{
+            enemy.animations.play('right');
+        }
+    });
+}
+
 function lightRadiusSize(time){
     if(time >= 30){
         return 300;
