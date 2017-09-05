@@ -133,10 +133,7 @@ Game.Level1.prototype = {
         musicPlayed(this.totalTime, this.music, this.music1, this.music2);
         
         if(this.totalTime === 0) {
-            this.camera.reset();
-            this.music2.stop();
-            this.music.stop();
-            this.state.start('GameOver');
+            goToGameOver(this.music, this.music1, this.music2, this.state);
         }
     },
     update: function(game) {
@@ -234,13 +231,7 @@ Game.Level1.prototype = {
         // });
 
         if(this.player.lifes === 0){
-            this.music.stop();
-            
-            if(this.music1Created){
-                this.music1.stop();
-            }
-            
-            this.state.start('GameOver');
+            goToGameOver(this.music, this.music1, this.music2, game.state);
         }
 
         game.physics.arcade.collide(this.player, this.lifesGroup, gainLife);

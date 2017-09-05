@@ -202,6 +202,13 @@ function musicPlayed(time, bgMusic, hbSlow, hbFast){
     }
 }
 
+function goToGameOver(bgMusic, hbSlow, hbFast, state){
+    bgMusic.stop();
+    hbSlow.stop();
+    hbFast.stop();
+    state.start('GameOver');
+}
+
 // function updateShadowTexture(game, player) {
 //     this.shadowTexture.ctx.fillStyle = '#ff0000';
 //     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);
