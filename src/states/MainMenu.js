@@ -10,27 +10,36 @@ Game.MainMenu.prototype = {
         this.music = null;
     },
     create:function(game) {
+        //////CENTERS PHASER GAME WINDOW/////////
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
+        this.game.scale.refresh();
+        
         //Background
         game.add.sprite(0,0,'bg2');
 
         //Title
-        createText(game, 'Wasteland', 600, 175, '100px Architects Daughter', '#FFF', 'center');
+        createText(game, 'Wasteland', 200, 100, '155px murderFont', '#FFF');
 
-        console.log(game.world.centerX, game.world.centerY);
+        // console.log(game.world.centerX, game.world.centerY);
         
-        this.buttonArr.push(createImageButton(game, 'Play Game', 800, 350, 200, 50));
-        let button = createImageButton(game, 'InfoModal', 800, 450, 200, 50);
+        this.buttonArr.push(createImageButton(game, 'Play Game', 425, 300, 90, 90));
+        let button = createImageButton(game, 'InfoModal', 425, 375, 90, 90);
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
 
-        button = createImageButton(game, 'High Scores', 800, 550, 200, 50);
+        button = createImageButton(game, 'High Scores', 425, 450, 90, 90);
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
 
-        this.arrow = game.add.sprite(625, 350, 'piglet');
+
+        //******PLEASE NOTE THAT THERE IS A BUG WITH HOW FAR THE ARROW MOVES DOWN************//
+        this.arrow = game.add.sprite(275, 300, 'piglet');
         this.arrow.anchor.setTo(0.5, 0.5);
         this.arrow.canMove = true;
         this.arrow.animations.add('right', [2,3], 5, true);
+        ///*******************BUT ABOVE***********************//////////////////////
+
 
         createRain(game, 300, 500, -5, 5, 0.1, 0.5, 0, 0, 30);
 

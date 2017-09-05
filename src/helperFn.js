@@ -6,7 +6,7 @@ function createButton(game,textOfButton,x,y,w,h,callback){
     button1.width = w;
     button1.height = h;
 
-    createText(game, textOfButton, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfButton, x, y, '32px murderFont', '#FFF', 'center', 0.5, 0.5);
 }
 
 function createImageButton(game, textOfImage,x,y,w,h){
@@ -19,7 +19,7 @@ function createImageButton(game, textOfImage,x,y,w,h){
     button.scale.y = 0.5;
     button.tweenAnimation = game.add.tween(button.scale).to({x: 0.7, y: 0.7},500,'Linear',true,0,-1,true); 
     
-    createText(game, textOfImage, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfImage, x, y, '40px murderFont', '#FFF', 'center', 0.5, 0.5);
     return button;
 }
 
@@ -63,7 +63,7 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
 
-    player.lifes = 3;
+    player.lives = 3;
 
     return player;
 }
@@ -152,26 +152,7 @@ function collectBattery(player, battery) {
 }
 
 function gainLife(player, piglet) {
-    player.lifes++;
+    player.lives++;
     piglet.kill();
 }
 
-// function loseLife(player, life) {
-//     life.kill();
-// function updateShadowTexture(game, player) {
-//     this.shadowTexture.ctx.fillStyle = '#ff0000';
-//     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);
-
-//     let gradient = this.shadowTexture.ctx.createRadialGradient(
-//         player.body.x, player.body.y, this.LIGHT_RADIUS * 0.75,
-//         player.body.x, player.body.y, this.LIGHT_RADIUS
-//     );
-//     gradient.addColorStop(0, '#ff000');
-//     gradient.addColorStop(1, '#ff000');
-
-//     this.shadowTexture.ctx.beginPath();
-//     this.shadowTexture.ctx.fillStyle = gradient;
-//     this.shadowTexture.ctx.arc(player.body.x, player.body.y, this.LIGHT_RADIUS, 0, Math.PI * 2);
-//     this.shadowTexture.ctx.fill();
-//     this.shadowTexture.dirty = true;
-// }
