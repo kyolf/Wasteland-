@@ -8,7 +8,7 @@ Game.InfoModal.prototype = {
       
         createText(game, 'Instructions', 250, 100, '80px murderFont', '#FFF', 'center');
     
-        createButton(game, 'Go Back to Menu', 175, 75, 250, 50, 
+        createButton(game, 'Go Back to Menu', 175, 50, 200, 50, 
                     () => {
                         this.state.start('MainMenu');
                     }
