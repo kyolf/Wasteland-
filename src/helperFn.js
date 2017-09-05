@@ -93,6 +93,13 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 7) {
 //     return lives;
 // }
 
+function createTimer(game, callback, duration = 30000){
+    let timer = game.time.create();
+    timer.add(duration, callback, this);
+    timer.start();
+    return timer;
+}
+
 function createLevelText(game, font) {
     let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 700, 75, font, '#FFF', 'center', 0.5, 0.5);
     timerTxt.fixedToCamera = true;
