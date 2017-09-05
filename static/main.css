@@ -1,4 +1,12 @@
 body {
   margin: 0;
   padding: 0;
+  /*background-image: url('./assets/bg2.jpg');*/
+  background:black;
+  font-family: 'murderFont';
+}
+
+@font-face {
+  font-family: 'murderFont';
+  src: url('./assets/font2.ttf') format('truetype');
 }
