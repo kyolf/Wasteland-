@@ -37,14 +37,18 @@ function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, 
 //the new JSON map with two layers..
 //Maps now currently added in the level js file itself
 
-// function createMaps(game, tileMapStr){
-//     let map = game.add.tilemap(tileMapStr, 32, 32);
-//     map.addTilesetImage('tiles');
-//     let layer = map.createLayer(0);
-//     layer.resizeWorld();
-//     map.setCollisionBetween(0, 1000);
-//     return layer;
-// }
+function createMaps(game, mapName, bgName){
+    let map = game.add.tilemap(mapName);
+    
+    map.addTilesetImage(bgName);
+
+    map.addTilesetImage('phase-2');
+    let layer1 = map.createLayer('Tile Layer 1');
+    let layer2 = map.createLayer('Tile Layer 2');
+    map.setCollisionBetween(2000, 3000, true, layer2);
+    layer1.resizeWorld();
+    return layer2; 
+}
 
 function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     let player = game.add.sprite(632, game.world.height - 1550, 'dude3');

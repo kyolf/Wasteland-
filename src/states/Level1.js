@@ -37,39 +37,10 @@ Game.Level1.prototype = {
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(1, 1);
         
-
-        //////////////BEGIN CREATE LEVEL////////////////////////////////////////////////
-
-        // This is where createMaps was called, in the helperFn file..
-        //it has been set this way for now because the createMaps function
-        //needs to be refactored to use the new JSON map and two layer system
-
-        // This is what changes to test the 3 levels
-        //map1, map2, or map3. Likewise lvl1bg, lvl2bg, lvl3bg
-
-        let map = this.add.tilemap('map1');
-
-        map.addTilesetImage('lvl1bg');
-
-        //Nothing below changes. The same for all levels
-
-        map.addTilesetImage('phase-2');
-
-
-        this.layer1 = map.createLayer('Tile Layer 1');
-        this.layer2 = map.createLayer('Tile Layer 2');
-        
-        map.setCollisionBetween(2000, 3000, true, this.layer2);
-
-        this.layer1.resizeWorld();
-
-        
-        /////////////END CREATE LEVEL/////////////////////////////////////////////////////
-
-        //this.layer = createMaps(game, 'map');
+        this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
         //see collision blocks
-        //this.layer.debug = true;
+        //this.layer2.debug = true;
         this.player = createPlayer(game);
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
