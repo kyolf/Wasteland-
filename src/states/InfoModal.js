@@ -6,22 +6,25 @@ Game.InfoModal.prototype = {
     create: function(game) {
         game.add.sprite(0,0,'bg2');
       
-        createText(game, 'Instructions', 600, 50, '70px Architects Daughter', '#FFF', 'center');
+        createText(game, 'Instructions', 250, 100, '80px murderFont', '#FFF', 'center');
     
-        createButton(game, 'Go Back to Menu', 175, 75, 275, 60, 
+        createButton(game, 'Go Back to Menu', 175, 50, 200, 50, 
                     () => {
                         this.state.start('MainMenu');
                     }
         );
     
-        let howToPlay = 'Reach the Goal while collecting batteries';
-        createText(game, howToPlay, 450, 275, '40px Architects Daughter', '#FFF', 'center');
+        let howToPlay = 'Find the exit while collecting batteries';
+        createText(game, howToPlay, 175, 250, '40px murderFont', '#FFF', 'center');
         
-        howToPlay = 'Up Arrow Key to Jump';
-        createText(game, howToPlay, 600, 375, '40px Architects Daughter', '#FFF', 'center');
+        howToPlay = 'Up arrow key to jump';
+        createText(game, howToPlay, 275, 315, '40px murderFont', '#FFF', 'center');
         
-        howToPlay = 'Left Arrow Key to Move Left and Right Arrow Key to Move Right';
-        createText(game, howToPlay, 300, 475, '40px Architects Daughter', '#FFF', 'center');
+        howToPlay = 'Left arrow key to move left';
+        createText(game, howToPlay, 230, 380, '40px murderFont', '#FFF', 'center');
+
+        howToPlay = 'Right arrow key to move right';
+        createText(game, howToPlay, 230, 445, '40px murderFont', '#FFF', 'center');
     }
 };
 

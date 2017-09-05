@@ -7,6 +7,11 @@ Game.Preloader = function(game){
 
 Game.Preloader.prototype = {
     preload: function(){
+        //////CENTERS PHASER GAME WINDOW/////////
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
+        this.game.scale.refresh();
+        
         //Background loading bar
         this.preloadBG = this.add.sprite(this.world.centerX, this.world.centerY, 'loadingBG');
         this.preloadBG.anchor.setTo(0.5,0.5);
@@ -25,7 +30,7 @@ Game.Preloader.prototype = {
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
         this.load.image('lvl1bg', 'assets/lvl1bg.jpg');
-        this.load.image('lvl2bg', 'assets/lvl2bg.png');
+        this.load.image('lvl2bg', 'assets/lvl2bg.jpg');
         this.load.image('lvl3bg', 'assets/lvl3bg.jpg');
         this.load.image('victory', 'assets/victory.jpg');
         this.load.image('gameover', 'assets/gameover.jpg');
@@ -56,7 +61,7 @@ Game.Preloader.prototype = {
     },
     loadStart: function(){
         this.loadingText = createText(this, 'Loading', this.world.centerX, this.world.centerY - 100, 
-        '100px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+        '80px murderFont', '#FFF', 'center', 0.5, 0.5);
     },
     startMainMenu: function(){
         this.state.start('MainMenu');

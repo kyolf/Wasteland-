@@ -44,16 +44,18 @@ Game.GameOver.prototype = {
                 });
           }
         })
-        game.add.sprite(0,0,'bg2');
-        let background = game.add.sprite(0,0,'gameover');
-        background.scale.setTo(1, 1);
-        let grim = game.add.sprite(800, 350, 'grim');
-        grim.anchor.setTo(0.5,0.5);
-        grim.scale.setTo(0.7,0.7);
-        createText(game, 'Game Over', 615, 325, '100px Architects Daughter', '#FFF');
-        createText(game, 'YOUR SOUL IS MINE!', 1200, 100, '60px Architects Daughter', '#FFF','center', 0.5, 0.5);
-        createButton(game, 'Go Back to Menu', 175, 75,
-        275, 60, () => {
+        game.add.sprite(0, 0, 'bg2');
+        let background = game.add.sprite(0, 0, 'gameover');
+        background.scale.setTo(0.8, 0.8);
+
+        let grim = game.add.sprite(400, 275, 'grim');
+        grim.anchor.setTo(0.4, 0.4);
+        grim.scale.setTo(0.5, 0.5);
+        
+        createText(game, 'Game Over', 175, 125, '150px murderFont', '#FFF');
+        createText(game, 'YOUR SOUL IS MINE!', 425, 325, '80px murderFont', '#FFF','center', 0.5, 0.5);
+        createButton(game, 'Go Back to Menu', 175, 50,
+        200, 50, () => {
             this.state.start('MainMenu');
         });
 

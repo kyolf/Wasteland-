@@ -14,7 +14,7 @@ const Bat = function(game, x, y, destination, platforms, group){
     // this.bat.body.gravity.y = 400;
 
     //sprite move back and forth
-    this.batTween = game.add.tween(this.bat).to({x: this.bat.x + destination},5000,'Linear',true,0,-1,true);
+    this.batTween = game.add.tween(this.bat).to({x: this.bat.x + destination},9000,'Linear',true,0,-1,true);
     this.batTween = game.add.tween(this.bat);
     group.add(this.bat);
 };

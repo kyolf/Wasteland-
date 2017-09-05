@@ -1,15 +1,15 @@
 //Create Functions
-function createButton(game,textOfButton,x,y,w,h,callback){
+function createButton(game,textOfButton,x,y,w,h,callback) {
     let button1 = game.add.button(x,y,'grass',callback,this,2,1,0);
     
     button1.anchor.setTo(0.5,0.5);
     button1.width = w;
     button1.height = h;
 
-    createText(game, textOfButton, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfButton, x, y, '32px murderFont', '#FFF', 'center', 0.5, 0.5);
 }
 
-function createImageButton(game, textOfImage,x,y,w,h){
+function createImageButton(game, textOfImage,x,y,w,h) {
     let button = game.add.image(x,y,'grass');
     
     button.anchor.setTo(0.5,0.5);
@@ -19,11 +19,11 @@ function createImageButton(game, textOfImage,x,y,w,h){
     button.scale.y = 0.5;
     button.tweenAnimation = game.add.tween(button.scale).to({x: 0.7, y: 0.7},500,'Linear',true,0,-1,true); 
     
-    createText(game, textOfImage, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfImage, x, y, '40px murderFont', '#FFF', 'center', 0.5, 0.5);
     return button;
 }
 
-function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, anchorY = 0){
+function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, anchorY = 0) {
     let txt = game.add.text(x, y, str, {
         font: font,
         fill: fill,
@@ -37,16 +37,20 @@ function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, 
 //the new JSON map with two layers..
 //Maps now currently added in the level js file itself
 
-// function createMaps(game, tileMapStr){
-//     let map = game.add.tilemap(tileMapStr, 32, 32);
-//     map.addTilesetImage('tiles');
-//     let layer = map.createLayer(0);
-//     layer.resizeWorld();
-//     map.setCollisionBetween(0, 1000);
-//     return layer;
-// }
+function createMaps(game, mapName, bgName) {
+    let map = game.add.tilemap(mapName);
+    
+    map.addTilesetImage(bgName);
 
-function createPlayer(game, gravityNum = 250, bounceY = 0.2){
+    map.addTilesetImage('phase-2');
+    let layer1 = map.createLayer('Tile Layer 1');
+    let layer2 = map.createLayer('Tile Layer 2');
+    map.setCollisionBetween(2000, 3000, true, layer2);
+    layer1.resizeWorld();
+    return layer2; 
+}
+
+function createPlayer(game, gravityNum = 250, bounceY = 0.0){
     let player = game.add.sprite(632, game.world.height - 1550, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 90, 25, 10);
@@ -57,18 +61,18 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.2){
 
     //tried increasing this to 500 and couldn't really jump
     player.body.gravity.y = gravityNum; 
-    player.body.velocity.y = 300;
+    //player.body.velocity.y = -350;
+    //player.body.gravity.x = -500;
+    //player.body.velocity.x = -500;
 
     //this is true or body will rebound back into the world
     //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
 
-    player.lifes = 3;
-
     return player;
 }
 
-function createBatteries(game, pixelsApart = 500, numBatteries = 7){
+function createBatteries(game, pixelsApart = 500, numBatteries = 7) {
     let batteries = game.add.group();
     batteries.enableBody = true;
 
@@ -80,16 +84,16 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 7){
     return batteries;
 }
 
-function createLives(game, pixelsApart = 100, numLives = 5) {
-    let lives = game.add.group();
-    lives.enableBody = true;
+// function createLives(game, pixelsApart = 100, numLives = 5) {
+//     let lives = game.add.group();
+//     lives.enableBody = true;
 
-    for(let i = 1; i <= numLives; i++) {
-        let life = lives.create(i * pixelsApart, 100, 'life');
-        life.allowGravity = false;
-    }
-    return lives;
-}
+//     for(let i = 1; i <= numLives; i++) {
+//         let life = lives.create(i * pixelsApart, 100, 'life');
+//         life.allowGravity = false;
+//     }
+//     return lives;
+// }
 
 function createTimer(game, callback, duration = 30000){
     let timer = game.time.create();
@@ -98,8 +102,21 @@ function createTimer(game, callback, duration = 30000){
     return timer;
 }
 
+function createLevelText(game, font) {
+    let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 700, 75, font, '#FFF', 'center', 0.5, 0.5);
+    timerTxt.fixedToCamera = true;
+
+    let scoreTxt = createText(game, `Score: ${game.global.score}`, 25, 50, font, '#FFF');
+    scoreTxt.fixedToCamera = true;
+
+    let lifeTxt = createText(game, `Life: ${game.global.lives}`, 400, 50, font, '#FFF', 'center');
+    lifeTxt.fixedToCamera = true;
+    
+    return {timerTxt, scoreTxt, lifeTxt};
+}
+
 function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxXSpeed = 5,
-    minParticleScale = 0.1, maxParticleScale = 0.5, minRotation = 0, maxRotation = 0, angle = 30){
+    minParticleScale = 0.1, maxParticleScale = 0.5, minRotation = 0, maxRotation = 0, angle = 30) {
     var emitter = game.add.emitter(game.world.centerX, 0, 400);
     
     emitter.width = game.world.width;
@@ -120,7 +137,7 @@ function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxX
 }
 
 //Update Functions
-function playerActions(cursors, player, hitPlatforms){
+function playerActions(cursors, player, hitPlatforms) {
     player.body.velocity.x = 0;
     //can make movement more complex
     if(cursors.left.isDown) {
@@ -146,18 +163,117 @@ function playerActions(cursors, player, hitPlatforms){
 
 function collectBattery(player, battery) {
     battery.kill();
-    this.game.global.score += 10;
-    this.totalTime += 5;
-    this.scoreText.text = 'Score: ' + this.game.global.score;
+    this.global.score += 10;
+    this.global.time += 5;
 }
 
 function gainLife(player, piglet) {
-    player.lifes++;
+    this.global.lives++;
     piglet.kill();
 }
 
-// function loseLife(player, life) {
-//     life.kill();
+function pigletAnimations(group){
+    group.forEach(function(piglet){
+        if(piglet.previousPosition.x >= piglet.position.x){
+            piglet.animations.play('left');
+        }
+        else{
+            piglet.animations.play('right');
+        }
+    });
+}
+
+function tentacleAnimations(group){
+    group.forEach(function(enemy){
+        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+            enemy.animations.play('rise');
+            enemy.body.setSize(25, 25, 0, 65);
+        } else if (enemy.animations.currentFrame.index === 9) {
+            enemy.body.setSize(25, 65, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 13) {
+            enemy.body.setSize(25, 90, 0, 0);
+            enemy.game.global.tentacleFrame = 'fall';
+        } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+            enemy.body.setSize(25, 65, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 8){
+            enemy.body.setSize(25, 25, 0, 65);
+            enemy.game.global.tentacleFrame = 'start';
+        } else {
+            return;
+        }
+    });
+}
+
+function flyingAnimations(group){
+    group.forEach(function(enemy){
+        if(enemy.previousPosition.x >= enemy.position.x){
+            enemy.animations.play('left');
+        }else{
+            enemy.animations.play('right');
+        }
+    });
+}
+
+function lightRadiusSize(time){
+    if(time >= 30){
+        return 300;
+    }
+    else if(time > 20){
+        return 200;
+    }
+    else if(time > 10){
+        return 150;
+    }
+    else{
+        return 100;
+    }
+}
+
+function musicPlayed(time, bgMusic, hbSlow, hbFast) {
+    if(time > 10){
+        if(!this.hbSlowStopped){
+            hbSlow.stop();
+            this.hbSlowStopped = true;
+        }
+        if(this.musicPaused){
+            bgMusic.resume();
+            this.musicPaused = false;
+        }
+    }
+    else if(time > 5){
+        if(!this.musicPaused){
+            bgMusic.pause();
+            this.musicPaused = true;
+        }
+        if(!this.hbFastStopped){
+            hbFast.stop();
+            this.hbFastStopped = true;
+        }
+        
+        if(this.hbSlowStopped){
+            hbSlow.play('', 0, 1, true, true);
+            this.hbSlowStopped = false;
+        }
+    }
+    else{
+        if(!hbSlowStopped) {
+            hbSlow.stop();
+            hbSlowStopped = true;
+        }
+        if(this.hbFastStopped){
+            hbFast.play('', 0, 1, true, true);
+            this.hbFastStopped = false;
+        }
+    }
+}
+
+function goToGameOver(bgMusic, hbSlow, hbFast, state) {
+    bgMusic.stop();
+    hbSlow.stop();
+    hbFast.stop();
+    state.start('GameOver');
+}
+
 // function updateShadowTexture(game, player) {
 //     this.shadowTexture.ctx.fillStyle = '#ff0000';
 //     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);
