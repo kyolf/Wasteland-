@@ -69,10 +69,10 @@ Game.Level1.prototype = {
         // });
         
         //Creating Piglets
-        this.livesGroup = game.add.group();
-        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.livesGroup);
-        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.livesGroup);
-        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.livesGroup);
+        this.lifesGroup = game.add.group();
+        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.lifesGroup);
+        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
+        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
