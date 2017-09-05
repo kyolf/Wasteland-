@@ -9,6 +9,8 @@ Game.Level1.prototype = {
         let player;
         let cursors;
         let batteries;
+        let lives;
+        let lifeTxt;
         let score;
         let scoreText;
         let timer;
@@ -90,6 +92,12 @@ Game.Level1.prototype = {
 
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
 
+        ///////CREATE LIVES///////////
+        this.lifeTxt = createText(game, `Life:`, 25, 100, '30px Architects Daughter', '#FFF', 'center');
+        this.lifeTxt.fixedToCamera = true;
+        this.lives = createLives(game);
+
+
     }, 
     tick: function(game) {
         this.totalTime--;
@@ -146,7 +154,6 @@ Game.Level1.prototype = {
 
         //player collision with enemies
         game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
-
         //////////////////////////If we want game over//////////////////////////////
         // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
         //     this.state.start('GameOver');
@@ -173,6 +180,7 @@ Game.Level1.prototype = {
         this.shadowTexture.dirty = true;
 
     },
+
     resetPlayer: function(player, enemyGroup){
         player.reset(32, 650);
     },

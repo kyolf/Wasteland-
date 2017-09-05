@@ -74,6 +74,17 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 7){
     return batteries;
 }
 
+function createLives(game, pixelsApart = 100, numLives = 5) {
+    let lives = game.add.group();
+    lives.enableBody = true;
+
+    for(let i = 1; i <= numLives; i++) {
+        let life = lives.create(i * pixelsApart, 100, 'life');
+        life.allowGravity = false;
+    }
+    return lives;
+}
+
 function createTimer(game, callback, duration = 30000){
     let timer = game.time.create();
     timer.add(duration, callback, this);
@@ -135,20 +146,6 @@ function collectBattery(player, battery) {
     this.scoreText.text = 'Score: ' + this.score;
 }
 
-// function updateShadowTexture(game, player) {
-//     this.shadowTexture.ctx.fillStyle = '#ff0000';
-//     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);
-
-//     let gradient = this.shadowTexture.ctx.createRadialGradient(
-//         player.body.x, player.body.y, this.LIGHT_RADIUS * 0.75,
-//         player.body.x, player.body.y, this.LIGHT_RADIUS
-//     );
-//     gradient.addColorStop(0, '#ff000');
-//     gradient.addColorStop(1, '#ff000');
-
-//     this.shadowTexture.ctx.beginPath();
-//     this.shadowTexture.ctx.fillStyle = gradient;
-//     this.shadowTexture.ctx.arc(player.body.x, player.body.y, this.LIGHT_RADIUS, 0, Math.PI * 2);
-//     this.shadowTexture.ctx.fill();
-//     this.shadowTexture.dirty = true;
+// function loseLife(player, life) {
+//     life.kill();
 // }
