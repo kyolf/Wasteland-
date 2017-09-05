@@ -172,16 +172,37 @@ function gainLife(player, piglet) {
     piglet.kill();
 }
 
-// function pigletAnimations(group){
-//     group.forEach(function(piglet){
-//         if(piglet.previousPosition.x >= piglet.position.x){
-//             piglet.animations.play('left');
-//         }
-//         else{
-//             piglet.animations.play('right');
-//         }
-//     });
-// }
+function pigletAnimations(group){
+    group.forEach(function(piglet){
+        if(piglet.previousPosition.x >= piglet.position.x){
+            piglet.animations.play('left');
+        }
+        else{
+            piglet.animations.play('right');
+        }
+    });
+}
+
+function shadowAnimations(group){
+    group.forEach(function(enemy){
+        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
+            enemy.animations.play('rise');
+            enemy.body.setSize(0, 0, 0, 0);
+        } else if (enemy.animations.currentFrame.index === 8) {
+            enemy.body.setSize(80, 45, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 12) {
+            enemy.body.setSize(80, 70, 0, 0);
+            enemy.game.global.shadowFrame = 'fall';
+        } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
+            enemy.body.setSize(80, 45, 0, 25);
+        } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
+            enemy.body.setSize(0, 0, 0, 0);
+            enemy.game.global.shadowFrame = 'start';
+        } else {
+            return;
+        }
+    });
+}
 
 function tentacleAnimations(group){
     group.forEach(function(enemy){
