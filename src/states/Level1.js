@@ -377,7 +377,7 @@ Game.Level1.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         player.lifes--;
-        player.reset(632, game.world.height - 1550);
+        player.reset(632, 50);
     },
     render:function(game) {
         
