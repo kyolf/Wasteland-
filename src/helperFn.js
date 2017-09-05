@@ -33,17 +33,21 @@ function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, 
     return txt;
 }
 
-function createMaps(game, tileMapStr){
-    let map = game.add.tilemap(tileMapStr, 32, 32);
-    map.addTilesetImage('tiles');
-    let layer = map.createLayer(0);
-    layer.resizeWorld();
-    map.setCollisionBetween(0, 1000);
-    return layer;
-}
+//Commented out because it needs to be refactored to use
+//the new JSON map with two layers..
+//Maps now currently added in the level js file itself
 
-function createPlayer(game, gravityNum = 250, bounceY = 0){
-    let player = game.add.sprite(32, game.world.height - 350, 'dude3');
+// function createMaps(game, tileMapStr){
+//     let map = game.add.tilemap(tileMapStr, 32, 32);
+//     map.addTilesetImage('tiles');
+//     let layer = map.createLayer(0);
+//     layer.resizeWorld();
+//     map.setCollisionBetween(0, 1000);
+//     return layer;
+// }
+
+function createPlayer(game, gravityNum = 250, bounceY = 0.2){
+    let player = game.add.sprite(632, game.world.height - 1550, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 90, 25, 10);
 
@@ -58,6 +62,8 @@ function createPlayer(game, gravityNum = 250, bounceY = 0){
     //this is true or body will rebound back into the world
     //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
+
+    player.lifes = 3;
 
     return player;
 }
@@ -140,12 +146,32 @@ function playerActions(cursors, player, hitPlatforms){
 
 function collectBattery(player, battery) {
     battery.kill();
-    this.score += 10;
-    this.totalTime += 2;
-    this.lightRadius += 80;
-    this.scoreText.text = 'Score: ' + this.score;
+    this.game.global.score += 10;
+    this.totalTime += 5;
+    this.scoreText.text = 'Score: ' + this.game.global.score;
+}
+
+function gainLife(player, piglet) {
+    player.lifes++;
+    piglet.kill();
 }
 
 // function loseLife(player, life) {
 //     life.kill();
+// function updateShadowTexture(game, player) {
+//     this.shadowTexture.ctx.fillStyle = '#ff0000';
+//     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);
+
+//     let gradient = this.shadowTexture.ctx.createRadialGradient(
+//         player.body.x, player.body.y, this.LIGHT_RADIUS * 0.75,
+//         player.body.x, player.body.y, this.LIGHT_RADIUS
+//     );
+//     gradient.addColorStop(0, '#ff000');
+//     gradient.addColorStop(1, '#ff000');
+
+//     this.shadowTexture.ctx.beginPath();
+//     this.shadowTexture.ctx.fillStyle = gradient;
+//     this.shadowTexture.ctx.arc(player.body.x, player.body.y, this.LIGHT_RADIUS, 0, Math.PI * 2);
+//     this.shadowTexture.ctx.fill();
+//     this.shadowTexture.dirty = true;
 // }
