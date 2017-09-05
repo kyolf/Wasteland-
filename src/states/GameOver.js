@@ -32,7 +32,8 @@ Game.GameOver.prototype = {
                     // });
                 }
             } else {
-                let name = prompt("Congrats! Your score is in the top 10! Please enter your initials.", "Anonymous");if(name) {this.game.global.initials = name;}
+                let name = prompt("Congrats! Your score is in the top 10! Please enter your initials.", "Anonymous");
+                if(name) {this.game.global.initials = name;}
                 postTopScores(this.game.global.score, this.game.global.initials)
                 .then(scores => {
                     // scores.map(topScore => {

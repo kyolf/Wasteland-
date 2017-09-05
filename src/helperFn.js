@@ -43,6 +43,8 @@ function createMaps(game, mapName, bgName) {
     map.addTilesetImage(bgName);
 
     map.addTilesetImage('phase-2');
+    
+
     let layer1 = map.createLayer('Tile Layer 1');
     let layer2 = map.createLayer('Tile Layer 2');
     map.setCollisionBetween(2000, 3000, true, layer2);
