@@ -14,7 +14,7 @@ const Piglet = function(game, x, y, destination, platforms, group){
     this.piglet.body.gravity.y = 400;
 
     //sprite move back and forth
-    this.pigletTween = game.add.tween(this.piglet).to({x: this.piglet.x + destination},2000,'Linear',true,0,-1,true);
+    //this.pigletTween = game.add.tween(this.piglet).to({x: this.piglet.x + destination},2000,'Linear',true,0,-1,true);
     group.add(this.piglet);
 };
 

@@ -70,29 +70,30 @@ Game.Level1.prototype = {
         
         //Creating Piglets
         this.lifesGroup = game.add.group();
-        new Piglet(game, 500, game.world.height - 250, 100, this.layer, this.lifesGroup);
-        new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
-        new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
+        new Piglet(game, 576, game.world.height - 300, 100, this.layer, this.lifesGroup);
+        //new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
+        //new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
-        new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 992, game.world.height - 448, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1984, game.world.height - 832, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 3104, game.world.height - 800, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 3968, game.world.height - 550, 100, this.layer, this.enemyGroup);
 
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
-        new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
+        //new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
+        //new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
+        //new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
 
         this.tentacleGroup.setAll('body.immovable', true);
 
         this.flyingGroup = game.add.group();
-        new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.flyingGroup);
-        new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
-        new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
+        new Bat(game, 1120, game.world.height - 930, 3000, this.layer, this.flyingGroup);
+        //new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
+        //new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
         

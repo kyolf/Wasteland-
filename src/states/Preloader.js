@@ -30,7 +30,7 @@ Game.Preloader.prototype = {
         //Load All Assets
         this.load.image('bg2', 'assets/bg2.jpg');
         this.load.image('lvl1bg', 'assets/lvl1bg.jpg');
-        this.load.image('lvl2bg', 'assets/lvl2bg.png');
+        this.load.image('lvl2bg', 'assets/lvl2bg.jpg');
         this.load.image('lvl3bg', 'assets/lvl3bg.jpg');
         this.load.image('victory', 'assets/victory.jpg');
         this.load.image('gameover', 'assets/gameover.jpg');
