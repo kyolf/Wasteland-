@@ -154,19 +154,6 @@ Game.Level1.prototype = {
 
         //tile collision with piglet
         game.physics.arcade.collide(this.lifesGroup, this.layer2);
-<<<<<<< HEAD
-        // this.lifesGroup.forEach(function(piglet){
-        //     if(piglet.previousPosition.x >= piglet.position.x){
-        //         piglet.animations.play('left');
-        //     }
-        //     else{
-        //         piglet.animations.play('right');
-        //     }
-        // });
-        
-        //tile collision with enemies
-        game.physics.arcade.collide(this.enemyGroup, this.layer2);
-=======
         this.lifesGroup.forEach(function(piglet){
             if(piglet.previousPosition.x >= piglet.position.x){
                 piglet.animations.play('left');
@@ -177,7 +164,6 @@ Game.Level1.prototype = {
         });
         
         //tile collision with enemies
->>>>>>> 2fb0cd2ec5a88f0cdd01169a0e2926f78a37eb7f
         game.physics.arcade.collide(this.enemyGroup, this.layer2);
         this.enemyGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
