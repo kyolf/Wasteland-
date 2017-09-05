@@ -27,9 +27,14 @@ Game.Level1.prototype = {
         this.losingTime = false;
     }, 
     create: function(game) {
-        this.game.global.score = 0;
-        this.game.global.initials = '';
-        this.game.global.tentacleFrame = 'start';
+        //////CENTERS PHASER GAME WINDOW/////////
+        this.game.scale.pageAlignHorizontally = true;
+        this.game.scale.pageAlignVertically = true;
+        this.game.scale.refresh();
+
+        game.global.score = 0;
+        game.global.initials = '';
+        game.global.tentacleFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
@@ -38,42 +43,14 @@ Game.Level1.prototype = {
         game.stage.backgroundColor = '#00112d';
 
         let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(1, 1);
+        background.scale.setTo(0.5, 0.5);
         
-
-        //////////////BEGIN CREATE LEVEL////////////////////////////////////////////////
-
-        // This is where createMaps was called, in the helperFn file..
-        //it has been set this way for now because the createMaps function
-        //needs to be refactored to use the new JSON map and two layer system
-
-        // This is what changes to test the 3 levels
-        //map1, map2, or map3. Likewise lvl1bg, lvl2bg, lvl3bg
-
-        let map = this.add.tilemap('map1');
-
-        map.addTilesetImage('lvl1bg');
-
-        //Nothing below changes. The same for all levels
-
-        map.addTilesetImage('phase-2');
-
-
-        this.layer1 = map.createLayer('Tile Layer 1');
-        this.layer2 = map.createLayer('Tile Layer 2');
-        
-        map.setCollisionBetween(2000, 3000, true, this.layer2);
-
-        this.layer1.resizeWorld();
-
-        
-        /////////////END CREATE LEVEL/////////////////////////////////////////////////////
-
-        //this.layer = createMaps(game, 'map');
+        this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
         //see collision blocks
-        //this.layer.debug = true;
+        //this.layer2.debug = true;
         this.player = createPlayer(game);
+        game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
@@ -124,16 +101,14 @@ Game.Level1.prototype = {
 
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
-
         //Music
-        this.music = game.add.audio('level1_music');
-        this.music.play('', 0, 1, true, true);
-        this.music1 = this.add.audio('heart_slow');
-        this.music2 = this.add.audio('heart_fast');
-        this.music1Stopped = true;
-        this.music2Stopped = true;
+        window.music = game.add.audio('level1_music');
+        window.music.play('', 0, 1, true, true);
+        window.music1 = this.add.audio('heart_slow');
+        window.music2 = this.add.audio('heart_fast');
+        this.hbFastStopped = true;
+        this.hbSlowStopped = true;
         
-
          ////////////LIGHTING BEGINS///////////
         this.lightRadius = 400;
         this.shadowTexture = game.add.bitmapData(4000, 4000);
@@ -144,93 +119,31 @@ Game.Level1.prototype = {
         ///////////////LIGHTING ENDS/////////////
 
          ////////CREATE CUSTOM TIMER///////////////////
-        this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Architects Daughter', '#FFF', 'center');
-        this.timerTxt.anchor.setTo(0.5, 0.5);
-        this.timerTxt.fixedToCamera = true;
-        this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
+        game.global.time = 30;
+        this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, game);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
-
-        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Architects Daughter', '#FFF');
-        this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
-        this.lifeTxt.fixedToCamera = true;
-
-        // this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
-        this.scoreText.fixedToCamera = true;
-
-        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
-
-        ///////CREATE LIVES///////////
-        this.lifeTxt = createText(game, `Life:`, 25, 100, '30px Architects Daughter', '#FFF', 'center');
-        this.lifeTxt.fixedToCamera = true;
-        this.lives = createLives(game);
-
+        const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px Architects Daughter');
+        this.lifeTxt = lifeTxt;
+        this.scoreTxt = scoreTxt;
+        this.timerTxt = timerTxt;
 
     }, 
     tick: function(game) {
-        this.totalTime--;
-        //this.lightRadius -= 20;
-        
-        if(this.totalTime >= 30){
-            this.lightRadius = 400;
-        }
-        else if(this.totalTime > 20){
-            this.lightRadius = 300;
-        }
-        else if(this.totalTime > 10){
-            this.lightRadius = 200;
-        }
-        else{
-            this.lightRadius = 100;
-        }
+        this.global.time--;
 
-        if(this.totalTime > 10){
-            if(!this.music1Stopped){
-                this.music1.stop();
-                this.music1Stopped = true;
-            }
-            if(this.musicPaused){
-                this.music.resume();
-                this.musicPaused = false;
-            }
-        }
-        else if(this.totalTime > 5){
-            if(!this.musicPaused){
-                this.music.pause();
-                this.musicPaused = true;
-            }
-            if(!this.music2Stopped){
-                this.music2.stop();
-                this.music2Stopped = true;
-            }
-            if(this.music1Stopped){
-                this.music1.play('', 0, 1, true, true);
-                this.music1Stopped = false;
-            }
-        }
-        else{
-            if(!this.music1Stopped){
-                this.music1.stop();
-                this.music1Stopped = true;
-            }
-            if(this.music2Stopped){
-                this.music2.play('', 0, 1, true, true);
-                this.music2Stopped = false;
-            }
-        }
+        this.lightRadius = lightRadiusSize(this.global.time);
+
+        musicPlayed(this.global.time, window.music, window.music1, window.music2);
         
-        if(this.totalTime === 0) {
-            this.camera.reset();
-            this.music2.stop();
-            this.music.stop();
-            this.state.start('GameOver');
+        if(this.global.time === 0) {
+            goToGameOver(window.music, window.music1, window.music2, this.state);
         }
     },
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
         game.physics.arcade.collide(this.batteries, this.layer2);
-        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
+        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
 
         /////LIGHTING BEGINS//////
         this.updateShadowTexture();
@@ -241,6 +154,7 @@ Game.Level1.prototype = {
 
         //tile collision with piglet
         game.physics.arcade.collide(this.lifesGroup, this.layer2);
+<<<<<<< HEAD
         // this.lifesGroup.forEach(function(piglet){
         //     if(piglet.previousPosition.x >= piglet.position.x){
         //         piglet.animations.play('left');
@@ -252,6 +166,18 @@ Game.Level1.prototype = {
         
         //tile collision with enemies
         game.physics.arcade.collide(this.enemyGroup, this.layer2);
+=======
+        this.lifesGroup.forEach(function(piglet){
+            if(piglet.previousPosition.x >= piglet.position.x){
+                piglet.animations.play('left');
+            }
+            else{
+                piglet.animations.play('right');
+            }
+        });
+        
+        //tile collision with enemies
+>>>>>>> 2fb0cd2ec5a88f0cdd01169a0e2926f78a37eb7f
         game.physics.arcade.collide(this.enemyGroup, this.layer2);
         this.enemyGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
@@ -306,35 +232,27 @@ Game.Level1.prototype = {
         });
 
         //player collision with enemies
-        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
-        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer);
-        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, game);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, game);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, game);
 
-        //////////////////////////If we want game over//////////////////////////////
-        game.physics.arcade.collide(this.player, this.exit, this.nextLevel);
-        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
-        //     this.state.start('GameOver');
-        // });
+        //collision with exit
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, game);
 
         //Uncomment for collision to spark victory
         //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
         //     this.state.start('Victory');
         // });
 
-        if(this.player.lifes === 0){
-            this.music.stop();
-            
-            if(this.music1Created){
-                this.music1.stop();
-            }
-            
-            this.state.start('GameOver');
+        if(game.global.lives === 0){
+            goToGameOver(window.music, window.music1, window.music2, game.state);
         }
 
-        game.physics.arcade.collide(this.player, this.lifesGroup, gainLife);
+        game.physics.arcade.collide(this.player, this.lifesGroup, gainLife, null, game);
         
-        this.lifeTxt.setText(`Lifes: ${this.player.lifes}`);
-        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+        this.scoreTxt.setText(`Score: ${game.global.score}`);
+        this.lifeTxt.setText(`Lifes: ${game.global.lifes}`);
+        this.timerTxt.setText(`Timer: ${game.global.time}s`);
 
     },
     updateShadowTexture: function (game, player) {
@@ -360,7 +278,7 @@ Game.Level1.prototype = {
       this.state.start('Level1');
     },
     resetPlayer: function(player, enemyGroup){
-        player.lifes--;
+        this.global.lifes--;
         player.reset(632, 50);
     },
     render:function(game) {
