@@ -37,7 +37,36 @@ Game.Level1.prototype = {
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(1, 1);
         
-        this.layer = createMaps(game, 'map');
+
+        //////////////BEGIN CREATE LEVEL////////////////////////////////////////////////
+
+        // This is where createMaps was called, in the helperFn file..
+        //it has been set this way for now because the createMaps function
+        //needs to be refactored to use the new JSON map and two layer system
+
+        // This is what changes to test the 3 levels
+        //map1, map2, or map3. Likewise lvl1bg, lvl2bg, lvl3bg
+
+        let map = this.add.tilemap('map1');
+
+        map.addTilesetImage('lvl1bg');
+
+        //Nothing below changes. The same for all levels
+
+        map.addTilesetImage('phase-2');
+
+
+        this.layer1 = map.createLayer('Tile Layer 1');
+        this.layer2 = map.createLayer('Tile Layer 2');
+        
+        map.setCollisionBetween(2000, 3000, true, this.layer2);
+
+        this.layer1.resizeWorld();
+
+        
+        /////////////END CREATE LEVEL/////////////////////////////////////////////////////
+
+        //this.layer = createMaps(game, 'map');
       
         //see collision blocks
         //this.layer.debug = true;
@@ -120,7 +149,10 @@ Game.Level1.prototype = {
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
-        this.music1Created = false;
+        this.music1 = this.add.audio('heart_slow');
+        this.music2 = this.add.audio('heart_fast');
+        this.music1Stopped = true;
+        this.music2Stopped = true;
         
 
          ////////////LIGHTING BEGINS///////////
@@ -153,39 +185,68 @@ Game.Level1.prototype = {
     }, 
     tick: function(game) {
         this.totalTime--;
-        this.lightRadius -= 20;
+        //this.lightRadius -= 20;
         
-        if(this.totalTime <= 10 || this.lightRadius <= 60 && !this.losingTime){
-            this.music.pause();
-            if(!this.music1Created){
-                this.music1 = this.add.audio('losing_light');
-                this.music1.play('', 0, 1, true, true);
-                this.music1Created = true;
-            }
-            else{
-                this.music1.resume();
-            }
-            this.losingTime = true;
-            this.music1Played = true;
+        if(this.totalTime >= 30){
+            this.lightRadius = 400;
         }
-        else if(this.totalTime > 10 && this.losingTime && this.music1Played){
-            this.music1.pause();
-            this.music.resume();
-            this.losingTime = false;
-            this.music1Played = false;
+        else if(this.totalTime > 20){
+            this.lightRadius = 300;
+        }
+        else if(this.totalTime > 10){
+            this.lightRadius = 200;
+        }
+        else{
+            this.lightRadius = 100;
         }
 
+        if(this.totalTime > 10){
+            if(!this.music1Stopped){
+                this.music1.stop();
+                this.music1Stopped = true;
+            }
+            if(this.musicPaused){
+                this.music.resume();
+                this.musicPaused = false;
+            }
+        }
+        else if(this.totalTime > 5){
+            if(!this.musicPaused){
+                this.music.pause();
+                this.musicPaused = true;
+            }
+            if(!this.music2Stopped){
+                this.music2.stop();
+                this.music2Stopped = true;
+            }
+            if(this.music1Stopped){
+                this.music1.play('', 0, 1, true, true);
+                this.music1Stopped = false;
+            }
+        }
+        else{
+            if(!this.music1Stopped){
+                this.music1.stop();
+                this.music1Stopped = true;
+            }
+            if(this.music2Stopped){
+                this.music2.play('', 0, 1, true, true);
+                this.music2Stopped = false;
+            }
+        }
+        
+
         console.log('light radius in tick', this.lightRadius);
-        if(this.totalTime === 0 || this.lightRadius === 0) {
+        if(this.totalTime === 0) {
             this.camera.reset();
-            this.music1.stop();
+            this.music2.stop();
             this.music.stop();
             this.state.start('GameOver');
         }
     },
     update: function(game) {
-        let hitPlatforms = game.physics.arcade.collide(this.player, this.layer);
-        game.physics.arcade.collide(this.batteries, this.layer);
+        let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
+        game.physics.arcade.collide(this.batteries, this.layer2);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         /////LIGHTING BEGINS//////
@@ -195,7 +256,7 @@ Game.Level1.prototype = {
 
         playerActions(this.cursors, this.player, hitPlatforms);
 
-        //tile collision with enemies
+        //tile collision with piglet
         game.physics.arcade.collide(this.lifesGroup, this.layer);
         this.lifesGroup.forEach(function(piglet){
             if(piglet.previousPosition.x >= piglet.position.x){
@@ -206,7 +267,9 @@ Game.Level1.prototype = {
             }
         });
         
+        //tile collision with enemies
         game.physics.arcade.collide(this.enemyGroup, this.layer);
+        game.physics.arcade.collide(this.enemyGroup, this.layer2);
         this.enemyGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
                 enemy.animations.play('rise');
@@ -230,7 +293,7 @@ Game.Level1.prototype = {
             }
         });
 
-        game.physics.arcade.collide(this.tentacleGroup, this.layer);
+        game.physics.arcade.collide(this.tentacleGroup, this.layer2);
         this.tentacleGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
                 enemy.animations.play('rise');
@@ -250,7 +313,7 @@ Game.Level1.prototype = {
             }
         });
 
-        game.physics.arcade.collide(this.flyingGroup, this.layer);
+        game.physics.arcade.collide(this.flyingGroup, this.layer2);
         this.flyingGroup.forEach(function(enemy){
             if(enemy.previousPosition.x >= enemy.position.x){
                 enemy.animations.play('left');
@@ -314,7 +377,7 @@ Game.Level1.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         player.lifes--;
-        player.reset(32, 650);
+        player.reset(632, 50);
     },
     render:function(game) {
         
