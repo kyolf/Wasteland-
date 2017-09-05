@@ -106,10 +106,10 @@ function createLevelText(game, font) {
     let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 700, 75, font, '#FFF', 'center', 0.5, 0.5);
     timerTxt.fixedToCamera = true;
 
-    let scoreTxt = createText(game, `Score: ${game.global.score}`, 150, 50, font, '#FFF');
+    let scoreTxt = createText(game, `Score: ${game.global.score}`, 25, 50, font, '#FFF');
     scoreTxt.fixedToCamera = true;
 
-    let lifeTxt = createText(game, `Life: ${game.global.lifes}`, 25, 100, font, '#FFF', 'center');
+    let lifeTxt = createText(game, `Life: ${game.global.lives}`, 400, 50, font, '#FFF', 'center');
     lifeTxt.fixedToCamera = true;
     
     return {timerTxt, scoreTxt, lifeTxt};
@@ -168,7 +168,7 @@ function collectBattery(player, battery) {
 }
 
 function gainLife(player, piglet) {
-    this.global.lifes++;
+    this.global.lives++;
     piglet.kill();
 }
 
