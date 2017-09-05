@@ -154,15 +154,17 @@ Game.Level1.prototype = {
 
         //tile collision with piglet
         game.physics.arcade.collide(this.lifesGroup, this.layer2);
-        this.lifesGroup.forEach(function(piglet){
-            if(piglet.previousPosition.x >= piglet.position.x){
-                piglet.animations.play('left');
-            }
-            else{
-                piglet.animations.play('right');
-            }
-        });
-        
+        // this.lifesGroup.forEach(function(piglet){
+        //     if(piglet.previousPosition.x >= piglet.position.x){
+        //         piglet.animations.play('left');
+        //     }
+        //     else{
+        //         piglet.animations.play('right');
+        //     }
+        // });
+        pigletAnimations(this.lifesGroup);
+
+
         //tile collision with enemies
         game.physics.arcade.collide(this.enemyGroup, this.layer2);
         this.enemyGroup.forEach(function(enemy){
@@ -189,33 +191,35 @@ Game.Level1.prototype = {
         });
 
         game.physics.arcade.collide(this.tentacleGroup, this.layer2);
-        this.tentacleGroup.forEach(function(enemy){
-            if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
-                enemy.animations.play('rise');
-                enemy.body.setSize(25, 25, 0, 65);
-            } else if (enemy.animations.currentFrame.index === 9) {
-                enemy.body.setSize(25, 65, 0, 25);
-            } else if (enemy.animations.currentFrame.index === 13) {
-                enemy.body.setSize(25, 90, 0, 0);
-                enemy.game.global.tentacleFrame = 'fall';
-            } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
-                enemy.body.setSize(25, 65, 0, 25);
-            } else if (enemy.animations.currentFrame.index === 8){
-                enemy.body.setSize(25, 25, 0, 65);
-                enemy.game.global.tentacleFrame = 'start';
-            } else {
-                return;
-            }
-        });
-
+        // this.tentacleGroup.forEach(function(enemy){
+        //     if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+        //         enemy.animations.play('rise');
+        //         enemy.body.setSize(25, 25, 0, 65);
+        //     } else if (enemy.animations.currentFrame.index === 9) {
+        //         enemy.body.setSize(25, 65, 0, 25);
+        //     } else if (enemy.animations.currentFrame.index === 13) {
+        //         enemy.body.setSize(25, 90, 0, 0);
+        //         enemy.game.global.tentacleFrame = 'fall';
+        //     } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+        //         enemy.body.setSize(25, 65, 0, 25);
+        //     } else if (enemy.animations.currentFrame.index === 8){
+        //         enemy.body.setSize(25, 25, 0, 65);
+        //         enemy.game.global.tentacleFrame = 'start';
+        //     } else {
+        //         return;
+        //     }
+        // });
+        tentacleAnimations(this.tentacleGroup);
+        
         game.physics.arcade.collide(this.flyingGroup, this.layer2);
-        this.flyingGroup.forEach(function(enemy){
-            if(enemy.previousPosition.x >= enemy.position.x){
-                enemy.animations.play('left');
-            }else{
-                enemy.animations.play('right');
-            }
-        });
+        // this.flyingGroup.forEach(function(enemy){
+        //     if(enemy.previousPosition.x >= enemy.position.x){
+        //         enemy.animations.play('left');
+        //     }else{
+        //         enemy.animations.play('right');
+        //     }
+        // });
+        flyingAnimations(this.flyingGroup);
 
         //player collision with enemies
         game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, game);
