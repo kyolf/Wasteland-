@@ -11,7 +11,6 @@ Game.Level1.prototype = {
         let batteries;
         let scoreText;
         let timer;
-        let totalTime;
         let timerTxt;
         let layer;
         let enemyGroup;
@@ -92,6 +91,7 @@ Game.Level1.prototype = {
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
         game.physics.arcade.enable(this.exit);
         this.exit.enableBody = true;
+
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
@@ -108,8 +108,8 @@ Game.Level1.prototype = {
         ///////////////LIGHTING ENDS/////////////
 
          ////////CREATE CUSTOM TIMER///////////////////
-        this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
+        this.game.global.totalTime = 30;
+        this.timerTxt = createText(game, `Timer: ${this.game.global.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
         this.timerTxt.anchor.setTo(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
@@ -122,15 +122,15 @@ Game.Level1.prototype = {
         this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
         this.scoreText.fixedToCamera = true;
 
-        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+        this.timerTxt.setText(`Timer: ${this.game.global.totalTime}s`);
 
 
     }, 
     tick: function(game) {
-        this.totalTime--;
+        this.game.global.totalTime--;
         this.lightRadius -= 20;
         
-        if(this.totalTime <= 10 || this.lightRadius <= 60 && !this.losingTime){
+        if(this.game.global.totalTime <= 10 || this.lightRadius <= 60 && !this.losingTime){
             this.music.pause();
             if(!this.music1Created){
                 this.music1 = this.add.audio('losing_light');
@@ -143,7 +143,7 @@ Game.Level1.prototype = {
             this.losingTime = true;
             this.music1Played = true;
         }
-        else if(this.totalTime > 10 && this.losingTime && this.music1Played){
+        else if(this.game.global.totalTime > 10 && this.losingTime && this.music1Played){
             this.music1.pause();
             this.music.resume();
             this.losingTime = false;
@@ -151,7 +151,7 @@ Game.Level1.prototype = {
         }
 
         console.log('light radius in tick', this.lightRadius);
-        if(this.totalTime === 0 || this.lightRadius === 0) {
+        if(this.game.global.totalTime === 0 || this.lightRadius === 0) {
             this.camera.reset();
             this.music1.stop();
             this.music.stop();
@@ -240,7 +240,7 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer);
 
         //////////////////////////If we want game over//////////////////////////////
-        game.physics.arcade.collide(this.player, this.exit, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel);
         game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
             this.state.start('GameOver');
         });
@@ -263,7 +263,7 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.player, this.lifesGroup, gainLife);
         
         this.lifeTxt.setText(`Lifes: ${this.player.lifes}`);
-        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+        this.timerTxt.setText(`Timer: ${this.game.global.totalTime}s`);
 
     },
     updateShadowTexture: function (game, player) {
@@ -284,8 +284,9 @@ Game.Level1.prototype = {
         this.shadowTexture.dirty = true;
 
     },
-    nextLevel: function(){
-      this.state.start('Level1');
+    nextLevel: function(player, exit){
+        player.reset(32, 650);
+        player.game.global.score += player.game.global.totalTime;
     },
     resetPlayer: function(player, enemyGroup){
         player.lifes--;
