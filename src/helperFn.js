@@ -72,17 +72,17 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.0){
     return player;
 }
 
-function createBatteries(game, pixelsApart = 500, numBatteries = 7) {
-    let batteries = game.add.group();
-    batteries.enableBody = true;
+// function createBatteries(game, pixelsApart = 500, numBatteries = 7) {
+//     let batteries = game.add.group();
+//     batteries.enableBody = true;
 
-    for(let i = 1; i < numBatteries; i++) {
-        let battery = batteries.create(i * pixelsApart, 500, 'battery');
-        battery.body.gravity.y = 500;
-        battery.body.bounce.y= 0.5 + Math.random() * 0.2;
-    }
-    return batteries;
-}
+//     for(let i = 1; i < numBatteries; i++) {
+//         let battery = batteries.create(i * pixelsApart, 500, 'battery');
+//         battery.body.gravity.y = 500;
+//         battery.body.bounce.y= 0.5 + Math.random() * 0.2;
+//     }
+//     return batteries;
+// }
 
 // function createLives(game, pixelsApart = 100, numLives = 5) {
 //     let lives = game.add.group();

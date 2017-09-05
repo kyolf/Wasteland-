@@ -50,7 +50,7 @@ Game.Preloader.prototype = {
         this.load.spritesheet('shadow', 'assets/shadow.png', 80, 70);
         this.load.spritesheet('tentacle', 'assets/tentacle.png', 25, 90);
         this.load.spritesheet('bat', 'assets/bat.png', 32, 32);
-        this.load.image('tree', 'assets/tree.png', 70, 32);
+        this.load.image('portal', 'assets/portal.png', 95, 256);
         
         //Music
         this.load.audio('menu_music', 'music/96-Blocks.ogg');

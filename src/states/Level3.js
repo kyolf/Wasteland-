@@ -45,7 +45,7 @@ Game.Level1.prototype = {
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(0.5, 0.5);
         
-        this.layer2 = createMaps(game, 'map1', 'lvl1bg');
+        this.layer2 = createMaps(game, 'map2', 'lvl2bg');
       
         //see collision blocks
         //this.layer2.debug = true;
@@ -70,43 +70,63 @@ Game.Level1.prototype = {
         
         //Creating Piglets
         this.lifesGroup = game.add.group();
-        new Piglet(game, 576, game.world.height - 300, 100, this.layer, this.lifesGroup);
-        //new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
-        //new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
+        new Piglet(game, 1472, game.world.height - 864, 100, this.layer, this.lifesGroup);
+
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
-        new Shadow(game, 992, game.world.height - 448, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1984, game.world.height - 832, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 3104, game.world.height - 800, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 3968, game.world.height - 550, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1024, game.world.height - 736, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 224, game.world.height - 576, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 1024, game.world.height - 480, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 256, game.world.height - 192, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 3104, game.world.height - 128, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 2400, game.world.height - 64, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 2176, game.world.height - 1056, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 3136, game.world.height - 1024, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 3040, game.world.height - 64, 100, this.layer, this.enemyGroup);
+        
+        
+        
+        
 
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
-        //new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
-        //new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
-        //new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 832, game.world.height - 480, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 992, game.world.height - 96, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 1532, game.world.height - 96, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 1728, game.world.height - 96, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 1920, game.world.height - 832, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 2560, game.world.height - 640, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 3584, game.world.height - 768, 100, this.layer, this.tentacleGroup);
+        
+        
+        
 
         this.tentacleGroup.setAll('body.immovable', true);
 
         this.flyingGroup = game.add.group();
-        new Bat(game, 1120, game.world.height - 930, 3000, this.layer, this.flyingGroup);
-        //new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
-        //new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
+        new Bat(game, 384, game.world.height - 1056, 960, this.layer, this.flyingGroup);
+        new Bat(game, 128, game.world.height - 320, 1536, this.layer, this.flyingGroup);
+        new Bat(game, 1664, game.world.height - 544, 2176, this.layer, this.flyingGroup);
+        new Bat(game, 2528, game.world.height - 672, 3296, this.layer, this.flyingGroup);
+        new Bat(game, 3712, game.world.height - 672, 4096, this.layer, this.flyingGroup);
+        
+        
 
         this.flyingGroup.setAll('body.immovable', true);
         
-        //this.batteries = createBatteries(game);
-
         this.batteries = game.add.group();
-        new Batteries(game, 1350, game.world.height - 960, 0, this.layer, this.batteries);
-        new Batteries(game, 2050, game.world.height - 1440, 0, this.layer, this.batteries);
-        new Batteries(game, 2528, game.world.height - 640, 0, this.layer, this.batteries);
-        new Batteries(game, 4256, game.world.height - 550, 0, this.layer, this.batteries);
+        new Batteries(game, 96, game.world.height - 800, 0, this.layer, this.batteries);
+        new Batteries(game, 128, game.world.height - 224, 0, this.layer, this.batteries);
+        new Batteries(game, 1152, game.world.height - 768, 0, this.layer, this.batteries);
+        new Batteries(game, 1216, game.world.height - 128, 0, this.layer, this.batteries);
+        new Batteries(game, 1952, game.world.height - 928, 0, this.layer, this.batteries);
+        new Batteries(game, 2816, game.world.height - 672, 0, this.layer, this.batteries);
+        new Batteries(game, 2656, game.world.height - 96, 0, this.layer, this.batteries);
+        new Batteries(game, 3232, game.world.height - 128, 0, this.layer, this.batteries);
 
-
-        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        this.exit = game.add.sprite(4608, game.world.height - 608, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
 
@@ -271,7 +291,7 @@ Game.Level1.prototype = {
 
     nextLevel: function(){
         player.game.global.score += player.game.global.totalTime;
-        this.state.start('Level2');
+        this.state.start('Victory');
     },
     resetPlayer: function(player, enemyGroup){
         this.global.lifes--;
