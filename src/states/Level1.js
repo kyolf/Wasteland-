@@ -119,17 +119,6 @@ Game.Level1.prototype = {
         this.timerTxt = timerTxt;
 
     }, 
-    // tick: function() {
-    //     this.global.time--;
-
-    //     this.global.lightRadius = lightRadiusSize(this.global.time);
-
-    //     musicPlayed(this.global.time, window.music, window.music1, window.music2);
-        
-    //     if(this.global.time === 0) {
-    //         goToGameOver(window.music, window.music1, window.music2, this.state);
-    //     }
-    // },
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
         game.physics.arcade.collide(this.batteries, this.layer2);
