@@ -27,9 +27,9 @@ Game.Level1.prototype = {
         this.losingTime = false;
     }, 
     create: function(game) {
-        this.game.global.score = 0;
-        this.game.global.initials = '';
-        this.game.global.tentacleFrame = 'start';
+        game.global.score = 0;
+        game.global.initials = '';
+        game.global.tentacleFrame = 'start';
         
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -43,7 +43,7 @@ Game.Level1.prototype = {
         //see collision blocks
         //this.layer2.debug = true;
         this.player = createPlayer(game);
-        this.player.lifes = 3;
+        game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
@@ -94,10 +94,10 @@ Game.Level1.prototype = {
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
         //Music
-        this.music = game.add.audio('level1_music');
-        this.music.play('', 0, 1, true, true);
-        this.music1 = this.add.audio('heart_slow');
-        this.music2 = this.add.audio('heart_fast');
+        window.music = game.add.audio('level1_music');
+        window.music.play('', 0, 1, true, true);
+        window.music1 = this.add.audio('heart_slow');
+        window.music2 = this.add.audio('heart_fast');
         this.hbFastStopped = true;
         this.hbSlowStopped = true;
         
@@ -111,37 +111,40 @@ Game.Level1.prototype = {
         ///////////////LIGHTING ENDS/////////////
 
          ////////CREATE CUSTOM TIMER///////////////////
-        this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Architects Daughter', '#FFF', 'center');
-        this.timerTxt.anchor.setTo(0.5, 0.5);
-        this.timerTxt.fixedToCamera = true;
-        this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
+        game.global.time = 30;
+        this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, game);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
 
-        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Architects Daughter', '#FFF');
-        this.scoreText.fixedToCamera = true;
+        // this.timerTxt = createText(game, `Timer: ${game.global.time}s`, 1350, 75, '30px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
+        // this.timerTxt.fixedToCamera = true;
 
-        this.lifeTxt = createText(game, `Life:`, 25, 100, '30px Architects Daughter', '#FFF', 'center');
-        this.lifeTxt.fixedToCamera = true;
+        // this.scoreText = createText(game, `Score: ${this.game.global.score}`, 150, 50, '30px Architects Daughter', '#FFF');
+        // this.scoreText.fixedToCamera = true;
 
+        // this.lifeTxt = createText(game, `Life:`, 25, 100, '30px Architects Daughter', '#FFF', 'center');
+        // this.lifeTxt.fixedToCamera = true;
+        const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px Architects Daughter');
+        this.lifeTxt = lifeTxt;
+        this.scoreTxt = scoreTxt;
+        this.timerTxt = timerTxt;
 
     }, 
     tick: function(game) {
-        this.totalTime--;
+        this.global.time--;
 
-        this.lightRadius = lightRadiusSize(this.totalTime);
+        this.lightRadius = lightRadiusSize(this.global.time);
 
-        musicPlayed(this.totalTime, this.music, this.music1, this.music2);
+        musicPlayed(this.global.time, window.music, window.music1, window.music2);
         
-        if(this.totalTime === 0) {
-            goToGameOver(this.music, this.music1, this.music2, this.state);
+        if(this.global.time === 0) {
+            goToGameOver(window.music, window.music1, window.music2, this.state);
         }
     },
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
         game.physics.arcade.collide(this.batteries, this.layer2);
-        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
+        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
 
         /////LIGHTING BEGINS//////
         this.updateShadowTexture();
@@ -151,7 +154,7 @@ Game.Level1.prototype = {
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
-        game.physics.arcade.collide(this.lifesGroup, this.layer);
+        game.physics.arcade.collide(this.lifesGroup, this.layer2);
         this.lifesGroup.forEach(function(piglet){
             if(piglet.previousPosition.x >= piglet.position.x){
                 piglet.animations.play('left');
@@ -162,7 +165,6 @@ Game.Level1.prototype = {
         });
         
         //tile collision with enemies
-        game.physics.arcade.collide(this.enemyGroup, this.layer);
         game.physics.arcade.collide(this.enemyGroup, this.layer2);
         this.enemyGroup.forEach(function(enemy){
             if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
@@ -217,9 +219,9 @@ Game.Level1.prototype = {
         });
 
         //player collision with enemies
-        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer);
-        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer);
-        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer);
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, game);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, game);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, game);
 
         //////////////////////////If we want game over//////////////////////////////
         game.physics.arcade.collide(this.player, this.exit, this.nextLevel);
@@ -232,14 +234,15 @@ Game.Level1.prototype = {
         //     this.state.start('Victory');
         // });
 
-        if(this.player.lifes === 0){
-            goToGameOver(this.music, this.music1, this.music2, game.state);
+        if(game.global.lives === 0){
+            goToGameOver(window.music, window.music1, window.music2, game.state);
         }
 
-        game.physics.arcade.collide(this.player, this.lifesGroup, gainLife);
+        game.physics.arcade.collide(this.player, this.lifesGroup, gainLife, null, game);
         
-        this.lifeTxt.setText(`Lifes: ${this.player.lifes}`);
-        this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+        this.scoreTxt.setText(`Score: ${game.global.score}`);
+        this.lifeTxt.setText(`Lifes: ${game.global.lifes}`);
+        this.timerTxt.setText(`Timer: ${game.global.time}s`);
 
     },
     updateShadowTexture: function (game, player) {
@@ -265,7 +268,7 @@ Game.Level1.prototype = {
       this.state.start('Level1');
     },
     resetPlayer: function(player, enemyGroup){
-        player.lifes--;
+        this.global.lifes--;
         player.reset(632, 50);
     },
     render:function(game) {

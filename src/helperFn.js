@@ -1,5 +1,5 @@
 //Create Functions
-function createButton(game,textOfButton,x,y,w,h,callback){
+function createButton(game,textOfButton,x,y,w,h,callback) {
     let button1 = game.add.button(x,y,'grass',callback,this,2,1,0);
     
     button1.anchor.setTo(0.5,0.5);
@@ -9,7 +9,7 @@ function createButton(game,textOfButton,x,y,w,h,callback){
     createText(game, textOfButton, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
 }
 
-function createImageButton(game, textOfImage,x,y,w,h){
+function createImageButton(game, textOfImage,x,y,w,h) {
     let button = game.add.image(x,y,'grass');
     
     button.anchor.setTo(0.5,0.5);
@@ -23,7 +23,7 @@ function createImageButton(game, textOfImage,x,y,w,h){
     return button;
 }
 
-function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, anchorY = 0){
+function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, anchorY = 0) {
     let txt = game.add.text(x, y, str, {
         font: font,
         fill: fill,
@@ -37,7 +37,7 @@ function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, 
 //the new JSON map with two layers..
 //Maps now currently added in the level js file itself
 
-function createMaps(game, mapName, bgName){
+function createMaps(game, mapName, bgName) {
     let map = game.add.tilemap(mapName);
     
     map.addTilesetImage(bgName);
@@ -50,7 +50,7 @@ function createMaps(game, mapName, bgName){
     return layer2; 
 }
 
-function createPlayer(game, gravityNum = 250, bounceY = 0.2){
+function createPlayer(game, gravityNum = 250, bounceY = 0.2) {
     let player = game.add.sprite(632, game.world.height - 1550, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 90, 25, 10);
@@ -70,7 +70,7 @@ function createPlayer(game, gravityNum = 250, bounceY = 0.2){
     return player;
 }
 
-function createBatteries(game, pixelsApart = 500, numBatteries = 7){
+function createBatteries(game, pixelsApart = 500, numBatteries = 7) {
     let batteries = game.add.group();
     batteries.enableBody = true;
 
@@ -93,15 +93,21 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 7){
 //     return lives;
 // }
 
-function createTimer(game, callback, duration = 30000){
-    let timer = game.time.create();
-    timer.add(duration, callback, this);
-    timer.start();
-    return timer;
+function createLevelText(game, font) {
+    let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 1350, 75, font, '#FFF', 'center', 0.5, 0.5);
+    timerTxt.fixedToCamera = true;
+
+    let scoreTxt = createText(game, `Score: ${game.global.score}`, 150, 50, font, '#FFF');
+    scoreTxt.fixedToCamera = true;
+
+    let lifeTxt = createText(game, `Life: ${game.global.lifes}`, 25, 100, font, '#FFF', 'center');
+    lifeTxt.fixedToCamera = true;
+    
+    return {timerTxt, scoreTxt, lifeTxt};
 }
 
 function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxXSpeed = 5,
-    minParticleScale = 0.1, maxParticleScale = 0.5, minRotation = 0, maxRotation = 0, angle = 30){
+    minParticleScale = 0.1, maxParticleScale = 0.5, minRotation = 0, maxRotation = 0, angle = 30) {
     var emitter = game.add.emitter(game.world.centerX, 0, 400);
     
     emitter.width = game.world.width;
@@ -122,7 +128,7 @@ function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxX
 }
 
 //Update Functions
-function playerActions(cursors, player, hitPlatforms){
+function playerActions(cursors, player, hitPlatforms) {
     player.body.velocity.x = 0;
     //can make movement more complex
     if(cursors.left.isDown) {
@@ -148,13 +154,12 @@ function playerActions(cursors, player, hitPlatforms){
 
 function collectBattery(player, battery) {
     battery.kill();
-    this.game.global.score += 10;
-    this.totalTime += 5;
-    this.scoreText.text = 'Score: ' + this.game.global.score;
+    this.global.score += 10;
+    this.global.time += 5;
 }
 
 function gainLife(player, piglet) {
-    player.lifes++;
+    this.global.lifes++;
     piglet.kill();
 }
 
@@ -173,7 +178,7 @@ function lightRadiusSize(time){
     }
 }
 
-function musicPlayed(time, bgMusic, hbSlow, hbFast){
+function musicPlayed(time, bgMusic, hbSlow, hbFast) {
     if(time > 10){
         if(!this.hbSlowStopped){
             hbSlow.stop();
@@ -200,7 +205,7 @@ function musicPlayed(time, bgMusic, hbSlow, hbFast){
         }
     }
     else{
-        if(!hbSlowStopped){
+        if(!hbSlowStopped) {
             hbSlow.stop();
             hbSlowStopped = true;
         }
@@ -211,7 +216,7 @@ function musicPlayed(time, bgMusic, hbSlow, hbFast){
     }
 }
 
-function goToGameOver(bgMusic, hbSlow, hbFast, state){
+function goToGameOver(bgMusic, hbSlow, hbFast, state) {
     bgMusic.stop();
     hbSlow.stop();
     hbFast.stop();
