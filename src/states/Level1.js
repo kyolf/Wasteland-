@@ -163,7 +163,7 @@ Game.Level1.prototype = {
         //         piglet.animations.play('right');
         //     }
         // });
-        pigletAnimations(this.lifesGroup);
+        //pigletAnimations(this.lifesGroup);
 
 
         //tile collision with enemies

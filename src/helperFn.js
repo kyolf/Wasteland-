@@ -172,16 +172,16 @@ function gainLife(player, piglet) {
     piglet.kill();
 }
 
-function pigletAnimations(group){
-    group.forEach(function(piglet){
-        if(piglet.previousPosition.x >= piglet.position.x){
-            piglet.animations.play('left');
-        }
-        else{
-            piglet.animations.play('right');
-        }
-    });
-}
+// function pigletAnimations(group){
+//     group.forEach(function(piglet){
+//         if(piglet.previousPosition.x >= piglet.position.x){
+//             piglet.animations.play('left');
+//         }
+//         else{
+//             piglet.animations.play('right');
+//         }
+//     });
+// }
 
 function tentacleAnimations(group){
     group.forEach(function(enemy){
