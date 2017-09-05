@@ -9,6 +9,9 @@ Game.Level1.prototype = {
         let player;
         let cursors;
         let batteries;
+        let lives;
+        let lifeTxt;
+        let score;
         let scoreText;
         let timer;
         let totalTime;
@@ -120,31 +123,6 @@ Game.Level1.prototype = {
 
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
-                //Creating Shadows
-        this.enemyGroup = game.add.group();
-        new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
-
-        this.enemyGroup.setAll('body.immovable', true);
-
-        this.tentacleGroup = game.add.group();
-        new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
-
-        this.tentacleGroup.setAll('body.immovable', true);
-
-        this.flyingGroup = game.add.group();
-        new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.flyingGroup);
-        new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
-        new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
-
-        this.flyingGroup.setAll('body.immovable', true);
-
-        this.batteries = createBatteries(game);
-
-        this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
         //Music
         this.music = game.add.audio('level1_music');
@@ -157,7 +135,7 @@ Game.Level1.prototype = {
 
          ////////////LIGHTING BEGINS///////////
         this.lightRadius = 400;
-        this.shadowTexture = game.add.bitmapData(3600, 1000);
+        this.shadowTexture = game.add.bitmapData(4000, 4000);
         
         this.light = game.add.image(0, 0, this.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
@@ -166,20 +144,26 @@ Game.Level1.prototype = {
 
          ////////CREATE CUSTOM TIMER///////////////////
         this.totalTime = 30;
-        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Freckle Face', '#FFF', 'center');
+        this.timerTxt = createText(game, `Timer: ${this.totalTime}s`, 1350, 75, '30px Architects Daughter', '#FFF', 'center');
         this.timerTxt.anchor.setTo(0.5, 0.5);
         this.timerTxt.fixedToCamera = true;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, this);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
 
+        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Architects Daughter', '#FFF');
         this.lifeTxt = createText(game, `Lifes: ${this.player.lifes}`, 800, 75, '30px Freckle Face', '#FFF', 'center', 0.5, 0.5);
         this.lifeTxt.fixedToCamera = true;
 
-        this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
+        // this.scoreText = createText(game, 'Score: 0', 150, 50, '30px Freckle Face', '#FFF');
         this.scoreText.fixedToCamera = true;
 
         this.timerTxt.setText(`Timer: ${this.totalTime}s`);
+
+        ///////CREATE LIVES///////////
+        this.lifeTxt = createText(game, `Life:`, 25, 100, '30px Architects Daughter', '#FFF', 'center');
+        this.lifeTxt.fixedToCamera = true;
+        this.lives = createLives(game);
 
 
     }, 
@@ -353,8 +337,8 @@ Game.Level1.prototype = {
 
     },
     updateShadowTexture: function (game, player) {
-        this.shadowTexture.context.fillStyle = '#4e535b';
-        this.shadowTexture.context.fillRect(0, 0, 3600, 1000);
+        this.shadowTexture.context.fillStyle = '#00040c';
+        this.shadowTexture.context.fillRect(0, 0, 4000, 8000);
     
         let gradient = this.shadowTexture.context.createRadialGradient(
             this.player.x, this.player.y, this.lightRadius * 0.65,
@@ -370,6 +354,7 @@ Game.Level1.prototype = {
         this.shadowTexture.dirty = true;
 
     },
+
     nextLevel: function(){
       this.state.start('Level1');
     },
@@ -378,7 +363,6 @@ Game.Level1.prototype = {
         player.reset(632, 50);
     },
     render:function(game) {
-        
         // Sprite debug info
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;

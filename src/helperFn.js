@@ -6,7 +6,7 @@ function createButton(game,textOfButton,x,y,w,h,callback){
     button1.width = w;
     button1.height = h;
 
-    createText(game, textOfButton, x, y, '32px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfButton, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
 }
 
 function createImageButton(game, textOfImage,x,y,w,h){
@@ -19,7 +19,7 @@ function createImageButton(game, textOfImage,x,y,w,h){
     button.scale.y = 0.5;
     button.tweenAnimation = game.add.tween(button.scale).to({x: 0.7, y: 0.7},500,'Linear',true,0,-1,true); 
     
-    createText(game, textOfImage, x, y, '32px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+    createText(game, textOfImage, x, y, '32px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
     return button;
 }
 
@@ -78,6 +78,17 @@ function createBatteries(game, pixelsApart = 500, numBatteries = 7){
         battery.body.bounce.y= 0.5 + Math.random() * 0.2;
     }
     return batteries;
+}
+
+function createLives(game, pixelsApart = 100, numLives = 5) {
+    let lives = game.add.group();
+    lives.enableBody = true;
+
+    for(let i = 1; i <= numLives; i++) {
+        let life = lives.create(i * pixelsApart, 100, 'life');
+        life.allowGravity = false;
+    }
+    return lives;
 }
 
 function createTimer(game, callback, duration = 30000){
@@ -145,6 +156,8 @@ function gainLife(player, piglet) {
     piglet.kill();
 }
 
+// function loseLife(player, life) {
+//     life.kill();
 // function updateShadowTexture(game, player) {
 //     this.shadowTexture.ctx.fillStyle = '#ff0000';
 //     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);

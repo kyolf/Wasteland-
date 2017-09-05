@@ -32,6 +32,7 @@ Game.Preloader.prototype = {
         this.load.image('grim', 'assets/grim_reaper.png');
         this.load.image('platform', 'assets/platform.png');
         this.load.image('grass', 'assets/Grass_Platform.png');
+        this.load.image('life', 'assets/diamond.png');
         this.load.image('battery', 'assets/battery.png');
         this.load.spritesheet('dude3', 'assets/dude4_small.png', 71, 100); //width div frames, height 
         this.load.tilemap('map1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -55,7 +56,7 @@ Game.Preloader.prototype = {
     },
     loadStart: function(){
         this.loadingText = createText(this, 'Loading', this.world.centerX, this.world.centerY - 100, 
-        '100px Freckle Face', '#FFF', 'center', 0.5, 0.5);
+        '100px Architects Daughter', '#FFF', 'center', 0.5, 0.5);
     },
     startMainMenu: function(){
         this.state.start('MainMenu');
