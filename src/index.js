@@ -16,6 +16,8 @@ window.onload = function() {
     game.state.add('InfoModal', Game.InfoModal);
     game.state.add('HighScores', Game.HighScores);
     game.state.add('Level1', Game.Level1);
+    game.state.add('Level2', Game.Level2);
+    game.state.add('Level3', Game.Level3);
     game.state.add('GameOver', Game.GameOver);
     game.state.add('Victory', Game.Victory);
     game.state.start('Boot');
