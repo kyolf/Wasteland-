@@ -223,11 +223,8 @@ Game.Level1.prototype = {
         game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, game);
         game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, game);
 
-        //////////////////////////If we want game over//////////////////////////////
-        game.physics.arcade.collide(this.player, this.exit, this.nextLevel);
-        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
-        //     this.state.start('GameOver');
-        // });
+        //collision with exit
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, game);
 
         //Uncomment for collision to spark victory
         //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
