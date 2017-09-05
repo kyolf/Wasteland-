@@ -149,6 +149,59 @@ function gainLife(player, piglet) {
     piglet.kill();
 }
 
+function lightRadiusSize(time){
+    if(time >= 30){
+        return 400;
+    }
+    else if(time > 20){
+        return 300;
+    }
+    else if(time > 10){
+        return 200;
+    }
+    else{
+        return 100;
+    }
+}
+
+function musicPlayed(time, bgMusic, hbSlow, hbFast){
+    if(time > 10){
+        if(!this.hbSlowStopped){
+            hbSlow.stop();
+            this.hbSlowStopped = true;
+        }
+        if(this.musicPaused){
+            bgMusic.resume();
+            this.musicPaused = false;
+        }
+    }
+    else if(time > 5){
+        if(!this.musicPaused){
+            bgMusic.pause();
+            this.musicPaused = true;
+        }
+        if(!this.hbFastStopped){
+            hbFast.stop();
+            this.hbFastStopped = true;
+        }
+        
+        if(this.hbSlowStopped){
+            hbSlow.play('', 0, 1, true, true);
+            this.hbSlowStopped = false;
+        }
+    }
+    else{
+        if(!hbSlowStopped){
+            hbSlow.stop();
+            hbSlowStopped = true;
+        }
+        if(this.hbFastStopped){
+            hbFast.play('', 0, 1, true, true);
+            this.hbFastStopped = false;
+        }
+    }
+}
+
 // function updateShadowTexture(game, player) {
 //     this.shadowTexture.ctx.fillStyle = '#ff0000';
 //     this.shadowTexture.ctx.fillRect(0, 0, game.world.width, game.world.height);

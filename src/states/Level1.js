@@ -27,8 +27,6 @@ Game.Level1.prototype = {
         this.game.global.score = 0;
         this.game.global.initials = '';
         this.game.global.tentacleFrame = 'start';
-
-        game.physics.startSystem(Phaser.Physics.ARCADE);
         
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -91,41 +89,14 @@ Game.Level1.prototype = {
 
         this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
 
-                //Creating Shadows
-        this.enemyGroup = game.add.group();
-        new Shadow(game, 640, game.world.height - 250, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1950, game.world.height - 200, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1024, game.world.height - 100, 100, this.layer, this.enemyGroup);
-
-        this.enemyGroup.setAll('body.immovable', true);
-
-        this.tentacleGroup = game.add.group();
-        new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
-
-        this.tentacleGroup.setAll('body.immovable', true);
-
-        this.flyingGroup = game.add.group();
-        new Bat(game, 250, game.world.height - 500, 1000, this.layer, this.flyingGroup);
-        new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
-        new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
-
-        this.flyingGroup.setAll('body.immovable', true);
-
-        this.batteries = createBatteries(game);
-
-        this.exit = game.add.sprite(3000, game.world.height - 350, 'tree');
-
         //Music
         this.music = game.add.audio('level1_music');
         this.music.play('', 0, 1, true, true);
         this.music1 = this.add.audio('heart_slow');
         this.music2 = this.add.audio('heart_fast');
-        this.music1Stopped = true;
-        this.music2Stopped = true;
+        this.hbFastStopped = true;
+        this.hbSlowStopped = true;
         
-
          ////////////LIGHTING BEGINS///////////
         this.lightRadius = 400;
         this.shadowTexture = game.add.bitmapData(3600, 1000);
@@ -156,55 +127,10 @@ Game.Level1.prototype = {
     }, 
     tick: function(game) {
         this.totalTime--;
-        //this.lightRadius -= 20;
-        
-        if(this.totalTime >= 30){
-            this.lightRadius = 400;
-        }
-        else if(this.totalTime > 20){
-            this.lightRadius = 300;
-        }
-        else if(this.totalTime > 10){
-            this.lightRadius = 200;
-        }
-        else{
-            this.lightRadius = 100;
-        }
 
-        if(this.totalTime > 10){
-            if(!this.music1Stopped){
-                this.music1.stop();
-                this.music1Stopped = true;
-            }
-            if(this.musicPaused){
-                this.music.resume();
-                this.musicPaused = false;
-            }
-        }
-        else if(this.totalTime > 5){
-            if(!this.musicPaused){
-                this.music.pause();
-                this.musicPaused = true;
-            }
-            if(!this.music2Stopped){
-                this.music2.stop();
-                this.music2Stopped = true;
-            }
-            if(this.music1Stopped){
-                this.music1.play('', 0, 1, true, true);
-                this.music1Stopped = false;
-            }
-        }
-        else{
-            if(!this.music1Stopped){
-                this.music1.stop();
-                this.music1Stopped = true;
-            }
-            if(this.music2Stopped){
-                this.music2.play('', 0, 1, true, true);
-                this.music2Stopped = false;
-            }
-        }
+        this.lightRadius = lightRadiusSize(this.totalTime);
+
+        musicPlayed(this.totalTime, this.music, this.music1, this.music2);
         
         if(this.totalTime === 0) {
             this.camera.reset();
