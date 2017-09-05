@@ -11,9 +11,9 @@ Game.Victory.prototype = {
         
         this.bg = game.add.sprite(0,0,'victory');
         this.bg.scale.setTo(0.8,1);
-        createText(game, 'Congrats, You Escaped', 800, 325, '100px murderFont', '#FFF', 'center', 0.5, 0.5);
-        createButton(game, 'Go Back to Menu', 175, 75,
-        275, 60, () => {
+        createText(game, 'Congrats, You Escaped', 350, 325, '100px murderFont', '#FFF', 'center', 0.5, 0.5);
+        createButton(game, 'Go Back to Menu', 100, 50,
+        175, 50, () => {
             this.state.start('MainMenu');
         });
     }

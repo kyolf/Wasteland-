@@ -110,7 +110,7 @@ Game.Level1.prototype = {
         this.hbSlowStopped = true;
         
          ////////////LIGHTING BEGINS///////////
-        game.global.lightRadius = 300;
+        game.global.lightRadius = 350;
         this.shadowTexture = game.add.bitmapData(4000, 4000);
         
         this.light = game.add.image(0, 0, this.shadowTexture);

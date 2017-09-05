@@ -7,12 +7,12 @@ Game.HighScores.prototype = {
     //     let highScores;
     // },
     create: function(game) {
-        let bg = game.add.sprite(0,0,'bg2');
-        bg.set.scaleTo(0.5, 0.5);
+        let bg = game.add.sprite(0, 0, 'bg2');
+        bg.scale.setTo(0.5, 0.5);
     
         createText(game, 'High Scores', 275, 60, '80px murderFont', '#FFF', 'center');
     
-        createButton(game, 'Go Back to Menu', 175, 50, 200, 50, 
+        createButton(game, 'Go Back to Menu', 100, 50, 175, 50, 
         () => {
             this.state.start('MainMenu');
         });
