@@ -110,7 +110,7 @@ Game.Level1.prototype = {
         this.hbSlowStopped = true;
         
          ////////////LIGHTING BEGINS///////////
-        this.lightRadius = 400;
+        game.global.lightRadius = 300;
         this.shadowTexture = game.add.bitmapData(4000, 4000);
         
         this.light = game.add.image(0, 0, this.shadowTexture);
@@ -119,7 +119,7 @@ Game.Level1.prototype = {
         ///////////////LIGHTING ENDS/////////////
 
          ////////CREATE CUSTOM TIMER///////////////////
-        game.global.time = 60;
+        game.global.time = 30;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, this.tick, game);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
@@ -132,7 +132,8 @@ Game.Level1.prototype = {
     tick: function(game) {
         this.global.time--;
 
-        this.lightRadius = lightRadiusSize(this.global.time);
+        this.global.lightRadius = lightRadiusSize(this.global.time);
+        console.log('light radius', this.global.lightRadius, this.global.time);
 
         musicPlayed(this.global.time, window.music, window.music1, window.music2);
         
@@ -146,7 +147,7 @@ Game.Level1.prototype = {
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
 
         /////LIGHTING BEGINS//////
-        this.updateShadowTexture();
+        this.updateShadowTexture(game);
 
         //////////////LIGHTING ENDS//////////////
 
@@ -246,15 +247,15 @@ Game.Level1.prototype = {
         this.shadowTexture.context.fillRect(0, 0, 4000, 8000);
     
         let gradient = this.shadowTexture.context.createRadialGradient(
-            this.player.x, this.player.y, this.lightRadius * 0.65,
-            this.player.x, this.player.y, this.lightRadius
+            this.player.x, this.player.y, game.global.lightRadius * 0.65,
+            this.player.x, this.player.y, game.global.lightRadius
         );
         gradient.addColorStop(0, '#ffffff');
         gradient.addColorStop(1, '#ffffff');
 
         this.shadowTexture.context.beginPath();
         this.shadowTexture.context.fillStyle = gradient;
-        this.shadowTexture.context.arc(this.player.x + 35, this.player.y + 10, this.lightRadius, 0, Math.PI * 2);
+        this.shadowTexture.context.arc(this.player.x + 35, this.player.y + 10, game.global.lightRadius, 0, Math.PI * 2);
         this.shadowTexture.context.fill();
         this.shadowTexture.dirty = true;
 

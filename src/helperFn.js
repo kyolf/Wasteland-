@@ -174,13 +174,13 @@ function gainLife(player, piglet) {
 
 function lightRadiusSize(time){
     if(time >= 30){
-        return 400;
-    }
-    else if(time > 20){
         return 300;
     }
-    else if(time > 10){
+    else if(time > 20){
         return 200;
+    }
+    else if(time > 10){
+        return 150;
     }
     else{
         return 100;
