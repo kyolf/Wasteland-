@@ -70,30 +70,30 @@ Game.Level1.prototype = {
         
         //Creating Piglets
         this.livesGroup = game.add.group();
-        new Piglet(game, 576, game.world.height - 300, 100, this.layer, this.livesGroup);
-        //new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.livesGroup);
-        //new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.livesGroup);
+        new Piglet(game, 576, game.world.height - 300, 100, this.livesGroup);
+        //new Piglet(game, 100, game.world.height - 100, 100, this.livesGroup);
+        //new Piglet(game, 1000, game.world.height - 100, 100, this.livesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
-        new Shadow(game, 992, game.world.height - 448, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1984, game.world.height - 832, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 3104, game.world.height - 800, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 3968, game.world.height - 550, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 992, game.world.height - 448, 100, this.enemyGroup);
+        new Shadow(game, 1984, game.world.height - 832, 100, this.enemyGroup);
+        new Shadow(game, 3104, game.world.height - 800, 100, this.enemyGroup);
+        new Shadow(game, 3968, game.world.height - 550, 100, this.enemyGroup);
 
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
-        //new Tentacle(game, 1300, game.world.height - 275, 100, this.layer, this.tentacleGroup);
-        //new Tentacle(game, 350, game.world.height - 180, 100, this.layer, this.tentacleGroup);
-        //new Tentacle(game, 2460, game.world.height - 405, 100, this.layer, this.tentacleGroup);
+        //new Tentacle(game, 1300, game.world.height - 275, 100, this.tentacleGroup);
+        //new Tentacle(game, 350, game.world.height - 180, 100, this.tentacleGroup);
+        //new Tentacle(game, 2460, game.world.height - 405, 100, this.tentacleGroup);
 
         this.tentacleGroup.setAll('body.immovable', true);
 
         this.flyingGroup = game.add.group();
-        new Bat(game, 1120, game.world.height - 930, 3000, this.layer, this.flyingGroup);
-        //new Bat(game, 1400, game.world.height - 200, 600, this.layer, this.flyingGroup);
-        //new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
+        new Bat(game, 1120, game.world.height - 930, 3000, this.flyingGroup);
+        //new Bat(game, 1400, game.world.height - 200, 600, this.flyingGroup);
+        //new Bat(game, 2000, game.world.height - 550, 1000, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
         
@@ -104,8 +104,8 @@ Game.Level1.prototype = {
         //Music
         window.music = game.add.audio('level1_music');
         window.music.play('', 0, 1, true, true);
-        window.music1 = this.add.audio('heart_slow');
-        window.music2 = this.add.audio('heart_fast');
+        window.music1 = game.add.audio('heart_slow');
+        window.music2 = game.add.audio('heart_fast');
         this.hbFastStopped = true;
         this.hbSlowStopped = true;
         
@@ -154,68 +154,18 @@ Game.Level1.prototype = {
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
-        game.physics.arcade.collide(this.lifesGroup, this.layer2);
-        // this.lifesGroup.forEach(function(piglet){
-        //     if(piglet.previousPosition.x >= piglet.position.x){
-        //         piglet.animations.play('left');
-        //     }
-        //     else{
-        //         piglet.animations.play('right');
-        //     }
-        // });
-        //pigletAnimations(this.lifesGroup);
+        game.physics.arcade.collide(this.livesGroup, this.layer2);
+        pigletAnimations(this.livesGroup);
 
 
         //tile collision with enemies
         game.physics.arcade.collide(this.enemyGroup, this.layer2);
-        this.enemyGroup.forEach(function(enemy){
-            if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
-                enemy.animations.play('rise');
-                enemy.body.setSize(0, 0, 0, 0);
-            } else if (enemy.animations.currentFrame.index === 8) {
-                enemy.body.setSize(80, 45, 0, 25);
-            } else if (enemy.animations.currentFrame.index === 12) {
-                enemy.body.setSize(80, 70, 0, 0);
-                enemy.game.global.shadowFrame = 'fall';
-            } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
-                enemy.body.setSize(80, 45, 0, 25);
-            } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
-                enemy.body.setSize(0, 0, 0, 0);
-                enemy.game.global.shadowFrame = 'start';
-            } else {
-                return;
-            }
-        });
+        shadowAnimations(this.enemyGroup);
 
         game.physics.arcade.collide(this.tentacleGroup, this.layer2);
-        // this.tentacleGroup.forEach(function(enemy){
-        //     if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
-        //         enemy.animations.play('rise');
-        //         enemy.body.setSize(25, 25, 0, 65);
-        //     } else if (enemy.animations.currentFrame.index === 9) {
-        //         enemy.body.setSize(25, 65, 0, 25);
-        //     } else if (enemy.animations.currentFrame.index === 13) {
-        //         enemy.body.setSize(25, 90, 0, 0);
-        //         enemy.game.global.tentacleFrame = 'fall';
-        //     } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
-        //         enemy.body.setSize(25, 65, 0, 25);
-        //     } else if (enemy.animations.currentFrame.index === 8){
-        //         enemy.body.setSize(25, 25, 0, 65);
-        //         enemy.game.global.tentacleFrame = 'start';
-        //     } else {
-        //         return;
-        //     }
-        // });
         tentacleAnimations(this.tentacleGroup);
         
         game.physics.arcade.collide(this.flyingGroup, this.layer2);
-        // this.flyingGroup.forEach(function(enemy){
-        //     if(enemy.previousPosition.x >= enemy.position.x){
-        //         enemy.animations.play('left');
-        //     }else{
-        //         enemy.animations.play('right');
-        //     }
-        // });
         flyingAnimations(this.flyingGroup);
 
         //player collision with enemies

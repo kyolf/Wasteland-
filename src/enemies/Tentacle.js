@@ -1,7 +1,6 @@
 'use strict';
 
-const Tentacle = function(game, x, y, destination, platforms, group){
-    this.platform = platforms;
+const Tentacle = function(game, x, y, destination, group){
     this.tentacle = game.add.sprite(x, y, 'tentacle');
     game.physics.arcade.enable(this.tentacle);
     this.tentacle.collideWorldBounds = true;
