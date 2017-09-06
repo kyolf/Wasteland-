@@ -3,11 +3,13 @@ window.onload = function() {
     game.global = {
       score: 0,
       time: 30,
-      lifes: 3,
+      lives: 3,
       lightRadius: 300,
       initials: '',
       tentacleFrame: 'start',
-      shadowFrame: 'start'
+      shadowFrame: 'start',
+      shadowTexture: null,
+      menuMusic: true
     };
 
     game.state.add('Boot', Game.Boot);
