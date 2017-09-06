@@ -291,7 +291,7 @@ function goToGameOver(hbSlow, hbFast, state) {
 
 function updateShadowTexture(game, player, shadowTexture) {
     shadowTexture.context.fillStyle = '#00040c';
-    shadowTexture.context.fillRect(0, 0, 4000, 8000);
+    shadowTexture.context.fillRect(0, 0, 5000, 5000);
 
     let gradient = shadowTexture.context.createRadialGradient(
         player.x, player.y, game.global.lightRadius * 0.65,

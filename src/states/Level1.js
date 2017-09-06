@@ -101,7 +101,7 @@ Game.Level1.prototype = {
         
          ////////////LIGHTING BEGINS///////////
         game.global.lightRadius = 350;
-        this.shadowTexture = game.add.bitmapData(4000, 4000);
+        this.shadowTexture = game.add.bitmapData(5000, 5000);
         
         this.light = game.add.image(0, 0, this.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
