@@ -5,6 +5,9 @@ window.onload = function() {
       time: 30,
       lifes: 3,
       lightRadius: 300,
+      hbFastStopped: true,
+      hbSlowStopped: true,
+      musicPaused: false,
       initials: '',
       tentacleFrame: 'start',
       shadowFrame: 'start'

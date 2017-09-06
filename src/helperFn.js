@@ -245,40 +245,40 @@ function lightRadiusSize(time){
     }
 }
 
-function musicPlayed(time, bgMusic, hbSlow, hbFast) {
+function musicPlayed(game, time, bgMusic, hbSlow, hbFast) {
     if(time > 10){
-        if(!this.hbSlowStopped){
+        if(!game.global.hbSlowStopped){
             hbSlow.stop();
-            this.hbSlowStopped = true;
+            game.global.hbSlowStopped = true;
         }
-        if(this.musicPaused){
+        if(game.global.musicPaused){
             bgMusic.resume();
-            this.musicPaused = false;
+            game.global.musicPaused = false;
         }
     }
     else if(time > 5){
-        if(!this.musicPaused){
+        if(!game.global.musicPaused){
             bgMusic.pause();
-            this.musicPaused = true;
+            game.global.musicPaused = true;
         }
-        if(!this.hbFastStopped){
+        if(!game.global.hbFastStopped){
             hbFast.stop();
-            this.hbFastStopped = true;
+            game.global.hbFastStopped = true;
         }
         
-        if(this.hbSlowStopped){
+        if(game.global.hbSlowStopped){
             hbSlow.play('', 0, 1, true, true);
-            this.hbSlowStopped = false;
+            game.global.hbSlowStopped = false;
         }
     }
     else{
-        if(!hbSlowStopped) {
+        if(!game.global.hbSlowStopped) {
             hbSlow.stop();
-            hbSlowStopped = true;
+            game.global.hbSlowStopped = true;
         }
-        if(this.hbFastStopped){
+        if(game.global.hbFastStopped){
             hbFast.play('', 0, 1, true, true);
-            this.hbFastStopped = false;
+            game.global.hbFastStopped = false;
         }
     }
 }
@@ -313,7 +313,7 @@ function tick() {
 
     this.global.lightRadius = lightRadiusSize(this.global.time);
 
-    musicPlayed(this.global.time, window.music, window.music1, window.music2);
+    musicPlayed(this, this.global.time, window.music, window.music1, window.music2);
     
     if(this.global.time === 0) {
         window.music.stop();

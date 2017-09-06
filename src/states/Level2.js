@@ -13,7 +13,6 @@ Game.Level2.prototype = {
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
 
-        game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
 
@@ -95,15 +94,15 @@ Game.Level2.prototype = {
         this.exit.enableBody = true;
 
         //Music
-        window.music = game.add.audio('level1_music');
-        window.music.play('', 0, 1, true, true);
-        window.music1 = game.add.audio('heart_slow');
-        window.music2 = game.add.audio('heart_fast');
-        this.hbFastStopped = true;
-        this.hbSlowStopped = true;
+        // window.music = game.add.audio('level1_music');
+        // window.music.play('', 0, 1, true, true);
+        // window.music1 = game.add.audio('heart_slow');
+        // window.music2 = game.add.audio('heart_fast');
+        // this.hbFastStopped = true;
+        // this.hbSlowStopped = true;
         
          ////////////LIGHTING BEGINS///////////
-        game.global.lightRadius = 350;
+        // game.global.lightRadius = 350;
         this.shadowTexture = game.add.bitmapData(5000, 5000);
         
         this.light = game.add.image(0, 0, this.shadowTexture);
