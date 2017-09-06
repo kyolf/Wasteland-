@@ -18,8 +18,6 @@ Game.Level1.prototype = {
         game.global.tentacleFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        
-        game.physics.startSystem(Phaser.Physics.ARCADE);
 
         game.stage.backgroundColor = '#00112d';
 
