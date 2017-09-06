@@ -45,11 +45,11 @@ Game.Preloader.prototype = {
         this.load.tilemap('map3', 'assets/level3.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.image('tiles', 'assets/phase-2.png', 32, 32);
         this.load.image('phase-2', 'assets/phase-2.png', 32, 32);
-        this.load.spritesheet('rain', 'assets/rain.png', 17, 17);
+        this.load.spritesheet('rain', 'assets/rain.png', 34, 34);
         this.load.spritesheet('piglet', 'assets/baddie.png', 32, 32);
         this.load.spritesheet('shadow', 'assets/shadow.png', 80, 70);
         this.load.spritesheet('tentacle', 'assets/tentacle.png', 25, 90);
-        this.load.spritesheet('bat', 'assets/bat.png', 32, 32);
+        this.load.spritesheet('bat', 'assets/bat.png', 75, 75);
         this.load.image('portal', 'assets/portal.png', 95, 256);
         
         //Music
