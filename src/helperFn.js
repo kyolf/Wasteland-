@@ -291,7 +291,11 @@ function goToGameOver(hbSlow, hbFast, state) {
 
 function updateShadowTexture(game, player, shadowTexture) {
     shadowTexture.context.fillStyle = '#00040c';
+<<<<<<< HEAD
     shadowTexture.context.fillRect(0, 0, 5000, 5000);
+=======
+    shadowTexture.context.fillRect(0, 0, 4800, 4000);
+>>>>>>> test
 
     let gradient = shadowTexture.context.createRadialGradient(
         player.x, player.y, game.global.lightRadius * 0.65,
@@ -317,7 +321,7 @@ function tick() {
     
     if(this.global.time === 0) {
         window.music.stop();
-        window.music = null;
+        window.music.destroy();
         goToGameOver(window.music1, window.music2, this.state);
     }
 }

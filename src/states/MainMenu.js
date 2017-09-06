@@ -43,10 +43,12 @@ Game.MainMenu.prototype = {
 
         createRain(game, 300, 500, -5, 5, 0.1, 0.5, 0, 0, 30);
 
-        if(!window.music){
+        if(game.global.menuMusic) {
             window.music = game.add.audio('menu_music');
             window.music.play('', 0, 1, true, true);
+            game.global.menuMusic = false;
         }
+        
         //Buttons
         // createButton(game, 'Play Game', 800, 350, 200, 50,
         //             () => {
@@ -92,7 +94,7 @@ Game.MainMenu.prototype = {
             if(this.buttonIndex === 0){
                 game.state.start('Level1');
                 window.music.stop();
-                window.music = null;
+                window.music.destroy();
             }else if(this.buttonIndex === 1){
                 game.state.start('InfoModal');
             }else{
