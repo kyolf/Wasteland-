@@ -2,9 +2,10 @@ body {
   margin: 0;
   padding: 0;
   /*background-image: url('./assets/bg2.jpg');*/
-  background-image: url('./assets/zombie.png');
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat;*/
+  background: grey;
+  color: grey;
   font-family: 'murderFont';
 }
 
