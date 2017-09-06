@@ -195,7 +195,7 @@ Game.Level1.prototype = {
             // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
-        // game.debug.body(this.player);
+        game.debug.body(this.player);
         // game.debug.bodyInfo(this.player, 32, 256);
     }
 };
