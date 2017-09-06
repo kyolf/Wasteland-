@@ -53,8 +53,8 @@ Game.Preloader.prototype = {
         this.load.image('portal', 'assets/portal.png', 95, 256);
         
         //Music
-        this.load.audio('menu_music', 'music/96-Blocks.ogg');
-        this.load.audio('level1_music', 'music/Moonlit-Streets.ogg');
+        this.load.audio('menu_music', 'music/Sad-Creepy.mp3');
+        this.load.audio('level1_music', 'music/Sad-Creepy.mp3');
         this.load.audio('losing_light', 'music/Theyre-Closing-In.ogg');
         this.load.audio('heart_fast', 'music/heartFast.ogg');
         this.load.audio('heart_slow', 'music/heartSlow.ogg');
