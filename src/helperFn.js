@@ -152,12 +152,12 @@ function playerActions(cursors, player, hitPlatforms) {
 
 function collectBattery(player, battery) {
     battery.kill();
-    this.global.score += 10;
-    this.global.time += 5;
+    this.game.global.score += 10;
+    this.game.global.time += 5;
 }
 
 function gainLife(player, piglet) {
-    this.global.lives++;
+    this.game.global.lives++;
     piglet.kill();
 }
 
@@ -309,13 +309,13 @@ function updateShadowTexture(game, player, shadowTexture) {
 }
 
 function tick() {
-    this.global.time--;
+    this.game.global.time--;
 
-    this.global.lightRadius = lightRadiusSize(this.global.time);
+    this.game.global.lightRadius = lightRadiusSize(this.game.global.time);
 
-    musicPlayed(this, this.global.time, window.music, window.music1, window.music2);
+    musicPlayed(this, this.game.global.time, window.music, window.music1, window.music2);
     
-    if(this.global.time === 0) {
+    if(this.game.global.time === 0) {
         window.music.stop();
         window.music.destroy();
         goToGameOver(window.music1, window.music2, this.state);

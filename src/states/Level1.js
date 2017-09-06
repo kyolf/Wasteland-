@@ -120,7 +120,7 @@ Game.Level1.prototype = {
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
         game.physics.arcade.collide(this.batteries, this.layer2);
-        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
+        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         /////LIGHTING BEGINS//////
         updateShadowTexture(game, this.player, game.global.shadowTexture);
@@ -145,12 +145,12 @@ Game.Level1.prototype = {
         flyingAnimations(this.flyingGroup);
 
         //player collision with enemies
-        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, game);
-        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, game);
-        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, game);
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, this);
 
         //collision with exit
-        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, game);
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, this);
 
         //Uncomment for collision to spark victory
         //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
@@ -173,10 +173,13 @@ Game.Level1.prototype = {
     nextLevel: function(){
         this.game.global.score += this.game.global.totalTime;
         this.game.global.shadowTexture.destroy();
+        this.scoreTxt.destroy();
+        this.lifeTxt.destroy();
+        this.timerTxt.destroy();
         this.state.start('Level2');
     },
     resetPlayer: function(player, enemyGroup){
-        this.global.lives--;
+        this.game.global.lives--;
         player.reset(632, 50);
     },
     render:function(game) {
