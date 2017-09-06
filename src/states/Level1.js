@@ -17,11 +17,9 @@ Game.Level1.prototype = {
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
 
-        game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        this.game.physics.arcade.gravity.y = 300;
         
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-
-        game.stage.backgroundColor = '#00112d';
 
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(0.5, 0.5);
@@ -31,7 +29,7 @@ Game.Level1.prototype = {
         //see collision blocks
         //this.layer2.debug = true;
         this.player = createPlayer(game);
-        game.global.lives = 1;
+        game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
