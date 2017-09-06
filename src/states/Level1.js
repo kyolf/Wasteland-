@@ -101,9 +101,9 @@ Game.Level1.prototype = {
         
          ////////////LIGHTING BEGINS///////////
         game.global.lightRadius = 350;
-        this.shadowTexture = game.add.bitmapData(5000, 5000);
+        game.global.shadowTexture = game.add.bitmapData(4800, 4000);
         
-        this.light = game.add.image(0, 0, this.shadowTexture);
+        this.light = game.add.image(0, 0, game.global.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
 
         ///////////////LIGHTING ENDS/////////////
@@ -125,7 +125,7 @@ Game.Level1.prototype = {
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
 
         /////LIGHTING BEGINS//////
-        updateShadowTexture(game, this.player, this.shadowTexture);
+        updateShadowTexture(game, this.player, game.global.shadowTexture);
 
         //////////////LIGHTING ENDS//////////////
 
@@ -161,7 +161,7 @@ Game.Level1.prototype = {
 
         if(game.global.lives === 0){
             window.music.stop();
-            window.music = null;
+            window.music.destroy();
             goToGameOver(window.music1, window.music2, game.state);
         }
 
@@ -173,7 +173,8 @@ Game.Level1.prototype = {
 
     },
     nextLevel: function(){
-        player.game.global.score += player.game.global.totalTime;
+        this.global.score += this.global.totalTime;
+        this.global.shadowTexture.destroy();
         this.state.start('Level2');
     },
     resetPlayer: function(player, enemyGroup){
