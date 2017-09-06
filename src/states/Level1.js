@@ -21,7 +21,6 @@ Game.Level1.prototype = {
         
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
-        game.stage.backgroundColor = '#00112d';
 
         let background = game.add.sprite(0, 0, 'bg2');
         background.scale.setTo(0.5, 0.5);

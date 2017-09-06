@@ -59,11 +59,10 @@ function createPlayer(game, gravityNum = 200, bounceY = 0.0){
 
     game.camera.follow(player);
 
-    //tried increasing this to 500 and couldn't really jump
     player.body.gravity.y = gravityNum; 
-    //player.body.velocity.y = -350;
-    //player.body.gravity.x = -500;
-    //player.body.velocity.x = -500;
+    player.body.velocity.y = -350;
+    player.body.gravity.x = -500;
+    player.body.velocity.x = -500;
 
     //this is true or body will rebound back into the world
     //if false, then body will leave the world upon collision
