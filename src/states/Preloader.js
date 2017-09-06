@@ -39,7 +39,7 @@ Game.Preloader.prototype = {
         this.load.image('grass', 'assets/Grass_Platform.png');
         this.load.image('life', 'assets/diamond.png');
         this.load.image('battery', 'assets/battery.png');
-        this.load.spritesheet('dude3', 'assets/dude4_small.png', 71, 100); //width div frames, height 
+        this.load.spritesheet('dude3', 'assets/dude4_small.png', 57, 80); //width div frames, height 
         this.load.tilemap('map1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.tilemap('map2', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON);
         this.load.tilemap('map3', 'assets/level3.json', null, Phaser.Tilemap.TILED_JSON);
