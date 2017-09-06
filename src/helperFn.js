@@ -123,6 +123,7 @@ function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxX
     emitter.maxRotation = maxRotation;
 
     emitter.start(false, 1600, 5, 0);
+    return emitter;
 }
 
 //Update Functions
@@ -283,9 +284,13 @@ function musicPlayed(game, time, bgMusic, hbSlow, hbFast) {
     }
 }
 
-function goToGameOver(hbSlow, hbFast, state) {
-    hbSlow.stop();
-    hbFast.stop();
+function goToGameOver(state) {
+    window.music.stop();
+    window.music.destroy();
+    window.music1.stop();
+    window.music1.destroy();
+    window.music2.stop();
+    window.music2.destroy();
     state.start('GameOver');
 }
 
@@ -308,16 +313,31 @@ function updateShadowTexture(game, player, shadowTexture) {
 
 }
 
+function destroyLevel(level) {
+    level.player.destroy();
+    level.exit.destroy();
+    level.emitter.destroy();
+
+    level.enemyGroup.destroy();
+    level.tentacleGroup.destroy();
+    level.livesGroup.destroy();
+    level.flyingGroup.destroy();
+    level.exit.destroy();
+
+    level.scoreTxt.destroy();
+    level.lifeTxt.destroy();
+    level.timerTxt.destroy();
+}
+
 function tick() {
     this.game.global.time--;
 
     this.game.global.lightRadius = lightRadiusSize(this.game.global.time);
 
-    musicPlayed(this, this.game.global.time, window.music, window.music1, window.music2);
+    musicPlayed(this.game, this.game.global.time, window.music, window.music1, window.music2);
     
     if(this.game.global.time === 0) {
-        window.music.stop();
-        window.music.destroy();
-        goToGameOver(window.music1, window.music2, this.state);
+        destroyLevel(this);
+        goToGameOver(this.state);
     }
 }

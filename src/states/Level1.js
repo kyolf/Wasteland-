@@ -18,23 +18,18 @@ Game.Level1.prototype = {
         game.global.tentacleFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-
-        game.stage.backgroundColor = '#00112d';
-
-        let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(0.5, 0.5);
         
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
         //see collision blocks
         //this.layer2.debug = true;
         this.player = createPlayer(game);
-        game.global.lives = 1;
+        game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
-        createRain(game);
+        this.emitter = createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
         this.cursors = game.input.keyboard.createCursorKeys();
@@ -50,8 +45,6 @@ Game.Level1.prototype = {
         //Creating Piglets
         this.livesGroup = game.add.group();
         new Piglet(game, 576, game.world.height - 300, 100, this.livesGroup);
-        //new Piglet(game, 100, game.world.height - 100, 100, this.livesGroup);
-        //new Piglet(game, 1000, game.world.height - 100, 100, this.livesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
@@ -75,15 +68,12 @@ Game.Level1.prototype = {
         //new Bat(game, 2000, game.world.height - 550, 1000, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
-        
-        //this.batteries = createBatteries(game);
 
         this.batteries = game.add.group();
         new Batteries(game, 1350, game.world.height - 960, 0, this.layer, this.batteries);
         new Batteries(game, 2050, game.world.height - 1440, 0, this.layer, this.batteries);
         new Batteries(game, 2528, game.world.height - 640, 0, this.layer, this.batteries);
         new Batteries(game, 4256, game.world.height - 550, 0, this.layer, this.batteries);
-
 
         this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
         game.physics.arcade.enable(this.exit); 
@@ -108,7 +98,7 @@ Game.Level1.prototype = {
 
          ////////CREATE CUSTOM TIMER///////////////////
         game.global.time = 30;
-        this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, game);
+        this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, this);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
         const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px murderFont');
@@ -126,7 +116,6 @@ Game.Level1.prototype = {
         updateShadowTexture(game, this.player, game.global.shadowTexture);
 
         //////////////LIGHTING ENDS//////////////
-
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
@@ -158,9 +147,8 @@ Game.Level1.prototype = {
         // });
 
         if(game.global.lives === 0){
-            window.music.stop();
-            window.music.destroy();
-            goToGameOver(window.music1, window.music2, game.state);
+            destroyLevel(this);
+            goToGameOver(game.state);
         }
         
         game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
@@ -172,10 +160,8 @@ Game.Level1.prototype = {
     },
     nextLevel: function(){
         this.game.global.score += this.game.global.totalTime;
-        this.game.global.shadowTexture.destroy();
-        this.scoreTxt.destroy();
-        this.lifeTxt.destroy();
-        this.timerTxt.destroy();
+        // this.game.global.shadowTexture.destroy();
+        destroyLevel(this);
         this.state.start('Level2');
     },
     resetPlayer: function(player, enemyGroup){
