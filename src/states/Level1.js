@@ -162,8 +162,8 @@ Game.Level1.prototype = {
             window.music.destroy();
             goToGameOver(window.music1, window.music2, game.state);
         }
-
-        game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, game);
+        
+        game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
         
         this.scoreTxt.setText(`Score: ${game.global.score}`);
         this.lifeTxt.setText(`lives: ${game.global.lives}`);
@@ -171,8 +171,8 @@ Game.Level1.prototype = {
 
     },
     nextLevel: function(){
-        this.global.score += this.global.totalTime;
-        this.global.shadowTexture.destroy();
+        this.game.global.score += this.game.global.totalTime;
+        this.game.global.shadowTexture.destroy();
         this.state.start('Level2');
     },
     resetPlayer: function(player, enemyGroup){
