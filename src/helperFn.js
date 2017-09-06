@@ -50,8 +50,8 @@ function createMaps(game, mapName, bgName) {
     return layer2; 
 }
 
-function createPlayer(game, gravityNum = 200, bounceY = 0){
-    let player = game.add.sprite(632, game.world.height - 1550, 'dude3');
+function createPlayer(game, gravityNum = 200, bounceY = 0.0){
+    let player = game.add.sprite(250, game.world.height - 850, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 80, 25, 0);
 
@@ -64,8 +64,6 @@ function createPlayer(game, gravityNum = 200, bounceY = 0){
     player.body.gravity.x = -500;
     player.body.velocity.x = -500;
 
-    //this is true or body will rebound back into the world
-    //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
 
     return player;
