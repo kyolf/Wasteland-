@@ -50,7 +50,7 @@ function createMaps(game, mapName, bgName) {
     return layer2; 
 }
 
-function createPlayer(game, gravityNum = 250, bounceY = 0.0){
+function createPlayer(game, gravityNum = 200, bounceY = 0.0){
     let player = game.add.sprite(632, game.world.height - 1550, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 90, 25, 10);
