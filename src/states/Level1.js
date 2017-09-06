@@ -19,12 +19,6 @@ Game.Level1.prototype = {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-
-
-        let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(0.5, 0.5);
-        
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
         //see collision blocks
