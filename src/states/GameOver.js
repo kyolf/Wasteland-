@@ -4,6 +4,8 @@ Game.GameOver = function(game){
 
 Game.GameOver.prototype = {
     create: function(game) {
+        game.global.shadowTexture.destroy();
+        game.global.menuMusic = true;
         fetchTopScores()
         .then(highScores => {
             if (highScores.length >= 10) {
