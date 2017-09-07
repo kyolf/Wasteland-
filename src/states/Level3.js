@@ -33,15 +33,15 @@ Game.Level3.prototype = {
         createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
-        this.cursors = game.input.keyboard.createCursorKeys();
+        // this.cursors = game.input.keyboard.createCursorKeys();
 
         //////////IF YOU WANT SPACEBAR TO BE JUMP, UNCOMMENT THE BELOW////////////
-        // this.cursors = this.game.input.keyboard.addKeys({
-        // 	'up': Phaser.Keyboard.SPACEBAR,
-        // 	'down': Phaser.Keyboard.DOWN,
-        // 	'left': Phaser.Keyboard.LEFT,
-        // 	'right': Phaser.Keyboard.RIGHT
-        // });
+        this.cursors = this.game.input.keyboard.addKeys({
+        	'up': Phaser.Keyboard.SPACEBAR,
+        	'down': Phaser.Keyboard.DOWN,
+        	'left': Phaser.Keyboard.LEFT,
+        	'right': Phaser.Keyboard.RIGHT
+        });
         
         //Creating Piglets
         this.livesGroup = game.add.group();

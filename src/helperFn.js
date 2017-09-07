@@ -307,10 +307,10 @@ function destroyMusic() {
 }
 
 function destroyLevel(level) {
-    level.enemyGroup.destroy();
-    level.tentacleGroup.destroy();
-    level.livesGroup.destroy();
-    level.flyingGroup.destroy();
+    // level.enemyGroup.destroy();
+    // level.tentacleGroup.destroy();
+    // level.livesGroup.destroy();
+    // level.flyingGroup.destroy();
 
     level.scoreTxt.destroy();
     level.lifeTxt.destroy();
