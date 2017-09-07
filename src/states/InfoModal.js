@@ -6,7 +6,7 @@ Game.InfoModal.prototype = {
     create: function(game) {
         game.add.sprite(0,0,'bg2');
       
-        createText(game, 'Instructions', 250, 100, '80px murderFont', '#FFF', 'center');
+        createText(game, 'Instructions', 250, 75, '80px murderFont', '#FFF', 'center');
     
         createButton(game, 'Go Back to Menu', 100, 50, 175, 50, 
                     () => {
@@ -14,17 +14,23 @@ Game.InfoModal.prototype = {
                     }
         );
     
-        let howToPlay = 'Find the exit while collecting batteries';
-        createText(game, howToPlay, 175, 250, '40px murderFont', '#FFF', 'center');
+        let howToPlay = 'Find the exit portal before the time runs out';
+        createText(game, howToPlay, 125, 185, '40px murderFont', '#FFF', 'center');
         
-        howToPlay = 'Up arrow key to jump';
-        createText(game, howToPlay, 275, 315, '40px murderFont', '#FFF', 'center');
+        howToPlay = 'Spacebar to jump';
+        createText(game, howToPlay, 300, 245, '40px murderFont', '#FFF', 'center');
         
         howToPlay = 'Left arrow key to move left';
-        createText(game, howToPlay, 230, 380, '40px murderFont', '#FFF', 'center');
+        createText(game, howToPlay, 230, 295, '40px murderFont', '#FFF', 'center');
 
         howToPlay = 'Right arrow key to move right';
-        createText(game, howToPlay, 230, 445, '40px murderFont', '#FFF', 'center');
+        createText(game, howToPlay, 230, 355, '40px murderFont', '#FFF', 'center');
+
+        howToPlay = 'Collect Piglets to gain lives';
+        createText(game, howToPlay, 230, 415, '40px murderFont', '#FFF', 'center');
+
+        howToPlay = 'Collect batteries to gain light and time';
+        createText(game, howToPlay, 150, 475, '40px murderFont', '#FFF', 'center');
     }
 };
 
