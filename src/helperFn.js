@@ -137,7 +137,7 @@ function playerActions(cursors, player, hitPlatforms) {
 function collectBattery(player, battery) {
     battery.kill();
     this.game.global.score += 10;
-    this.game.global.time += 5;
+    this.game.global.time += 10;
 }
 
 function gainLife(player, piglet) {
@@ -220,20 +220,35 @@ function flyingAnimations(group) {
 }
 
 function lightRadiusSize(time) {
-    if(time >= 30){
+    if(time >= 100){
         return 350;
     }
-    else if(time > 25) {
+    else if(time > 90) {
+        return 325;
+    }
+    else if(time > 80) {
         return 300;
     }
-    else if(time > 20) {
+    else if(time > 70) {
+        return 275;
+    }
+    else if(time > 60) {
         return 250;
     }
-    else if(time > 15) {
+    else if(time > 50) {
+        return 225;
+    }
+    else if(time > 40) {
         return 200;
     }
-    else if(time > 10) {
+    else if(time > 30) {
+        return 175;
+    }
+    else if(time > 20) {
         return 150;
+    }
+    else if(time > 10) {
+        return 125;
     }
     else {
         return 100;
