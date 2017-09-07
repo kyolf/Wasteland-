@@ -45,7 +45,6 @@ Game.Level2.prototype = {
         
         //Creating Piglets
         this.livesGroup = game.add.group();
-        console.log('wdf', this.livesGroup);
         new Piglet(game, 896, game.world.height - 896, 100, this.livesGroup);
         //new Piglet(game, 100, game.world.height - 100, 100, this.livesGroup);
         //new Piglet(game, 1000, game.world.height - 100, 100, this.livesGroup);
@@ -86,8 +85,8 @@ Game.Level2.prototype = {
         new Batteries(game, 2784, game.world.height - 192, this.batteries);
         new Batteries(game, 3435, game.world.height - 1376, this.batteries);
         
-        // this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
-        this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
+        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        // this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
         

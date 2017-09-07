@@ -73,8 +73,8 @@ Game.Level1.prototype = {
         new Batteries(game, 2528, game.world.height - 640, this.batteries);
         new Batteries(game, 4256, game.world.height - 550, this.batteries);
 
-        // this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
-        this.exit = game.add.sprite(300, game.world.height - 970, 'portal');
+        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        // this.exit = game.add.sprite(300, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
 
@@ -94,7 +94,7 @@ Game.Level1.prototype = {
         ///////////////LIGHTING ENDS/////////////
 
          ////////CREATE CUSTOM TIMER///////////////////
-        game.global.time = 30;
+        game.global.time = 100;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, this);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////

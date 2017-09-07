@@ -94,8 +94,8 @@ Game.Level3.prototype = {
         new Batteries(game, 3232, game.world.height - 128, this.batteries);
 
         
-        // this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
-        this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
+        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        // this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
         
