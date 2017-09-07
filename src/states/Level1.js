@@ -18,6 +18,7 @@ Game.Level1.prototype = {
         game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
+        game.global.shadowFrame = 'start';
         
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       

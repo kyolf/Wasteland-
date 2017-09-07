@@ -17,6 +17,7 @@ Game.Level2.prototype = {
         // game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
+        game.global.shadowFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
