@@ -29,7 +29,7 @@ Game.HighScores.prototype = {
             topScores.map(topScore =>{
                 createText(game, topScore.initials, 150, yPosText, '25px murderFont', '#FFF');
                 createText(game, topScore.score, 625, yPosText, '25px murderFont', '#FFF');
-                yPosText += 50;
+                yPosText += 35;
             });
         })
         .catch(err => {
