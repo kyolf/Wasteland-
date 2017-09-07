@@ -3,15 +3,14 @@ Game.HighScores = function(game){
 }
 
 Game.HighScores.prototype = {
-    // init: function() {
-    //     let highScores;
-    // },
     create: function(game) {
+        //Background Image
         let bg = game.add.sprite(0, 0, 'bg2');
         bg.scale.setTo(0.5, 0.5);
     
         createText(game, 'High Scores', 275, 60, '80px murderFont', '#FFF', 'center');
-    
+        
+        //Image Button + Piglet Arrows
         createImageButton(game, 'Go Back to Menu', 250, 50, 100, 50);
         
         this.arrow = game.add.sprite(80, 50, 'piglet');
@@ -19,6 +18,7 @@ Game.HighScores.prototype = {
         this.arrow.canMove = true;
         this.arrow.animations.add('right', [2,3], 5, true);
     
+        //Display High Scores
         let highScore = 'Name';
         createText(game, highScore, 150, 150, '40px murderFont', '#FFF', 'center');
     
@@ -38,6 +38,7 @@ Game.HighScores.prototype = {
             return err;
         });
     },
+    //Go Back To Main Menu
     update: function(game) {
         this.arrow.animations.play('right');
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
