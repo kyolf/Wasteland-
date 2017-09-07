@@ -23,7 +23,7 @@ Game.Level1.prototype = {
       
         //see collision blocks
         //this.layer2.debug = true;
-        this.player = createPlayer(game, 500, game.world.height - 1250);
+        this.player = createPlayer(game, 500, game.world.height - 950);
         game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);

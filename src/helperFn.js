@@ -53,20 +53,17 @@ function createMaps(game, mapName, bgName) {
 function createPlayer(game, xPos = 632, yPos = game.world.height - 1550, gravityNum = 250, bounceY = 0.0){
     let player = game.add.sprite(xPos, yPos, 'dude3');
     game.physics.arcade.enable(player);
-    player.body.setSize(20, 90, 25, 10);
+    player.body.setSize(20, 80, 25, 0);
 
     player.body.bounce.y = bounceY;
 
     game.camera.follow(player);
 
-    //tried increasing this to 500 and couldn't really jump
     player.body.gravity.y = gravityNum; 
-    //player.body.velocity.y = -350;
-    //player.body.gravity.x = -500;
-    //player.body.velocity.x = -500;
+    player.body.velocity.y = -350;
+    player.body.gravity.x = -500;
+    player.body.velocity.x = -500;
 
-    //this is true or body will rebound back into the world
-    //if false, then body will leave the world upon collision
     player.body.collideWorldBounds = true;
 
     return player;
