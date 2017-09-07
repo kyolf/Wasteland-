@@ -1,5 +1,7 @@
 window.onload = function() {
     let game = new Phaser.Game(800, 600, Phaser.AUTO, '');
+    
+    //Global Variables
     game.global = {
       score: 0,
       time: 30,
@@ -15,6 +17,7 @@ window.onload = function() {
       menuMusic: true
     };
 
+    //Game States
     game.state.add('Boot', Game.Boot);
     game.state.add('Preloader', Game.Preloader);
     game.state.add('MainMenu', Game.MainMenu);

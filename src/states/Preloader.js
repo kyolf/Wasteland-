@@ -1,12 +1,12 @@
 'use strict';
 
-Game.Preloader = function(game){
+Game.Preloader = function(game) {
     this.preloadBar = null;
     this.loadingText = '';
 };
 
 Game.Preloader.prototype = {
-    preload: function(){
+    preload: function() {
         //////CENTERS PHASER GAME WINDOW/////////
         this.game.scale.pageAlignHorizontally = true;
         this.game.scale.pageAlignVertically = true;
@@ -60,11 +60,11 @@ Game.Preloader.prototype = {
         this.load.audio('heart_fast', 'music/heartFast.ogg');
         this.load.audio('heart_slow', 'music/heartSlow.ogg');
     },
-    loadStart: function(){
+    loadStart: function() {
         this.loadingText = createText(this, 'Loading', this.world.centerX, this.world.centerY - 100, 
         '80px murderFont', '#FFF', 'center', 0.5, 0.5);
     },
-    startMainMenu: function(){
+    startMainMenu: function() {
         this.state.start('MainMenu');
     }
 };
