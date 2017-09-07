@@ -50,8 +50,8 @@ function createMaps(game, mapName, bgName) {
     return layer2; 
 }
 
-function createPlayer(game, gravityNum = 250, bounceY = 0.0){
-    let player = game.add.sprite(632, game.world.height - 1550, 'dude3');
+function createPlayer(game, xPos = 632, yPos = game.world.height - 1550, gravityNum = 250, bounceY = 0.0){
+    let player = game.add.sprite(xPos, yPos, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 90, 25, 10);
 
@@ -298,16 +298,6 @@ function musicPlayed(game, time, bgMusic, hbSlow, hbFast) {
     }
 }
 
-function goToGameOver(state) {
-    window.music.stop();
-    window.music.destroy();
-    window.music1.stop();
-    window.music1.destroy();
-    window.music2.stop();
-    window.music2.destroy();
-    state.start('GameOver');
-}
-
 function updateShadowTexture(game, player, shadowTexture) {
     shadowTexture.context.fillStyle = '#00040c';
     shadowTexture.context.fillRect(0, 0, 4800, 4000);
@@ -327,16 +317,20 @@ function updateShadowTexture(game, player, shadowTexture) {
 
 }
 
-function destroyLevel(level) {
-    level.player.destroy();
-    level.exit.destroy();
-    level.emitter.destroy();
+function destroyMusic() {
+    window.music.stop();
+    window.music.destroy();
+    window.music1.stop();
+    window.music1.destroy();
+    window.music2.stop();
+    window.music2.destroy();
+}
 
+function destroyLevel(level) {
     level.enemyGroup.destroy();
     level.tentacleGroup.destroy();
     level.livesGroup.destroy();
     level.flyingGroup.destroy();
-    level.exit.destroy();
 
     level.scoreTxt.destroy();
     level.lifeTxt.destroy();
@@ -352,6 +346,7 @@ function tick() {
     
     if(this.game.global.time === 0) {
         destroyLevel(this);
-        goToGameOver(this.state);
+        destroyMusic();
+        this.game.state.start('GameOver');
     }
 }

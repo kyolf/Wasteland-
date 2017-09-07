@@ -30,7 +30,7 @@ Game.Level2.prototype = {
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
-        this.emitter = createRain(game);
+        createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
         this.cursors = game.input.keyboard.createCursorKeys();
@@ -44,48 +44,50 @@ Game.Level2.prototype = {
         // });
         
         //Creating Piglets
-        this.lifesGroup = game.add.group();
-        new Piglet(game, 896, game.world.height - 896, 100, this.layer, this.lifesGroup);
-        //new Piglet(game, 100, game.world.height - 100, 100, this.layer, this.lifesGroup);
-        //new Piglet(game, 1000, game.world.height - 100, 100, this.layer, this.lifesGroup);
+        this.livesGroup = game.add.group();
+        console.log('wdf', this.livesGroup);
+        new Piglet(game, 896, game.world.height - 896, 100, this.livesGroup);
+        //new Piglet(game, 100, game.world.height - 100, 100, this.livesGroup);
+        //new Piglet(game, 1000, game.world.height - 100, 100, this.livesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
-        new Shadow(game, 576, game.world.height - 704, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 480, game.world.height - 384, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 1760, game.world.height - 960, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 3808, game.world.height - 832, 100, this.layer, this.enemyGroup);
-        new Shadow(game, 3104, game.world.height - 128, 100, this.layer, this.enemyGroup);
+        new Shadow(game, 576, game.world.height - 704, 100, this.enemyGroup);
+        new Shadow(game, 480, game.world.height - 384, 100, this.enemyGroup);
+        new Shadow(game, 1760, game.world.height - 960, 100, this.enemyGroup);
+        new Shadow(game, 3808, game.world.height - 832, 100, this.enemyGroup);
+        new Shadow(game, 3104, game.world.height - 128, 100, this.enemyGroup);
 
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
-        new Tentacle(game, 1024, game.world.height - 832, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 1184, game.world.height - 96, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 1408, game.world.height - 96, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 1728, game.world.height - 96, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 2016, game.world.height - 96, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 3164, game.world.height - 864, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 3584, game.world.height - 96, 100, this.layer, this.tentacleGroup);
-        new Tentacle(game, 4608, game.world.height - 352, 100, this.layer, this.tentacleGroup);
+        new Tentacle(game, 1024, game.world.height - 832, 100,  this.tentacleGroup);
+        new Tentacle(game, 1184, game.world.height - 96, 100,  this.tentacleGroup);
+        new Tentacle(game, 1408, game.world.height - 96, 100,  this.tentacleGroup);
+        new Tentacle(game, 1728, game.world.height - 96, 100,  this.tentacleGroup);
+        new Tentacle(game, 2016, game.world.height - 96, 100,  this.tentacleGroup);
+        new Tentacle(game, 3164, game.world.height - 864, 100,  this.tentacleGroup);
+        new Tentacle(game, 3584, game.world.height - 96, 100,  this.tentacleGroup);
+        new Tentacle(game, 4608, game.world.height - 352, 100,  this.tentacleGroup);
         
         this.tentacleGroup.setAll('body.immovable', true);
 
         this.flyingGroup = game.add.group();
-        new Bat(game, 1760, game.world.height - 992, 3136, this.layer, this.flyingGroup);
-        new Bat(game, 3424, game.world.height - 448, 4576, this.layer, this.flyingGroup);
-        //new Bat(game, 2000, game.world.height - 550, 1000, this.layer, this.flyingGroup);
+        new Bat(game, 1760, game.world.height - 992, 3136, this.flyingGroup);
+        new Bat(game, 3424, game.world.height - 448, 4576, this.flyingGroup);
+        //new Bat(game, 2000, game.world.height - 550, 1000, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
         
         //Creating Batteries
         this.batteries = game.add.group();
-        new Batteries(game, 1312, game.world.height - 1184, 0, this.layer, this.batteries);
-        new Batteries(game, 2368, game.world.height - 160, 0, this.layer, this.batteries);
-        new Batteries(game, 2784, game.world.height - 192, 0, this.layer, this.batteries);
-        new Batteries(game, 3435, game.world.height - 1376, 0, this.layer, this.batteries);
+        new Batteries(game, 1312, game.world.height - 1184, this.batteries);
+        new Batteries(game, 2368, game.world.height - 160, this.batteries);
+        new Batteries(game, 2784, game.world.height - 192, this.batteries);
+        new Batteries(game, 3435, game.world.height - 1376, this.batteries);
         
-        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        // this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
 
@@ -158,7 +160,8 @@ Game.Level2.prototype = {
 
         if(game.global.lives === 0){
             destroyLevel(this);
-            goToGameOver(game.state);
+            destroyMusic();
+            game.state.start('GameOver');
         }
         
         game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
@@ -169,10 +172,10 @@ Game.Level2.prototype = {
 
     },
     nextLevel: function(){
-        this.game.global.score += this.game.global.totalTime;
+        this.game.global.score += this.game.global.time;
         // this.game.global.shadowTexture.destroy();
         destroyLevel(this);
-        this.state.start('Level2');
+        this.state.start('Level3');
     },
     resetPlayer: function(player, enemyGroup){
         this.game.global.lives--;

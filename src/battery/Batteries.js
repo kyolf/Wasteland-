@@ -1,7 +1,6 @@
 'use strict';
 
-const Batteries = function(game, x, y, destination, platforms, group){
-    this.platform = platforms;
+const Batteries = function(game, x, y, group){
     this.batteries = game.add.sprite(x, y, 'battery');
     game.physics.arcade.enable(this.batteries);
     this.batteries.collideWorldBounds = true;

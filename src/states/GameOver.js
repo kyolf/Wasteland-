@@ -5,7 +5,6 @@ Game.GameOver.prototype = {
     create: function(game) {
         game.global.shadowTexture.destroy();
         game.global.menuMusic = true;
-        game.physics.destroy();
 
         fetchTopScores()
         .then(highScores => {

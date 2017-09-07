@@ -23,13 +23,13 @@ Game.Level1.prototype = {
       
         //see collision blocks
         //this.layer2.debug = true;
-        this.player = createPlayer(game);
+        this.player = createPlayer(game, 500, game.world.height - 1250);
         game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
-        this.emitter = createRain(game);
+        createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
         this.cursors = game.input.keyboard.createCursorKeys();
@@ -70,12 +70,13 @@ Game.Level1.prototype = {
         this.flyingGroup.setAll('body.immovable', true);
 
         this.batteries = game.add.group();
-        new Batteries(game, 1350, game.world.height - 960, 0, this.layer, this.batteries);
-        new Batteries(game, 2050, game.world.height - 1440, 0, this.layer, this.batteries);
-        new Batteries(game, 2528, game.world.height - 640, 0, this.layer, this.batteries);
-        new Batteries(game, 4256, game.world.height - 550, 0, this.layer, this.batteries);
+        new Batteries(game, 1350, game.world.height - 960, this.batteries);
+        new Batteries(game, 2050, game.world.height - 1440, this.batteries);
+        new Batteries(game, 2528, game.world.height - 640, this.batteries);
+        new Batteries(game, 4256, game.world.height - 550, this.batteries);
 
-        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        // this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        this.exit = game.add.sprite(300, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
 
@@ -148,7 +149,8 @@ Game.Level1.prototype = {
 
         if(game.global.lives === 0){
             destroyLevel(this);
-            goToGameOver(game.state);
+            destroyMusic();
+            game.state.start('GameOver');
         }
         
         game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
@@ -159,7 +161,9 @@ Game.Level1.prototype = {
 
     },
     nextLevel: function(){
-        this.game.global.score += this.game.global.totalTime;
+        console.log('hi' );
+        this.game.global.score += this.game.global.time;
+        // this.game.physics.clear();
         // this.game.global.shadowTexture.destroy();
         destroyLevel(this);
         this.state.start('Level2');
