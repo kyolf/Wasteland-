@@ -60,14 +60,14 @@ Game.Level2.prototype = {
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
-        new Tentacle(game, 1024, game.world.height - 832, 100,  this.tentacleGroup);
-        new Tentacle(game, 1184, game.world.height - 96, 100,  this.tentacleGroup);
-        new Tentacle(game, 1408, game.world.height - 96, 100,  this.tentacleGroup);
-        new Tentacle(game, 1728, game.world.height - 96, 100,  this.tentacleGroup);
-        new Tentacle(game, 2016, game.world.height - 96, 100,  this.tentacleGroup);
-        new Tentacle(game, 3164, game.world.height - 864, 100,  this.tentacleGroup);
-        new Tentacle(game, 3584, game.world.height - 96, 100,  this.tentacleGroup);
-        new Tentacle(game, 4608, game.world.height - 352, 100,  this.tentacleGroup);
+        new Tentacle(game, 1024, game.world.height - 880, 100,  this.tentacleGroup);
+        new Tentacle(game, 1184, game.world.height - 180, 100,  this.tentacleGroup);
+        new Tentacle(game, 1408, game.world.height - 180, 100,  this.tentacleGroup);
+        new Tentacle(game, 1728, game.world.height - 180, 100,  this.tentacleGroup);
+        new Tentacle(game, 2016, game.world.height - 180, 100,  this.tentacleGroup);
+        new Tentacle(game, 3164, game.world.height - 180, 100,  this.tentacleGroup);
+        new Tentacle(game, 3584, game.world.height - 180, 100,  this.tentacleGroup);
+        new Tentacle(game, 4608, game.world.height - 400, 100,  this.tentacleGroup);
         
         this.tentacleGroup.setAll('body.immovable', true);
 

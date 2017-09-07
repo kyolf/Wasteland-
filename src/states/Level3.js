@@ -50,26 +50,26 @@ Game.Level3.prototype = {
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
-        new Shadow(game, 1024, game.world.height - 736, 100, this.enemyGroup);
-        new Shadow(game, 224, game.world.height - 576, 100, this.enemyGroup);
-        new Shadow(game, 1024, game.world.height - 480, 100, this.enemyGroup);
-        new Shadow(game, 256, game.world.height - 192, 100, this.enemyGroup);
-        new Shadow(game, 3104, game.world.height - 128, 100, this.enemyGroup);
-        new Shadow(game, 2400, game.world.height - 64, 100, this.enemyGroup);
-        new Shadow(game, 2176, game.world.height - 1056, 100, this.enemyGroup);
-        new Shadow(game, 3136, game.world.height - 1024, 100, this.enemyGroup);
-        new Shadow(game, 3040, game.world.height - 64, 100, this.enemyGroup);
+        new Shadow(game, 1024, game.world.height - 800, 100, this.enemyGroup);
+        new Shadow(game, 224, game.world.height - 660, 100, this.enemyGroup);
+        new Shadow(game, 1024, game.world.height - 540, 100, this.enemyGroup);
+        new Shadow(game, 256, game.world.height - 250, 100, this.enemyGroup);
+        new Shadow(game, 3104, game.world.height - 190, 100, this.enemyGroup);
+        new Shadow(game, 2400, game.world.height - 120, 100, this.enemyGroup);
+        new Shadow(game, 2176, game.world.height - 1656, 100, this.enemyGroup);
+        new Shadow(game, 3136, game.world.height - 1624, 100, this.enemyGroup);
+        new Shadow(game, 3040, game.world.height - 124, 100, this.enemyGroup);
         
         this.enemyGroup.setAll('body.immovable', true);
 
         this.tentacleGroup = game.add.group();
-        new Tentacle(game, 832, game.world.height - 480, 100, this.tentacleGroup);
-        new Tentacle(game, 992, game.world.height - 96, 100, this.tentacleGroup);
-        new Tentacle(game, 1532, game.world.height - 96, 100, this.tentacleGroup);
-        new Tentacle(game, 1728, game.world.height - 96, 100, this.tentacleGroup);
-        new Tentacle(game, 1920, game.world.height - 832, 100, this.tentacleGroup);
-        new Tentacle(game, 2560, game.world.height - 640, 100, this.tentacleGroup);
-        new Tentacle(game, 3584, game.world.height - 768, 100, this.tentacleGroup);
+        new Tentacle(game, 832, game.world.height - 540, 100, this.tentacleGroup);
+        new Tentacle(game, 992, game.world.height - 160, 100, this.tentacleGroup);
+        new Tentacle(game, 1532, game.world.height - 160, 100, this.tentacleGroup);
+        new Tentacle(game, 1728, game.world.height - 160, 100, this.tentacleGroup);
+        new Tentacle(game, 1920, game.world.height - 890, 100, this.tentacleGroup);
+        new Tentacle(game, 2560, game.world.height - 700, 100, this.tentacleGroup);
+        new Tentacle(game, 3584, game.world.height - 830, 100, this.tentacleGroup);
         
         this.tentacleGroup.setAll('body.immovable', true);
 
@@ -84,14 +84,14 @@ Game.Level3.prototype = {
         
         //Creating Batteries
         this.batteries = game.add.group();
-        new Batteries(game, 96, game.world.height - 800, this.batteries);
-        new Batteries(game, 128, game.world.height - 224, this.batteries);
-        new Batteries(game, 1152, game.world.height - 768, this.batteries);
-        new Batteries(game, 1216, game.world.height - 128, this.batteries);
-        new Batteries(game, 1952, game.world.height - 928, this.batteries);
-        new Batteries(game, 2816, game.world.height - 672, this.batteries);
-        new Batteries(game, 2656, game.world.height - 96, this.batteries);
-        new Batteries(game, 3232, game.world.height - 128, this.batteries);
+        new Batteries(game, 96, game.world.height - 860, this.batteries);
+        new Batteries(game, 128, game.world.height - 280, this.batteries);
+        new Batteries(game, 1152, game.world.height - 830, this.batteries);
+        new Batteries(game, 1216, game.world.height - 190, this.batteries);
+        new Batteries(game, 1952, game.world.height - 990, this.batteries);
+        new Batteries(game, 2816, game.world.height - 730, this.batteries);
+        new Batteries(game, 2656, game.world.height - 160, this.batteries);
+        new Batteries(game, 3232, game.world.height - 230, this.batteries);
 
         
         this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
