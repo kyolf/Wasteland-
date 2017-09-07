@@ -1,14 +1,4 @@
 //Create Functions
-function createButton(game,textOfButton,x,y,w,h,callback) {
-    let button1 = game.add.button(x,y,'grass',callback,this,2,1,0);
-    
-    button1.anchor.setTo(0.5,0.5);
-    button1.width = w;
-    button1.height = h;
-
-    createText(game, textOfButton, x, y, '32px murderFont', '#FFF', 'center', 0.5, 0.5);
-}
-
 function createImageButton(game, textOfImage,x,y,w,h) {
     let button = game.add.image(x,y,'grass');
     
@@ -322,11 +312,6 @@ function destroyMusic() {
 }
 
 function destroyLevel(level) {
-    // level.enemyGroup.destroy();
-    // level.tentacleGroup.destroy();
-    // level.livesGroup.destroy();
-    // level.flyingGroup.destroy();
-
     level.scoreTxt.destroy();
     level.lifeTxt.destroy();
     level.timerTxt.destroy();
