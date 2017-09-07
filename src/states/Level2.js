@@ -90,14 +90,6 @@ Game.Level2.prototype = {
         this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
-
-        //Music
-        // window.music = game.add.audio('level1_music');
-        // window.music.play('', 0, 1, true, true);
-        // window.music1 = game.add.audio('heart_slow');
-        // window.music2 = game.add.audio('heart_fast');
-        // this.hbFastStopped = true;
-        // this.hbSlowStopped = true;
         
          ////////////LIGHTING BEGINS///////////
         // game.global.lightRadius = 350;

@@ -85,8 +85,6 @@ Game.Level1.prototype = {
         window.music.play('', 0, 1, true, true);
         window.music1 = game.add.audio('heart_slow');
         window.music2 = game.add.audio('heart_fast');
-        // this.hbFastStopped = true;
-        // this.hbSlowStopped = true;
         
          ////////////LIGHTING BEGINS///////////
         game.global.lightRadius = 350;
@@ -161,10 +159,7 @@ Game.Level1.prototype = {
 
     },
     nextLevel: function(){
-        console.log('hi' );
         this.game.global.score += this.game.global.time;
-        // this.game.physics.clear();
-        // this.game.global.shadowTexture.destroy();
         destroyLevel(this);
         this.state.start('Level2');
     },
