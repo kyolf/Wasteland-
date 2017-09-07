@@ -1,5 +1,4 @@
-Game.HighScores = function(game){
-
+Game.HighScores = function(game) {
 }
 
 Game.HighScores.prototype = {
@@ -27,8 +26,8 @@ Game.HighScores.prototype = {
         
         let yPosText = 200;
         fetchTopScores()
-        .then(topScores=>{
-            topScores.map(topScore =>{
+        .then(topScores => {
+            topScores.map(topScore => {
                 createText(game, topScore.initials, 150, yPosText, '25px murderFont', '#FFF');
                 createText(game, topScore.score, 625, yPosText, '25px murderFont', '#FFF');
                 yPosText += 35;
