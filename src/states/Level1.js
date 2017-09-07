@@ -132,14 +132,14 @@ Game.Level1.prototype = {
         flyingAnimations(this.flyingGroup);
 
         //player collision with enemies
-        // game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, this);
-        // game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, this);
-        // game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, this);
 
         //Uncomment for collision to spark victory
-        game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
-            this.state.start('Victory');
-        });
+        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+        //     this.state.start('Victory');
+        // });
 
         //collision with exit
         game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, this);
