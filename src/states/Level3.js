@@ -24,7 +24,7 @@ Game.Level3.prototype = {
       
         //see collision blocks
         //this.layer2.debug = true;
-        this.player = createPlayer(game);
+        this.player = createPlayer(game, 632, game.world.height - 1450);
         // game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
@@ -94,8 +94,8 @@ Game.Level3.prototype = {
         new Batteries(game, 3232, game.world.height - 128, this.batteries);
 
         
-        // this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
-        this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
+        this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        // this.exit = game.add.sprite(500, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
         
@@ -180,7 +180,7 @@ Game.Level3.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         this.game.global.lives--;
-        player.reset(250, 800);
+        player.reset(632, this.game.world.height - 1450);
     },
     render:function(game) {
         // Sprite debug info

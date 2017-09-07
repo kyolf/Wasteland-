@@ -75,7 +75,7 @@ function createTimer(game, callback, duration = 30000){
 }
 
 function createLevelText(game, font) {
-    let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 700, 75, font, '#FFF', 'center', 0.5, 0.5);
+    let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 650, 75, font, '#FFF', 'center', 0.5, 0.5);
     timerTxt.fixedToCamera = true;
 
     let scoreTxt = createText(game, `Score: ${game.global.score}`, 25, 50, font, '#FFF');
