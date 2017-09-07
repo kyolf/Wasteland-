@@ -13,13 +13,11 @@ Game.Level1.prototype = {
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
 
-         game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.startSystem(Phaser.Physics.ARCADE);
 
         game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
-
-        game.physics.startSystem(Phaser.Physics.ARCADE);
         
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
