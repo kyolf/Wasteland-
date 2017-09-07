@@ -25,12 +25,17 @@ Game.GameOver.prototype = {
         let background = game.add.sprite(0, 0, 'gameover');
         background.scale.setTo(0.8, 0.8);
 
-        let grim = game.add.sprite(400, 275, 'grim');
-        grim.anchor.setTo(0.4, 0.4);
-        grim.scale.setTo(0.5, 0.5);
+        // let grim = game.add.sprite(400, 275, 'grim');
+        // grim.anchor.setTo(0.4, 0.4);
+        // grim.scale.setTo(0.5, 0.5);
+
+        this.playerDead = game.add.sprite(300, 250, 'faint');
+        this.playerDead.animations.add('fainting', [0, 1, 2, 3, 4, 5], 10, true);
+        this.playerDead.animations.play('fainting');
+        this.playerDead.animations.currentAnim.speed = 3;
         
         createText(game, 'Game Over', 175, 125, '150px murderFont', '#FFF');
-        createText(game, 'YOUR SOUL IS MINE!', 425, 350, '80px murderFont', '#FFF','center', 0.5, 0.5);
+        // createText(game, 'YOUR SOUL IS MINE!', 425, 350, '80px murderFont', '#FFF','center', 0.5, 0.5);
         createButton(game, 'Go Back to Menu', 100, 50, 175, 50,
         () => {
             this.state.start('MainMenu');
