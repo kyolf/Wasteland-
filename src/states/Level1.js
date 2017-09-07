@@ -13,14 +13,13 @@ Game.Level1.prototype = {
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
 
-         game.physics.startSystem(Phaser.Physics.ARCADE);
+        game.physics.startSystem(Phaser.Physics.ARCADE);
 
         game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
-
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-       
+        game.global.shadowFrame = 'start';
+        
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
         this.player = createPlayer(game);
@@ -35,7 +34,7 @@ Game.Level1.prototype = {
         // this.cursors = game.input.keyboard.createCursorKeys();
 
         //////////IF YOU WANT SPACEBAR TO BE JUMP, UNCOMMENT THE BELOW////////////
-        this.cursors = this.game.input.keyboard.addKeys({
+        this.cursors = game.input.keyboard.addKeys({
         	'up': Phaser.Keyboard.SPACEBAR,
         	'down': Phaser.Keyboard.DOWN,
         	'left': Phaser.Keyboard.LEFT,
@@ -45,8 +44,6 @@ Game.Level1.prototype = {
         //Creating Piglets
         this.livesGroup = game.add.group();
         new Piglet(game, 576, game.world.height - 300, 100, this.livesGroup);
-        //new Piglet(game, 100, game.world.height - 100, 100, this.livesGroup);
-        //new Piglet(game, 1000, game.world.height - 100, 100, this.livesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
@@ -70,17 +67,15 @@ Game.Level1.prototype = {
         //new Bat(game, 2000, game.world.height - 550, 1000, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
-        
-        //this.batteries = createBatteries(game);
 
         this.batteries = game.add.group();
-        new Batteries(game, 1350, game.world.height - 960, 0, this.layer, this.batteries);
-        new Batteries(game, 2050, game.world.height - 1440, 0, this.layer, this.batteries);
-        new Batteries(game, 2528, game.world.height - 640, 0, this.layer, this.batteries);
-        new Batteries(game, 4256, game.world.height - 550, 0, this.layer, this.batteries);
-
+        new Batteries(game, 1350, game.world.height - 960, this.batteries);
+        new Batteries(game, 2050, game.world.height - 1440, this.batteries);
+        new Batteries(game, 2528, game.world.height - 640, this.batteries);
+        new Batteries(game, 4256, game.world.height - 550, this.batteries);
 
         this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
+        // this.exit = game.add.sprite(300, game.world.height - 970, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
 
@@ -89,8 +84,6 @@ Game.Level1.prototype = {
         window.music.play('', 0, 1, true, true);
         window.music1 = game.add.audio('heart_slow');
         window.music2 = game.add.audio('heart_fast');
-        this.hbFastStopped = true;
-        this.hbSlowStopped = true;
         
          ////////////LIGHTING BEGINS///////////
         game.global.lightRadius = 350;
@@ -102,8 +95,8 @@ Game.Level1.prototype = {
         ///////////////LIGHTING ENDS/////////////
 
          ////////CREATE CUSTOM TIMER///////////////////
-        game.global.time = 30;
-        this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, game);
+        game.global.time = 100;
+        this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, this);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
         const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px murderFont');
@@ -115,11 +108,12 @@ Game.Level1.prototype = {
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
         game.physics.arcade.collide(this.batteries, this.layer2);
-        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
+        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         /////LIGHTING BEGINS//////
         updateShadowTexture(game, this.player, game.global.shadowTexture);
 
+        //////////////LIGHTING ENDS//////////////
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
@@ -138,25 +132,26 @@ Game.Level1.prototype = {
         flyingAnimations(this.flyingGroup);
 
         //player collision with enemies
-        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, game);
-        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, game);
-        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, game);
-
-        //collision with exit
-        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, game);
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, this);
 
         //Uncomment for collision to spark victory
-        //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
+        // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
         //     this.state.start('Victory');
         // });
 
-        if(game.global.lives === 0){
-            window.music.stop();
-            window.music.destroy();
-            goToGameOver(window.music1, window.music2, game.state);
-        }
+        //collision with exit
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, this);
 
-        game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, game);
+
+        if(game.global.lives === 0){
+            destroyLevel(this);
+            destroyMusic();
+            game.state.start('GameOver');
+        }
+        
+        game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
         
         this.scoreTxt.setText(`Score: ${game.global.score}`);
         this.lifeTxt.setText(`lives: ${game.global.lives}`);
@@ -164,12 +159,12 @@ Game.Level1.prototype = {
 
     },
     nextLevel: function(){
-        this.global.score += this.global.totalTime;
-        this.global.shadowTexture.destroy();
+        this.game.global.score += this.game.global.time;
+        destroyLevel(this);
         this.state.start('Level2');
     },
     resetPlayer: function(player, enemyGroup){
-        this.global.lives--;
+        this.game.global.lives--;
         player.reset(250, 800);
     },
     render:function(game) {

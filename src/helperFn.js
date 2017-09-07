@@ -1,14 +1,4 @@
 //Create Functions
-function createButton(game,textOfButton,x,y,w,h,callback) {
-    let button1 = game.add.button(x,y,'grass',callback,this,2,1,0);
-    
-    button1.anchor.setTo(0.5,0.5);
-    button1.width = w;
-    button1.height = h;
-
-    createText(game, textOfButton, x, y, '32px murderFont', '#FFF', 'center', 0.5, 0.5);
-}
-
 function createImageButton(game, textOfImage,x,y,w,h) {
     let button = game.add.image(x,y,'grass');
     
@@ -45,13 +35,13 @@ function createMaps(game, mapName, bgName) {
     map.addTilesetImage('phase-2');
     let layer1 = map.createLayer('Tile Layer 1');
     let layer2 = map.createLayer('Tile Layer 2');
-    map.setCollisionBetween(2000, 3000, true, layer2);
+    map.setCollisionBetween(0, 3000, true, layer2);
     layer1.resizeWorld();
     return layer2; 
 }
 
-function createPlayer(game, gravityNum = 700, bounceY = 0){
-    let player = game.add.sprite(250, game.world.height - 800, 'dude3');
+function createPlayer(game, xPos = 250, yPos = game.world.height - 800, gravityNum = 700, bounceY = 0){
+    let player = game.add.sprite(xPos, yPos, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 80, 25, 0);
 
@@ -75,7 +65,7 @@ function createTimer(game, callback, duration = 30000){
 }
 
 function createLevelText(game, font) {
-    let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 700, 75, font, '#FFF', 'center', 0.5, 0.5);
+    let timerTxt = createText(game, `Timer: ${game.global.totalTime}s`, 650, 75, font, '#FFF', 'center', 0.5, 0.5);
     timerTxt.fixedToCamera = true;
 
     let scoreTxt = createText(game, `Score: ${game.global.score}`, 25, 50, font, '#FFF');
@@ -106,6 +96,7 @@ function createRain(game, minYSpeed = 300, maxYSpeed = 500, minXSpeed = -5, maxX
     emitter.maxRotation = maxRotation;
 
     emitter.start(false, 1600, 5, 0);
+    return emitter;
 }
 
 //Update Functions
@@ -135,18 +126,18 @@ function playerActions(cursors, player, hitPlatforms) {
 
 function collectBattery(player, battery) {
     battery.kill();
-    this.global.score += 10;
-    this.global.time += 5;
+    this.game.global.score += 10;
+    this.game.global.time += 10;
 }
 
 function gainLife(player, piglet) {
-    this.global.lives++;
+    this.game.global.lives++;
     piglet.kill();
 }
 
-function pigletAnimations(group){
-    group.forEach(function(piglet){
-        if(piglet.previousPosition.x >= piglet.position.x){
+function pigletAnimations(group) {
+    group.forEach(function(piglet) {
+        if(piglet.previousPosition.x >= piglet.position.x) {
             piglet.animations.play('left');
         }
         else{
@@ -155,22 +146,27 @@ function pigletAnimations(group){
     });
 }
 
-function shadowAnimations(group){
-    group.forEach(function(enemy){
-        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
+function shadowAnimations(group) {
+    group.forEach(function(enemy) {
+        if(enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
             enemy.animations.play('rise');
             enemy.body.setSize(0, 0, 0, 0);
-        } else if (enemy.animations.currentFrame.index === 8) {
+        } 
+        else if(enemy.animations.currentFrame.index === 8) {
             enemy.body.setSize(80, 45, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 12) {
+        } 
+        else if(enemy.animations.currentFrame.index === 12) {
             enemy.body.setSize(80, 70, 0, 0);
             enemy.game.global.shadowFrame = 'fall';
-        } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
+        } 
+        else if(enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
             enemy.body.setSize(80, 45, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
+        } 
+        else if(enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
             enemy.body.setSize(0, 0, 0, 0);
             enemy.game.global.shadowFrame = 'start';
-        } else {
+        } 
+        else {
             return;
         }
     });
@@ -178,98 +174,113 @@ function shadowAnimations(group){
 
 function tentacleAnimations(group){
     group.forEach(function(enemy){
-        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+        if(enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
             enemy.animations.play('rise');
             enemy.body.setSize(25, 25, 0, 65);
-        } else if (enemy.animations.currentFrame.index === 9) {
+        } 
+        else if(enemy.animations.currentFrame.index === 9) {
             enemy.body.setSize(25, 65, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 13) {
+        } 
+        else if(enemy.animations.currentFrame.index === 13) {
             enemy.body.setSize(25, 90, 0, 0);
             enemy.game.global.tentacleFrame = 'fall';
-        } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+        } 
+        else if(enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
             enemy.body.setSize(25, 65, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 8){
+        } 
+        else if(enemy.animations.currentFrame.index === 8) {
             enemy.body.setSize(25, 25, 0, 65);
             enemy.game.global.tentacleFrame = 'start';
-        } else {
+        } 
+        else {
             return;
         }
     });
 }
 
-function flyingAnimations(group){
-    group.forEach(function(enemy){
-        if(enemy.previousPosition.x >= enemy.position.x){
+function flyingAnimations(group) {
+    group.forEach(function(enemy) {
+        if(enemy.previousPosition.x >= enemy.position.x) {
             enemy.animations.play('left');
-        }else{
+        }
+        else {
             enemy.animations.play('right');
         }
     });
 }
 
-function lightRadiusSize(time){
-    if(time >= 30){
+function lightRadiusSize(time) {
+    if(time >= 100){
         return 350;
     }
-    else if(time > 25) {
+    else if(time > 90) {
+        return 325;
+    }
+    else if(time > 80) {
         return 300;
     }
-    else if(time > 20){
+    else if(time > 70) {
+        return 275;
+    }
+    else if(time > 60) {
         return 250;
     }
-    else if(time > 15) {
+    else if(time > 50) {
+        return 225;
+    }
+    else if(time > 40) {
         return 200;
     }
-    else if(time > 10){
+    else if(time > 30) {
+        return 175;
+    }
+    else if(time > 20) {
         return 150;
     }
-    else{
+    else if(time > 10) {
+        return 125;
+    }
+    else {
         return 100;
     }
 }
 
-function musicPlayed(time, bgMusic, hbSlow, hbFast) {
-    if(time > 10){
-        if(!this.hbSlowStopped){
+function musicPlayed(game, time, bgMusic, hbSlow, hbFast) {
+    if(time > 10) {
+        if(!game.global.hbSlowStopped) {
             hbSlow.stop();
-            this.hbSlowStopped = true;
+            game.global.hbSlowStopped = true;
         }
-        if(this.musicPaused){
+        if(game.global.musicPaused) {
             bgMusic.resume();
-            this.musicPaused = false;
+            game.global.musicPaused = false;
         }
     }
-    else if(time > 5){
-        if(!this.musicPaused){
+    else if(time > 5) {
+        if(!game.global.musicPaused) {
             bgMusic.pause();
-            this.musicPaused = true;
+            game.global.musicPaused = true;
         }
-        if(!this.hbFastStopped){
+        if(!game.global.hbFastStopped) {
             hbFast.stop();
-            this.hbFastStopped = true;
+            game.global.hbFastStopped = true;
         }
         
-        if(this.hbSlowStopped){
+        if(game.global.hbSlowStopped) {
             hbSlow.play('', 0, 1, true, true);
-            this.hbSlowStopped = false;
+            game.global.hbSlowStopped = false;
         }
     }
     else{
-        if(!hbSlowStopped) {
+        if(!game.global.hbSlowStopped) {
             hbSlow.stop();
-            hbSlowStopped = true;
+            game.global.hbSlowStopped = true;
         }
-        if(this.hbFastStopped){
+        if(game.global.hbFastStopped) {
             hbFast.play('', 0, 1, true, true);
-            this.hbFastStopped = false;
+            game.global.hbFastStopped = false;
         }
     }
-}
-
-function goToGameOver(hbSlow, hbFast, state) {
-    hbSlow.stop();
-    hbFast.stop();
-    state.start('GameOver');
 }
 
 function updateShadowTexture(game, player, shadowTexture) {
@@ -291,16 +302,31 @@ function updateShadowTexture(game, player, shadowTexture) {
 
 }
 
+function destroyMusic() {
+    window.music.stop();
+    window.music.destroy();
+    window.music1.stop();
+    window.music1.destroy();
+    window.music2.stop();
+    window.music2.destroy();
+}
+
+function destroyLevel(level) {
+    level.scoreTxt.destroy();
+    level.lifeTxt.destroy();
+    level.timerTxt.destroy();
+}
+
 function tick() {
-    this.global.time--;
+    this.game.global.time--;
 
-    this.global.lightRadius = lightRadiusSize(this.global.time);
+    this.game.global.lightRadius = lightRadiusSize(this.game.global.time);
 
-    musicPlayed(this.global.time, window.music, window.music1, window.music2);
+    musicPlayed(this.game, this.game.global.time, window.music, window.music1, window.music2);
     
-    if(this.global.time === 0) {
-        window.music.stop();
-        window.music.destroy();
-        goToGameOver(window.music1, window.music2, this.state);
+    if(this.game.global.time === 0) {
+        destroyLevel(this);
+        destroyMusic();
+        this.game.state.start('GameOver');
     }
 }
