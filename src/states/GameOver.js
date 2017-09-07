@@ -29,7 +29,7 @@ Game.GameOver.prototype = {
         // grim.anchor.setTo(0.4, 0.4);
         // grim.scale.setTo(0.5, 0.5);
 
-        this.playerDead = game.add.sprite(275, 275, 'faint');
+        this.playerDead = game.add.sprite(265, 275, 'faint');
         this.playerDead.animations.add('fainting', [5, 0, 2, 1, 3, 4, 5], 10, true);
         this.playerDead.animations.play('fainting');
         this.playerDead.animations.currentAnim.setFrame(1, true);
