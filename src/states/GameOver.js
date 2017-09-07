@@ -30,9 +30,12 @@ Game.GameOver.prototype = {
         // grim.scale.setTo(0.5, 0.5);
 
         this.playerDead = game.add.sprite(275, 275, 'faint');
-        this.playerDead.animations.add('fainting', [0, 2, 1, 3, 4, 5], 10, true);
+        this.playerDead.animations.add('fainting', [5, 0, 2, 1, 3, 4, 5], 10, true);
         this.playerDead.animations.play('fainting');
-        this.playerDead.animations.currentAnim.speed = 3;
+        this.playerDead.animations.currentAnim.setFrame(1, true);
+        this.playerDead.animations.currentAnim.speed = 4;
+        this.playerDead.events.onAnimationLoop.add(function(){return this.playerDead.animations.stop();}, this);
+        
         
         createText(game, 'Game Over', 175, 125, '150px murderFont', '#FFF');
         // createText(game, 'YOUR SOUL IS MINE!', 425, 350, '80px murderFont', '#FFF','center', 0.5, 0.5);
