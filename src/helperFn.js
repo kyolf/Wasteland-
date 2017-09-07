@@ -133,13 +133,16 @@ function playerActions(cursors, player, hitPlatforms) {
     if(cursors.left.isDown) {
         player.body.velocity.x = -350;
         player.animations.play('left');
-    } else if(cursors.right.isDown) {
+    } 
+    else if(cursors.right.isDown) {
         player.body.velocity.x = 350;
         player.animations.play('right');
-    } else if(cursors.down.isDown) {
+    } 
+    else if(cursors.down.isDown) {
         player.body.velocity.y = 550;
         player.animations.play('down');
-    } else {
+    } 
+    else {
         player.animations.stop();
         player.frame = 6; //sixth frame in spritesheet is standing still
     }
@@ -162,9 +165,9 @@ function gainLife(player, piglet) {
     piglet.kill();
 }
 
-function pigletAnimations(group){
-    group.forEach(function(piglet){
-        if(piglet.previousPosition.x >= piglet.position.x){
+function pigletAnimations(group) {
+    group.forEach(function(piglet) {
+        if(piglet.previousPosition.x >= piglet.position.x) {
             piglet.animations.play('left');
         }
         else{
@@ -173,22 +176,27 @@ function pigletAnimations(group){
     });
 }
 
-function shadowAnimations(group){
-    group.forEach(function(enemy){
-        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
+function shadowAnimations(group) {
+    group.forEach(function(enemy) {
+        if(enemy.animations.currentFrame.index === 0 && enemy.game.global.shadowFrame === 'start'){
             enemy.animations.play('rise');
             enemy.body.setSize(0, 0, 0, 0);
-        } else if (enemy.animations.currentFrame.index === 8) {
+        } 
+        else if(enemy.animations.currentFrame.index === 8) {
             enemy.body.setSize(80, 45, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 12) {
+        } 
+        else if(enemy.animations.currentFrame.index === 12) {
             enemy.body.setSize(80, 70, 0, 0);
             enemy.game.global.shadowFrame = 'fall';
-        } else if (enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
+        } 
+        else if(enemy.animations.currentFrame.index === 11 && enemy.game.global.shadowFrame === 'fall') {
             enemy.body.setSize(80, 45, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
+        } 
+        else if(enemy.animations.currentFrame.index === 7 && enemy.game.global.shadowFrame === 'fall') {
             enemy.body.setSize(0, 0, 0, 0);
             enemy.game.global.shadowFrame = 'start';
-        } else {
+        } 
+        else {
             return;
         }
     });
@@ -196,78 +204,84 @@ function shadowAnimations(group){
 
 function tentacleAnimations(group){
     group.forEach(function(enemy){
-        if (enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
+        if(enemy.animations.currentFrame.index === 0 && enemy.game.global.tentacleFrame === 'start'){
             enemy.animations.play('rise');
             enemy.body.setSize(25, 25, 0, 65);
-        } else if (enemy.animations.currentFrame.index === 9) {
+        } 
+        else if(enemy.animations.currentFrame.index === 9) {
             enemy.body.setSize(25, 65, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 13) {
+        } 
+        else if(enemy.animations.currentFrame.index === 13) {
             enemy.body.setSize(25, 90, 0, 0);
             enemy.game.global.tentacleFrame = 'fall';
-        } else if (enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
+        } 
+        else if(enemy.animations.currentFrame.index === 12 && enemy.game.global.tentacleFrame === 'fall') {
             enemy.body.setSize(25, 65, 0, 25);
-        } else if (enemy.animations.currentFrame.index === 8){
+        } 
+        else if(enemy.animations.currentFrame.index === 8) {
             enemy.body.setSize(25, 25, 0, 65);
             enemy.game.global.tentacleFrame = 'start';
-        } else {
+        } 
+        else {
             return;
         }
     });
 }
 
-function flyingAnimations(group){
-    group.forEach(function(enemy){
-        if(enemy.previousPosition.x >= enemy.position.x){
+function flyingAnimations(group) {
+    group.forEach(function(enemy) {
+        if(enemy.previousPosition.x >= enemy.position.x) {
             enemy.animations.play('left');
-        }else{
+        }
+        else {
             enemy.animations.play('right');
         }
     });
 }
 
-function lightRadiusSize(time){
+function lightRadiusSize(time) {
     if(time >= 30){
         return 350;
     }
     else if(time > 25) {
         return 300;
     }
-    else if(time > 20){
+    else if(time > 20) {
         return 250;
     }
     else if(time > 15) {
         return 200;
     }
-    else if(time > 10){
+    else if(time > 10) {
         return 150;
     }
-    else{
+    else {
         return 100;
     }
 }
 
 function musicPlayed(game, time, bgMusic, hbSlow, hbFast) {
-    if(time > 10){
-        if(!game.global.hbSlowStopped){
+    if(time > 10) {
+        if(!game.global.hbSlowStopped) {
             hbSlow.stop();
             game.global.hbSlowStopped = true;
         }
-        if(game.global.musicPaused){
+        if(game.global.musicPaused) {
             bgMusic.resume();
             game.global.musicPaused = false;
         }
     }
-    else if(time > 5){
-        if(!game.global.musicPaused){
+    else if(time > 5) {
+        if(!game.global.musicPaused) {
             bgMusic.pause();
             game.global.musicPaused = true;
         }
-        if(!game.global.hbFastStopped){
+        if(!game.global.hbFastStopped) {
             hbFast.stop();
             game.global.hbFastStopped = true;
         }
         
-        if(game.global.hbSlowStopped){
+        if(game.global.hbSlowStopped) {
             hbSlow.play('', 0, 1, true, true);
             game.global.hbSlowStopped = false;
         }
@@ -277,7 +291,7 @@ function musicPlayed(game, time, bgMusic, hbSlow, hbFast) {
             hbSlow.stop();
             game.global.hbSlowStopped = true;
         }
-        if(game.global.hbFastStopped){
+        if(game.global.hbFastStopped) {
             hbFast.play('', 0, 1, true, true);
             game.global.hbFastStopped = false;
         }

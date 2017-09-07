@@ -13,27 +13,24 @@ Game.Level3.prototype = {
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
 
+        game.global.shadowTexture.destroy();
+        // game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-
-        game.stage.backgroundColor = '#00112d';
-
-        let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(0.5, 0.5);
         
         this.layer2 = createMaps(game, 'map3', 'lvl3bg');
       
         //see collision blocks
         //this.layer2.debug = true;
         this.player = createPlayer(game);
-        game.global.lives = 3;
+        // game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
 
-        createRain(game);
+        this.emitter = createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
         this.cursors = game.input.keyboard.createCursorKeys();
@@ -96,12 +93,13 @@ Game.Level3.prototype = {
         new Batteries(game, 2656, game.world.height - 96, 0, this.layer, this.batteries);
         new Batteries(game, 3232, game.world.height - 128, 0, this.layer, this.batteries);
 
+        
         this.exit = game.add.sprite(4640, game.world.height - 1270, 'portal');
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
 
         //Music
-        //window.music = game.add.audio('level1_music');
+        // window.music = game.add.audio('level1_music');
         // window.music.play('', 0, 1, true, true);
         // window.music1 = game.add.audio('heart_slow');
         // window.music2 = game.add.audio('heart_fast');
@@ -109,17 +107,17 @@ Game.Level3.prototype = {
         // this.hbSlowStopped = true;
         
          ////////////LIGHTING BEGINS///////////
-        game.global.lightRadius = 350;
-        this.shadowTexture = game.add.bitmapData(5000, 5000);
+        // game.global.lightRadius = 350;
+        game.global.shadowTexture = game.add.bitmapData(4800, 4000);
         
-        this.light = game.add.image(0, 0, this.shadowTexture);
+        this.light = game.add.image(0, 0, game.global.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
 
         ///////////////LIGHTING ENDS/////////////
 
          ////////CREATE CUSTOM TIMER///////////////////
-        game.global.time = 30;
-        this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, game);
+        // game.global.time = 30;
+        this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, this);
 
         ///////////////CUSTOM TIMER ABOVE///////////////////
         const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px murderFont');
@@ -131,13 +129,12 @@ Game.Level3.prototype = {
     update: function(game) {
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
         game.physics.arcade.collide(this.batteries, this.layer2);
-        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, game);
+        game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
         /////LIGHTING BEGINS//////
-        updateShadowTexture(game, this.player, this.shadowTexture);
+        updateShadowTexture(game, this.player, game.global.shadowTexture);
 
         //////////////LIGHTING ENDS//////////////
-
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
@@ -156,12 +153,12 @@ Game.Level3.prototype = {
         flyingAnimations(this.flyingGroup);
 
         //player collision with enemies
-        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, game);
-        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, game);
-        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, game);
+        game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, this);
+        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, this);
 
         //collision with exit
-        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, game);
+        game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, this);
 
         //Uncomment for collision to spark victory
         //  game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
@@ -169,12 +166,11 @@ Game.Level3.prototype = {
         // });
 
         if(game.global.lives === 0){
-            window.music.stop();
-            window.music = null;
-            goToGameOver(window.music1, window.music2, game.state);
+            destroyLevel(this);
+            goToGameOver(game.state);
         }
-
-        game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, game);
+        
+        game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
         
         this.scoreTxt.setText(`Score: ${game.global.score}`);
         this.lifeTxt.setText(`lives: ${game.global.lives}`);
@@ -182,11 +178,13 @@ Game.Level3.prototype = {
 
     },
     nextLevel: function(){
-        this.global.score += this.global.totalTime;
-        this.state.start('Victory');
+        this.game.global.score += this.game.global.totalTime;
+        // this.game.global.shadowTexture.destroy();
+        destroyLevel(this);
+        this.state.start('Level2');
     },
     resetPlayer: function(player, enemyGroup){
-        this.global.lives--;
+        this.game.global.lives--;
         player.reset(632, 50);
     },
     render:function(game) {
