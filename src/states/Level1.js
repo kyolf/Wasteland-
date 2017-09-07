@@ -13,22 +13,15 @@ Game.Level1.prototype = {
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
 
+         game.physics.startSystem(Phaser.Physics.ARCADE);
+
         game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
 
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-        
-        game.physics.startSystem(Phaser.Physics.ARCADE);
-
-
-        let background = game.add.sprite(0, 0, 'bg2');
-        background.scale.setTo(0.5, 0.5);
-        
+       
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
-        //see collision blocks
-        //this.layer2.debug = true;
         this.player = createPlayer(game);
         game.global.lives = 3;
 
@@ -126,8 +119,6 @@ Game.Level1.prototype = {
         /////LIGHTING BEGINS//////
         updateShadowTexture(game, this.player, game.global.shadowTexture);
 
-        //////////////LIGHTING ENDS//////////////
-
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
@@ -185,7 +176,7 @@ Game.Level1.prototype = {
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
         this.enemyGroup.forEach(function(enemy){
-            // game.debug.body(enemy);
+            game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
         this.tentacleGroup.forEach(function(enemy){
