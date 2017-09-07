@@ -23,13 +23,13 @@ Game.GameOver.prototype = {
         });
 
         let background = game.add.sprite(0, 0, 'gameover');
-        background.scale.setTo(0.8, 0.8);
+        background.scale.setTo(0.5, 0.5);
 
         // let grim = game.add.sprite(400, 275, 'grim');
         // grim.anchor.setTo(0.4, 0.4);
         // grim.scale.setTo(0.5, 0.5);
 
-        this.playerDead = game.add.sprite(300, 250, 'faint');
+        this.playerDead = game.add.sprite(275, 275, 'faint');
         this.playerDead.animations.add('fainting', [0, 2, 1, 3, 4, 5], 10, true);
         this.playerDead.animations.play('fainting');
         this.playerDead.animations.currentAnim.speed = 3;

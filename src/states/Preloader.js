@@ -33,7 +33,7 @@ Game.Preloader.prototype = {
         this.load.image('lvl2bg', 'assets/lvl2bg.jpg');
         this.load.image('lvl3bg', 'assets/lvl3bg.jpg');
         this.load.image('victory', 'assets/victory.jpg');
-        this.load.image('gameover', 'assets/gameover.jpg');
+        this.load.image('gameover', 'assets/gameoverbg.jpg');
         this.load.image('grim', 'assets/grim_reaper.png');
         this.load.image('platform', 'assets/platform.png');
         this.load.image('grass', 'assets/Grass_Platform.png');
