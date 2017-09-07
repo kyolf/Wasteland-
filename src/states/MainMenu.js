@@ -18,25 +18,25 @@ Game.MainMenu.prototype = {
         game.add.sprite(0,0,'bg2');
 
         //Title
-        createText(game, 'Wasteland', 200, 100, '155px murderFont', '#FFF');
+        createText(game, 'Wasteland', 200, 50, '155px murderFont', '#FFF');
 
         //Instructions on how to use menu screen
-        createText(game, 'Up Or Down key to move between buttons', 100, game.world.height - 100, '30px murderFont', '#FFF');
-        createText(game, 'Enter key to Select', 100, game.world.height - 50, '30px murderFont', '#FFF');
+        createText(game, 'Up Or Down key to move between buttons', 285, game.world.height - 115, '22px murderFont', '#FFF');
+        createText(game, 'Enter key to Select', 360, game.world.height - 65, '22px murderFont', '#FFF');
         
         //Adding all the buttonImages
-        this.buttonArr.push(createImageButton(game, 'Play Game', 425, 300, 90, 90));
+        this.buttonArr.push(createImageButton(game, 'Play Game', 425, 260, 90, 90));
         
-        let button = createImageButton(game, 'InfoModal', 425, 375, 90, 90);
+        let button = createImageButton(game, 'InfoModal', 425, 335, 90, 90);
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
         
-        button = createImageButton(game, 'High Scores', 425, 450, 90, 90);
+        button = createImageButton(game, 'High Scores', 425, 410, 90, 90);
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
 
         //Adding the arrow sprite
-        this.arrow = game.add.sprite(275, 300, 'piglet');
+        this.arrow = game.add.sprite(275, 260, 'piglet');
         this.arrow.anchor.setTo(0.5, 0.5);
         this.arrow.canMove = true;
         this.arrow.animations.add('right', [2,3], 5, true);
