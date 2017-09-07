@@ -30,7 +30,7 @@ Game.GameOver.prototype = {
         // grim.scale.setTo(0.5, 0.5);
 
         this.playerDead = game.add.sprite(300, 250, 'faint');
-        this.playerDead.animations.add('fainting', [0, 1, 2, 3, 4, 5], 10, true);
+        this.playerDead.animations.add('fainting', [0, 2, 1, 3, 4, 5], 10, true);
         this.playerDead.animations.play('fainting');
         this.playerDead.animations.currentAnim.speed = 3;
         
