@@ -47,11 +47,11 @@ Once the game finish loading, you are directed to the menu screen! You will have
 ![MenuScreen](README_images/menu.png "Menu Screen") <br/>
 
 #### InfoModal Screen <br/>
-If you selected the InfoModal Option, you will see the game instructions. You can click on the top left button to go back to Menu screen <br/>
+If you selected the InfoModal Option, you will see the game instructions. You can press Enter to go back to Menu screen <br/>
 ![InfoModal](README_images/info.png "InfoModal Screen") <br/>
 
 #### Highscores Screen <br/>
-If you selected the HighScores Option, you will see the current highscores. You can click on the top left button to go back to Menu screen <br/>
+If you selected the HighScores Option, you will see the current highscores. You can press Enter to go back to Menu screen <br/>
 ![HighScores](README_images/scores.png "HighScores") <br/>
 
 #### Game Screen <br/>
