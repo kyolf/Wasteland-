@@ -15,13 +15,16 @@ Game.Level1.prototype = {
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
 
+        //Reset the game
         game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
         game.global.shadowFrame = 'start';
         
+        //Maps
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
+        //Player Initialization
         this.player = createPlayer(game);
         game.global.lives = 3;
 
@@ -63,8 +66,6 @@ Game.Level1.prototype = {
 
         this.flyingGroup = game.add.group();
         new Bat(game, 1120, game.world.height - 930, 3000, this.flyingGroup);
-        //new Bat(game, 1400, game.world.height - 200, 600, this.flyingGroup);
-        //new Bat(game, 2000, game.world.height - 550, 1000, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
 
@@ -85,20 +86,17 @@ Game.Level1.prototype = {
         window.music1 = game.add.audio('heart_slow');
         window.music2 = game.add.audio('heart_fast');
         
-         ////////////LIGHTING BEGINS///////////
+         //LIGHTING BEGINS
         game.global.lightRadius = 350;
         game.global.shadowTexture = game.add.bitmapData(4800, 4000);
         
         this.light = game.add.image(0, 0, game.global.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
 
-        ///////////////LIGHTING ENDS/////////////
-
-         ////////CREATE CUSTOM TIMER///////////////////
+         //CUSTOM TIMER
         game.global.time = 100;
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, this);
 
-        ///////////////CUSTOM TIMER ABOVE///////////////////
         const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px murderFont');
         this.lifeTxt = lifeTxt;
         this.scoreTxt = scoreTxt;
@@ -106,14 +104,16 @@ Game.Level1.prototype = {
 
     }, 
     update: function(game) {
+        //Player collision with map
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
+
+        //Battery collision with player and map
         game.physics.arcade.collide(this.batteries, this.layer2);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
-        /////LIGHTING BEGINS//////
+        //LIGHTING
         updateShadowTexture(game, this.player, game.global.shadowTexture);
 
-        //////////////LIGHTING ENDS//////////////
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
@@ -151,6 +151,7 @@ Game.Level1.prototype = {
             game.state.start('GameOver');
         }
         
+        //Player collsion with piglets
         game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
         
         this.scoreTxt.setText(`Score: ${game.global.score}`);
