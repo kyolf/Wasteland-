@@ -36,7 +36,7 @@ Game.Level3.prototype = {
         // this.cursors = game.input.keyboard.createCursorKeys();
 
         //////////IF YOU WANT SPACEBAR TO BE JUMP, UNCOMMENT THE BELOW////////////
-        this.cursors = this.game.input.keyboard.addKeys({
+        this.cursors = game.input.keyboard.addKeys({
         	'up': Phaser.Keyboard.SPACEBAR,
         	'down': Phaser.Keyboard.DOWN,
         	'left': Phaser.Keyboard.LEFT,
@@ -180,7 +180,7 @@ Game.Level3.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         this.game.global.lives--;
-        player.reset(632, 50);
+        player.reset(250, 800);
     },
     render:function(game) {
         // Sprite debug info
