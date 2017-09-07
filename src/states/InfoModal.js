@@ -4,10 +4,12 @@ Game.InfoModal = function(game){
 
 Game.InfoModal.prototype = {
     create: function(game) {
+        //Background
         game.add.sprite(0,0,'bg2');
       
         createText(game, 'Instructions', 250, 75, '80px murderFont', '#FFF', 'center');
     
+        //Image Button + Piglet Arrows
         createImageButton(game, 'Go Back to Menu', 250, 50, 100, 50);
 
         this.arrow = game.add.sprite(80, 50, 'piglet');
@@ -15,6 +17,7 @@ Game.InfoModal.prototype = {
         this.arrow.canMove = true;
         this.arrow.animations.add('right', [2,3], 5, true);
     
+        //Instruction Text
         let howToPlay = 'Find the exit portal before the time runs out';
         createText(game, howToPlay, 125, 185, '40px murderFont', '#FFF', 'center');
         
@@ -33,6 +36,7 @@ Game.InfoModal.prototype = {
         howToPlay = 'Collect batteries to gain light and time';
         createText(game, howToPlay, 150, 475, '40px murderFont', '#FFF', 'center');
     },
+    //Go Back To Main Menu
     update: function(game) {
         this.arrow.animations.play('right');
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){

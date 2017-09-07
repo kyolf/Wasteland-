@@ -2,8 +2,7 @@
 
 const Game = {};
 
-Game.Boot = function(game){
-
+Game.Boot = function(game) {
 };
 
 Game.Boot.prototype = {
@@ -12,8 +11,6 @@ Game.Boot.prototype = {
         this.input.maxPointers = 1;
         //prevent users to pause the game by clicking away
         this.stage.disableVisibilityChange = true;
-        //adding input plugin
-        // this.game.add.plugin(PhaserInput.Plugin);
     },
     preload: function() {
         this.load.image('loadingBG', 'assets/loading_bar.png');
