@@ -171,7 +171,7 @@ Game.Level2.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         this.game.global.lives--;
-        player.reset(632, 50);
+        player.reset(250, 800);
     },
     render:function(game) {
         // Sprite debug info
