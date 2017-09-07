@@ -31,15 +31,15 @@ Game.Level1.prototype = {
         createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
-        this.cursors = game.input.keyboard.createCursorKeys();
+        // this.cursors = game.input.keyboard.createCursorKeys();
 
         //////////IF YOU WANT SPACEBAR TO BE JUMP, UNCOMMENT THE BELOW////////////
-        // this.cursors = this.game.input.keyboard.addKeys({
-        // 	'up': Phaser.Keyboard.SPACEBAR,
-        // 	'down': Phaser.Keyboard.DOWN,
-        // 	'left': Phaser.Keyboard.LEFT,
-        // 	'right': Phaser.Keyboard.RIGHT
-        // });
+        this.cursors = this.game.input.keyboard.addKeys({
+        	'up': Phaser.Keyboard.SPACEBAR,
+        	'down': Phaser.Keyboard.DOWN,
+        	'left': Phaser.Keyboard.LEFT,
+        	'right': Phaser.Keyboard.RIGHT
+        });
         
         //Creating Piglets
         this.livesGroup = game.add.group();
@@ -169,14 +169,14 @@ Game.Level1.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         this.global.lives--;
-        player.reset(632, 50);
+        player.reset(250, 800);
     },
     render:function(game) {
         // Sprite debug info
         // game.debug.spriteInfo(this.shadow, 80, 70);
         // let y = 0;
         this.enemyGroup.forEach(function(enemy){
-            game.debug.body(enemy);
+            // game.debug.body(enemy);
             // game.debug.bodyInfo(enemy, 32, y=y+128);
         });
         this.tentacleGroup.forEach(function(enemy){
