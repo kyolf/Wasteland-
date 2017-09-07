@@ -36,10 +36,18 @@ Game.Victory.prototype = {
         this.bg = game.add.sprite(0,0,'victory');
         this.bg.scale.setTo(0.9,1);
         game.add.sprite(285, 250, 'celebrate');
-        createText(game, 'Congrats, You Escaped', 400, 175, '100px murderFont', '#FFF', 'center', 0.5, 0.5);
-        createButton(game, 'Go Back to Menu', 100, 50,
-        175, 50, () => {
-            this.state.start('MainMenu');
-        });
+        createText(game, 'Congrats, You Escaped', 400, 275, '100px murderFont', '#FFF', 'center', 0.5, 0.5);
+        createImageButton(game, 'Go Back to Menu', 250, 50, 100, 50);
+        
+        this.arrow = game.add.sprite(80, 50, 'piglet');
+        this.arrow.anchor.setTo(0.5, 0.5);
+        this.arrow.canMove = true;
+        this.arrow.animations.add('right', [2,3], 5, true);
+    },
+    update: function(game) {
+        this.arrow.animations.play('right');
+        if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
+            game.state.start('MainMenu');
+        }
     }
 };

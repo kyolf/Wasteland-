@@ -39,17 +39,17 @@ Game.GameOver.prototype = {
         
         createText(game, 'Game Over', 175, 125, '150px murderFont', '#FFF');
         // createText(game, 'YOUR SOUL IS MINE!', 425, 350, '80px murderFont', '#FFF','center', 0.5, 0.5);
-        createButton(game, 'Go Back to Menu', 100, 50, 175, 50,
-        () => {
-            this.state.start('MainMenu');
-        });
-
-        // let highScore = 'Name';
-        // createText(game, highScore, 200, 150, '20px Arial', '#FFF', 'center');
+        createImageButton(game, 'Go Back to Menu', 250, 50, 100, 50);
         
-        // highScore = 'Score';
-        // createText(game, highScore, 500, 150, '20px Arial', '#FFF', 'center');
-            
-        // let yPosText = 200;
+        this.arrow = game.add.sprite(80, 50, 'piglet');
+        this.arrow.anchor.setTo(0.5, 0.5);
+        this.arrow.canMove = true;
+        this.arrow.animations.add('right', [2,3], 5, true);
+    },
+    update: function(game) {
+        this.arrow.animations.play('right');
+        if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
+            game.state.start('MainMenu');
+        }
     }
 };
