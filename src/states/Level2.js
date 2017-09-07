@@ -24,7 +24,7 @@ Game.Level2.prototype = {
       
         //see collision blocks
         //this.layer2.debug = true;
-        this.player = createPlayer(game);
+        this.player = createPlayer(game, 250, game.world.height - 1100);
         // game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
@@ -171,7 +171,7 @@ Game.Level2.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         this.game.global.lives--;
-        player.reset(250, 800);
+        player.reset(250, this.game.world.height - 1100);
     },
     render:function(game) {
         // Sprite debug info
