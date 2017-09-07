@@ -50,36 +50,22 @@ function createMaps(game, mapName, bgName) {
     return layer2; 
 }
 
-function createPlayer(game, gravityNum = 200, bounceY = 0.0){
-    let player = game.add.sprite(250, game.world.height - 850, 'dude3');
+function createPlayer(game, gravityNum = 700, bounceY = 0){
+    let player = game.add.sprite(250, game.world.height - 800, 'dude3');
     game.physics.arcade.enable(player);
     player.body.setSize(20, 80, 25, 0);
 
     player.body.bounce.y = bounceY;
+    player.body.bounce.x = 0;
 
     game.camera.follow(player);
 
     player.body.gravity.y = gravityNum; 
-    player.body.velocity.y = -350;
-    player.body.gravity.x = -500;
-    player.body.velocity.x = -500;
 
     player.body.collideWorldBounds = true;
 
     return player;
 }
-
-// function createBatteries(game, pixelsApart = 500, numBatteries = 7) {
-//     let batteries = game.add.group();
-//     batteries.enableBody = true;
-
-//     for(let i = 1; i < numBatteries; i++) {
-//         let battery = batteries.create(i * pixelsApart, 500, 'battery');
-//         battery.body.gravity.y = 500;
-//         battery.body.bounce.y= 0.5 + Math.random() * 0.2;
-//     }
-//     return batteries;
-// }
 
 function createTimer(game, callback, duration = 30000){
     let timer = game.time.create();
@@ -127,14 +113,14 @@ function playerActions(cursors, player, hitPlatforms) {
     player.body.velocity.x = 0;
     //can make movement more complex
     if(cursors.left.isDown) {
-        player.body.velocity.x = -350;
+        player.body.velocity.x = -450;
         player.animations.play('left');
     } else if(cursors.right.isDown) {
-        player.body.velocity.x = 350;
+        player.body.velocity.x = 450;
         player.animations.play('right');
-    } else if(cursors.down.isDown) {
-        player.body.velocity.y = 550;
-        player.animations.play('down');
+    // } else if(cursors.down.isDown) {
+    //     player.body.velocity.y = -550;
+    //     player.animations.play('down');
     } else {
         player.animations.stop();
         player.frame = 6; //sixth frame in spritesheet is standing still
@@ -143,7 +129,7 @@ function playerActions(cursors, player, hitPlatforms) {
     //can take out the last two conditions in if statement to allow for jumping in midair
     //possible powerup situation
     if(cursors.up.isDown && player.body.blocked.down && hitPlatforms) {
-        player.body.velocity.y = -350; //the height of the jump
+        player.body.velocity.y = -650; //the height of the jump
     }
 }
 

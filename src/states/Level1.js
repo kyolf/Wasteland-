@@ -13,16 +13,16 @@ Game.Level1.prototype = {
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
 
+         game.physics.startSystem(Phaser.Physics.ARCADE);
+
         game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
-        
+       
         this.layer2 = createMaps(game, 'map1', 'lvl1bg');
       
-        //see collision blocks
-        //this.layer2.debug = true;
         this.player = createPlayer(game);
         game.global.lives = 3;
 
@@ -32,15 +32,15 @@ Game.Level1.prototype = {
         createRain(game);
 
         //////////IF YOU WANT UP TO BE JUMP, UNCOMMENT THE BELOW////////////
-        this.cursors = game.input.keyboard.createCursorKeys();
+        // this.cursors = game.input.keyboard.createCursorKeys();
 
         //////////IF YOU WANT SPACEBAR TO BE JUMP, UNCOMMENT THE BELOW////////////
-        // this.cursors = this.game.input.keyboard.addKeys({
-        // 	'up': Phaser.Keyboard.SPACEBAR,
-        // 	'down': Phaser.Keyboard.DOWN,
-        // 	'left': Phaser.Keyboard.LEFT,
-        // 	'right': Phaser.Keyboard.RIGHT
-        // });
+        this.cursors = this.game.input.keyboard.addKeys({
+        	'up': Phaser.Keyboard.SPACEBAR,
+        	'down': Phaser.Keyboard.DOWN,
+        	'left': Phaser.Keyboard.LEFT,
+        	'right': Phaser.Keyboard.RIGHT
+        });
         
         //Creating Piglets
         this.livesGroup = game.add.group();
@@ -120,8 +120,6 @@ Game.Level1.prototype = {
         /////LIGHTING BEGINS//////
         updateShadowTexture(game, this.player, game.global.shadowTexture);
 
-        //////////////LIGHTING ENDS//////////////
-
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
@@ -172,7 +170,7 @@ Game.Level1.prototype = {
     },
     resetPlayer: function(player, enemyGroup){
         this.global.lives--;
-        player.reset(632, 50);
+        player.reset(250, 800);
     },
     render:function(game) {
         // Sprite debug info
