@@ -20,54 +20,43 @@ Game.MainMenu.prototype = {
         //Title
         createText(game, 'Wasteland', 200, 100, '155px murderFont', '#FFF');
 
-        // console.log(game.world.centerX, game.world.centerY);
+        //Instructions on how to use menu screen
+        createText(game, 'Up Or Down key to move between buttons', 100, game.world.height - 100, '30px murderFont', '#FFF');
+        createText(game, 'Enter key to Select', 100, game.world.height - 50, '30px murderFont', '#FFF');
         
+        //Adding all the buttonImages
         this.buttonArr.push(createImageButton(game, 'Play Game', 425, 300, 90, 90));
+        
         let button = createImageButton(game, 'InfoModal', 425, 375, 90, 90);
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
-
+        
         button = createImageButton(game, 'High Scores', 425, 450, 90, 90);
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
 
-
-        //******PLEASE NOTE THAT THERE IS A BUG WITH HOW FAR THE ARROW MOVES DOWN************//
+        //Adding the arrow sprite
         this.arrow = game.add.sprite(275, 300, 'piglet');
         this.arrow.anchor.setTo(0.5, 0.5);
         this.arrow.canMove = true;
         this.arrow.animations.add('right', [2,3], 5, true);
-        ///*******************BUT ABOVE***********************//////////////////////
-
 
         createRain(game, 300, 500, -5, 5, 0.1, 0.5, 0, 0, 30);
 
+        //Plays the music only when we start the menu screen initially or after gameover/ victory screen
         if(game.global.menuMusic) {
             window.music = game.add.audio('menu_music');
             window.music.play('', 0, 1, true, true);
             game.global.menuMusic = false;
         }
-        
-        //Buttons
-        // createButton(game, 'Play Game', 800, 350, 200, 50,
-        //             () => {
-        //                 this.state.start('Level1');
-        //             });
-        
-        // createButton(game, 'About', 800, 450, 200, 50,
-        //             () => {
-        //                 this.state.start('InfoModal');
-        //             });
-        // createButton(game, 'High Scores', 800, 550, 200, 50,
-        //             () => {
-        //                 this.state.start('HighScores');
-        //             });    
     },
     update: function(game) {
+        //resets the buttonImage scale to default
         this.buttonArr[this.buttonIndex].scale.x = 0.5;
         this.buttonArr[this.buttonIndex].scale.y = 0.5;
         this.arrow.animations.play('right');
 
+        //Moves piglet down and starts up the buttonImage the piglet is on
         if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && this.buttonIndex < 2 && this.arrow.canMove) {
             this.buttonArr[this.buttonIndex].tweenAnimation.pause();
             this.buttonIndex++;
@@ -78,7 +67,8 @@ Game.MainMenu.prototype = {
             
             this.tempStopArrow(game);
         }
-        
+
+        //Moves piglet up and starts up the buttonImage the piglet is on
         if(game.input.keyboard.isDown(Phaser.Keyboard.UP) && this.buttonIndex > 0 && this.arrow.canMove) {
             this.buttonArr[this.buttonIndex].tweenAnimation.pause();
             this.buttonIndex--;
@@ -89,6 +79,7 @@ Game.MainMenu.prototype = {
             this.tempStopArrow(game);
         }
         
+        //Selects the buttonImage
         if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
             if(this.buttonIndex === 0){
                 game.state.start('Level1');
@@ -101,6 +92,7 @@ Game.MainMenu.prototype = {
             }
         }
     },
+    //delays the arrow so that you won't go down all the way
     tempStopArrow: function(game) {
         this.arrow.canMove = false;
         createTimer(game, ()=>{
