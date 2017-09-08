@@ -13,7 +13,7 @@ const Bat = function(game, x, y, destination, group){
 
     //sprite move back and forth
     this.batTween = game.add.tween(this.bat).to({x: this.bat.x + destination},9000,'Linear',true,0,-1,true);
-    this.batTween = game.add.tween(this.bat);
+    // this.batTween = game.add.tween(this.bat);
     group.add(this.bat);
 };
 

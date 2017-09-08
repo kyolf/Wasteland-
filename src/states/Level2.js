@@ -135,7 +135,7 @@ Game.Level2.prototype = {
         //player collision with enemies
         game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, this);
         game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, this);
-        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, this);
+        game.physics.arcade.overlap(this.player, this.flyingGroup, this.resetPlayer, null, this);
 
         //collision with exit
         game.physics.arcade.collide(this.player, this.exit, this.nextLevel, null, this);
