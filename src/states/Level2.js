@@ -13,20 +13,19 @@ Game.Level2.prototype = {
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
 
+        //Reset the game.global values
         game.global.shadowTexture.destroy();
-        // game.global.score = 0;
         game.global.initials = '';
         game.global.tentacleFrame = 'start';
         game.global.shadowFrame = 'start';
 
         game.physics.startSystem(Phaser.Physics.ARCADE);
         
+        //Map Creation
         this.layer2 = createMaps(game, 'map2', 'lvl2bg');
       
-        //see collision blocks
-        //this.layer2.debug = true;
+        //Player Initialization
         this.player = createPlayer(game, 250, game.world.height - 1100);
-        // game.global.lives = 3;
 
         this.player.animations.add('left', [0, 1, 2, 3, 4, 5], 10, true);
         this.player.animations.add('right', [7, 8, 9, 10, 11, 12], 10, true);
@@ -47,8 +46,6 @@ Game.Level2.prototype = {
         //Creating Piglets
         this.livesGroup = game.add.group();
         new Piglet(game, 896, game.world.height - 896, 100, this.livesGroup);
-        //new Piglet(game, 100, game.world.height - 100, 100, this.livesGroup);
-        //new Piglet(game, 1000, game.world.height - 100, 100, this.livesGroup);
 
         //Creating Shadows
         this.enemyGroup = game.add.group();
@@ -60,6 +57,7 @@ Game.Level2.prototype = {
 
         this.enemyGroup.setAll('body.immovable', true);
 
+        //Creating Tentacles
         this.tentacleGroup = game.add.group();
         new Tentacle(game, 1024, game.world.height - 880, 100,  this.tentacleGroup);
         new Tentacle(game, 1184, game.world.height - 180, 100,  this.tentacleGroup);
@@ -72,10 +70,10 @@ Game.Level2.prototype = {
         
         this.tentacleGroup.setAll('body.immovable', true);
 
+        //Creating Bats
         this.flyingGroup = game.add.group();
         new Bat(game, 1760, game.world.height - 992, 3136, this.flyingGroup);
         new Bat(game, 3424, game.world.height - 448, 4576, this.flyingGroup);
-        //new Bat(game, 2000, game.world.height - 550, 1000, this.flyingGroup);
 
         this.flyingGroup.setAll('body.immovable', true);
         
@@ -91,20 +89,15 @@ Game.Level2.prototype = {
         game.physics.arcade.enable(this.exit); 
         this.exit.enableBody = true;
         
-         ////////////LIGHTING BEGINS///////////
-        // game.global.lightRadius = 350;
+        //LIGHTING BEGINS
         game.global.shadowTexture = game.add.bitmapData(4800, 4000);
         
         this.light = game.add.image(0, 0, game.global.shadowTexture);
         this.light.blendMode = Phaser.blendModes.MULTIPLY;
 
-        ///////////////LIGHTING ENDS/////////////
-
-         ////////CREATE CUSTOM TIMER///////////////////
-        // game.global.time = 30;
+        //CREATE CUSTOM TIMER
         this.timer = game.time.events.loop(Phaser.Timer.SECOND, tick, this);
 
-        ///////////////CUSTOM TIMER ABOVE///////////////////
         const {lifeTxt, scoreTxt, timerTxt} = createLevelText(game, '30px murderFont');
         this.lifeTxt = lifeTxt;
         this.scoreTxt = scoreTxt;
@@ -112,14 +105,16 @@ Game.Level2.prototype = {
 
     }, 
     update: function(game) {
+        //Player collision with map
         let hitPlatforms = game.physics.arcade.collide(this.player, this.layer2);
+        
+        //Battery collision with player and map
         game.physics.arcade.collide(this.batteries, this.layer2);
         game.physics.arcade.overlap(this.player, this.batteries, collectBattery, null, this);
 
-        /////LIGHTING BEGINS//////
+        //LIGHTING
         updateShadowTexture(game, this.player, game.global.shadowTexture);
 
-        //////////////LIGHTING ENDS//////////////
         playerActions(this.cursors, this.player, hitPlatforms);
 
         //tile collision with piglet
@@ -156,6 +151,7 @@ Game.Level2.prototype = {
             game.state.start('GameOver');
         }
         
+        //Player collsion with piglets
         game.physics.arcade.collide(this.player, this.livesGroup, gainLife, null, this);
         
         this.scoreTxt.setText(`Score: ${game.global.score}`);
@@ -165,7 +161,6 @@ Game.Level2.prototype = {
     },
     nextLevel: function(){
         this.game.global.score += this.game.global.time;
-        // this.game.global.shadowTexture.destroy();
         destroyLevel(this);
         this.state.start('Level3');
     },

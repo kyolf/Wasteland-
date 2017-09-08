@@ -1,16 +1,18 @@
-Game.Victory = function(game){
-    
+Game.Victory = function(game) {
 };
 
 Game.Victory.prototype = {
     create: function(game) {
+        //Making sure there is no memory leak and restarting music
         game.global.shadowTexture.destroy();
         game.global.menuMusic = true;
+
         //////CENTERS PHASER GAME WINDOW/////////
         this.game.scale.pageAlignHorizontally = true;
         this.game.scale.pageAlignVertically = true;
         this.game.scale.refresh();
         
+        //prompt for high scores
         fetchTopScores()
         .then(highScores => {
             if(highScores.length >= 10) {
@@ -33,10 +35,13 @@ Game.Victory.prototype = {
             }
         });
 
+        //Background
         this.bg = game.add.sprite(0,0,'victory');
         this.bg.scale.setTo(0.9,1);
         game.add.sprite(285, 250, 'celebrate');
         createText(game, 'Congrats, You Escaped', 400, 175, '100px murderFont', '#FFF', 'center', 0.5, 0.5);
+        
+        //Image Button + Piglet Arrows
         createImageButton(game, 'Go Back to Menu', 250, 50, 100, 50);
         
         this.arrow = game.add.sprite(80, 50, 'piglet');
@@ -44,9 +49,10 @@ Game.Victory.prototype = {
         this.arrow.canMove = true;
         this.arrow.animations.add('right', [2,3], 5, true);
     },
+    //Going Back to Main Menu Purposes
     update: function(game) {
         this.arrow.animations.play('right');
-        if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)){
+        if(game.input.keyboard.isDown(Phaser.Keyboard.ENTER)) {
             game.state.start('MainMenu');
         }
     }
