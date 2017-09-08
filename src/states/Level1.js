@@ -134,7 +134,7 @@ Game.Level1.prototype = {
         //player collision with enemies
         game.physics.arcade.collide(this.player, this.enemyGroup, this.resetPlayer, null, this);
         game.physics.arcade.collide(this.player, this.tentacleGroup, this.resetPlayer, null, this);
-        game.physics.arcade.collide(this.player, this.flyingGroup, this.resetPlayer, null, this);
+        game.physics.arcade.overlap(this.player, this.flyingGroup, this.resetPlayer, null, this);
 
         //Uncomment for collision to spark victory
         // game.physics.arcade.collide(this.player, this.enemyGroup, ()=>{
