@@ -6,12 +6,9 @@ const Batteries = function(game, x, y, group){
     this.batteries.collideWorldBounds = true;
     this.batteries.enableBody = true;
 
-
-    
     this.batteries.body.collideWorldBounds = true;  
     this.batteries.body.gravity.y = 400;
 
-  
     group.add(this.batteries);
 };
 

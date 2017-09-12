@@ -1,6 +1,6 @@
 'use strict';
 
-Game.Level2 = function(game){
+Game.Level2 = function(game) {
 };
 
 Game.Level2.prototype = {

@@ -1,5 +1,4 @@
-Game.InfoModal = function(game){
-
+Game.InfoModal = function(game) {
 };
 
 Game.InfoModal.prototype = {

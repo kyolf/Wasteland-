@@ -23,10 +23,6 @@ function createText(game, str, x, y, font, fill, align = 'center', anchorX = 0, 
     return txt;
 }
 
-//Commented out because it needs to be refactored to use
-//the new JSON map with two layers..
-//Maps now currently added in the level js file itself
-
 function createMaps(game, mapName, bgName) {
     let map = game.add.tilemap(mapName);
     
@@ -109,9 +105,6 @@ function playerActions(cursors, player, hitPlatforms) {
     } else if(cursors.right.isDown) {
         player.body.velocity.x = 450;
         player.animations.play('right');
-    // } else if(cursors.down.isDown) {
-    //     player.body.velocity.y = -550;
-    //     player.animations.play('down');
     } else {
         player.animations.stop();
         player.frame = 6; //sixth frame in spritesheet is standing still

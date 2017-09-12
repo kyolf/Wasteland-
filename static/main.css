@@ -1,13 +1,11 @@
 body {
-  margin: 0;
-  padding: 0;
-  /*background-size: cover;
-  background-repeat: no-repeat;*/
-  background: black;
-  font-family: 'murderFont';
+    margin: 0;
+    padding: 0;
+    background: black;
+    font-family: 'murderFont';
 }
 
 @font-face {
-  font-family: 'murderFont';
-  src: url('./assets/font2.ttf') format('truetype');
+    font-family: 'murderFont';
+    src: url('./assets/font2.ttf') format('truetype');
 }

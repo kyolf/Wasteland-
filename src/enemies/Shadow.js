@@ -11,8 +11,6 @@ const Shadow = function(game, x, y, destination, group){
     this.shadow.body.collideWorldBounds = true;  
     this.shadow.body.gravity.y = 0;
 
-    //sprite move back and forth
-    //this.shadowTween = game.add.tween(this.shadow).to({x: this.shadow.x + destination},2000,'Linear',true,0,-1,true);
     this.shadowTween = game.add.tween(this.shadow);
     group.add(this.shadow);
 };
