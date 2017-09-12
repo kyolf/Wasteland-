@@ -17,8 +17,9 @@ The character is trying to avoid monsters in order to escape the wasteland. This
 
 ## Things to Look Into For Future of the Game
 * Fix Bat Animation when it hits the end of the screen.
-* Look more into the phaser problem when velocity is too high!
-* Add more animations to the sprites such as ducking and powerups
+* Look more into the Phaser problem when the velocity of the character is too high!
+* Add more animations to the sprites such as ducking
+* Add powerups 
 
 **Note** The sprites and music in the `static` folder will be used in the future!
 
