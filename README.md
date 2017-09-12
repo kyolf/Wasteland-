@@ -15,6 +15,13 @@ The character is trying to avoid monsters in order to escape the wasteland. This
 **BackEnd**: NodeJS, Express, MongoDB, Mongoose, Mlab <br/>
 **Deployment**: Heroku <br/>
 
+## Things to Look Into For Future of the Game
+* Fix Bat Animation when it hits the end of the screen.
+* Look more into the phaser problem when velocity is too high!
+* Add more animations to the sprites such as ducking and powerups
+
+**Note** The sprites and music in the `static` folder will be used in the future!
+
 ## Documentation of API
 * **GET** http://wasteland-adventure.herokuapp.com/api/topScores <br/>
   * This allows you to get the top 10 highscores in sorted order from the database <br/>
