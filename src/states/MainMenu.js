@@ -27,7 +27,7 @@ Game.MainMenu.prototype = {
         //Adding all the buttonImages
         this.buttonArr.push(createImageButton(game, 'Play Game', 425, 260, 90, 90));
         
-        let button = createImageButton(game, 'InfoModal', 425, 335, 90, 90);
+        let button = createImageButton(game, 'Intructions', 425, 335, 90, 90);
         button.tweenAnimation.pause();
         this.buttonArr.push(button);
         
